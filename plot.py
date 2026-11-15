@@ -18,6 +18,12 @@ MODELS = ["opus", "astra", "sol"]
 PROMPTS = ["empty", "kawasaki", "seme"]
 COLORS = {"empty": "#8a94a3", "kawasaki": "#c2621d", "seme": "#b4232f"}
 PROMPT_LABEL = {"empty": "empty(指示なし)", "kawasaki": "kawasaki", "seme": "seme"}
+# 全部を重ねたグラフ: 色はモデル、線の種類は指示(素=点線、川崎さん=実線、攻め=太い実線)
+MODEL_COLORS = {"opus": "#d0643a", "astra": "#2a5bd7", "sol": "#2f8a57"}
+MODEL_LABEL = {"opus": "Opus 5.5(Claude Code)", "astra": "GPT-6-Astra(Codex)", "sol": "GPT-6.1-Sol(Codex)"}
+DASH = {"empty": "5 4", "kawasaki": "", "seme": ""}
+WIDTH = {"empty": 2.0, "kawasaki": 2.0, "seme": 4.0}
+PROMPT_JA = {"empty": "素(点線)", "kawasaki": "川崎さん版(実線)", "seme": "攻め(太い実線)"}
 
 
 def load_runs(runs_dir):
@@ -92,7 +98,7 @@ def nice_max(v):
     return step * 10
 
 
-def chart(model, runs, limit_min):
+def chart(model, runs, limit_min, combined=False):
     W, H = 776, 340
     L, R, T, B = 80, 120, 16, 44  # 右の余白に最終ベンチを置く
     pw, ph = W - L - R, H - T - B
@@ -129,9 +135,15 @@ def chart(model, runs, limit_min):
 
     for run in runs:
         s = sums[run["id"]]
-        color = COLORS[run["prompt"]]
-        multi = sum(1 for r in runs if r["prompt"] == run["prompt"]) > 1
-        sw = 1.4 if multi else 2.4
+        if combined:
+            color = MODEL_COLORS[run["model"]]
+            sw = WIDTH[run["prompt"]]
+            dash = DASH[run["prompt"]]
+        else:
+            color = COLORS[run["prompt"]]
+            multi = sum(1 for r in runs if r["prompt"] == run["prompt"]) > 1
+            sw = 1.4 if multi else 2.4
+            dash = ""
         best, pts = 0, []
         for r in s["normal"]:
             if r.get("pass") and r["score"] > best:
@@ -144,7 +156,7 @@ def chart(model, runs, limit_min):
             # 実行中の回は、最後のベンチの時点で線を止める(まだ測っていない先を描かない)
             end = pts[-1][0] if run.get("running") else limit_min
             d.append(f"L{X(end):.1f},{Y(pts[-1][1]):.1f}")
-            o.append(f'<path d="{" ".join(d)}" fill="none" stroke="{color}" stroke-width="{sw}" stroke-linejoin="round"/>')
+            o.append(f'<path d="{" ".join(d)}" fill="none" stroke="{color}" stroke-width="{sw}" stroke-dasharray="{dash}" stroke-linejoin="round"><title>{html.escape(run["id"])}</title></path>')
         for r in s["normal"]:
             x = X(r["elapsed_s"] / 60)
             tip = html.escape(run["id"]) + " " + str(r["elapsed_s"] // 60) + "分 "
@@ -156,11 +168,12 @@ def chart(model, runs, limit_min):
                 o.append(f'<path d="M{x - 4:.1f},{y - 4:.1f}L{x + 4:.1f},{y + 4:.1f}M{x - 4:.1f},{y + 4:.1f}L{x + 4:.1f},{y - 4:.1f}" stroke="{color}" stroke-width="2" fill="none"><title>{tip}fail</title></path>')
         f = s["final"]
         if f:
-            x = fx + PROMPTS.index(run["prompt"]) * 12 - 12
+            x = fx + (MODELS.index(run["model"]) * 14 - 14 if combined else PROMPTS.index(run["prompt"]) * 12 - 12)
             if f.get("pass"):
                 y = Y(f["score"])
                 o.append(f'<path d="M{x:.1f},{y - 6:.1f}L{x + 6:.1f},{y:.1f}L{x:.1f},{y + 6:.1f}L{x - 6:.1f},{y:.1f}Z" fill="{color}" stroke="#222" stroke-width="1.2"><title>{html.escape(run["id"])} 最終 {f["score"]:,}点 pass</title></path>')
-                o.append(f'<text x="{x + 9:.1f}" y="{y + 4:.1f}" class="fl" fill="{color}">{f["score"]:,}</text>')
+                if not combined:
+                    o.append(f'<text x="{x + 9:.1f}" y="{y + 4:.1f}" class="fl" fill="{color}">{f["score"]:,}</text>')
             else:
                 y = Y(0)
                 o.append(f'<path d="M{x - 5:.1f},{y - 5:.1f}L{x + 5:.1f},{y + 5:.1f}M{x - 5:.1f},{y + 5:.1f}L{x + 5:.1f},{y - 5:.1f}" stroke="{color}" stroke-width="2.5" fill="none"><title>{html.escape(run["id"])} 最終 fail</title></path>')
@@ -232,7 +245,13 @@ def build(runs, limit_min):
     out = ['<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="60"><title>ISUCON13 60分 実験結果</title><style>' + CSS + "</style></head><body><main>"]
     out.append("<h1>ISUCON13 開始から60分 実験結果</h1>")
     out.append(f'<p class="sub">横軸は開始からの分、縦軸はその時点までの pass した最高点(階段)。円は pass したベンチ、×は fail。菱形(右の区画)は {limit_min} 分後にサーバーを再起動して流した最終ベンチ。</p>')
-    out.append('<div class="legend">' + "".join('<span><span class="sw" style="background:%s"></span>%s</span>' % (COLORS[p], PROMPT_LABEL[p]) for p in PROMPTS) + "</div>")
+    if runs:
+        out.append("<h2>全部を重ねたグラフ</h2>")
+        out.append('<div class="legend">' + "".join('<span><span class="sw" style="background:%s"></span>%s</span>' % (MODEL_COLORS[m], MODEL_LABEL[m]) for m in MODELS) + "</div>")
+        out.append('<div class="legend">' + "　".join(PROMPT_JA[p] for p in PROMPTS) + "</div>")
+        out.append(f'<div class="scroll">{chart("全部", runs, limit_min, combined=True)}</div>')
+        out.append("<h2>モデルごと</h2>")
+        out.append('<div class="legend">' + "".join('<span><span class="sw" style="background:%s"></span>%s</span>' % (COLORS[p], PROMPT_LABEL[p]) for p in PROMPTS) + "</div>")
     shown = False
     for model in MODELS:
         mr = [r for r in runs if r["model"] == model]
