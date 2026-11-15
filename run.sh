@@ -162,11 +162,16 @@ for i in $(seq 1 20); do container exec "$BENCH_VM" pgrep -x bench >/dev/null 2>
 kill "$WATCH_PID" 2>/dev/null || true; WATCH_PID=""
 log "restart-servers → 最終ベンチ"
 ./env.sh restart-servers >/dev/null 2>"$RUN_DIR/restart.log" || event restart_failed "$(tail -2 "$RUN_DIR/restart.log" | tr '\n' ' ')"
-# 再起動後に s1 の入口(DNS 53 と HTTPS 443)が応答するまで待つ(最大180秒)。かかった秒数を記録する。応答しなくても最終ベンチは流す。
-READY_T0=$(date +%s); READY=no
+# 再起動後に s1 のアプリが応答するまで待つ(最大180秒)。かかった秒数を記録する。応答しなくても最終ベンチは流す。
+# 3台を同時に再起動すると、DB を別の台へ移した構成では、アプリが DB の起動より先に上がって一度落ち、systemd の再起動で数秒後に戻る。
+# nginx の 502 を「準備できた」と数えると、その数秒の間に最終ベンチが走って0点になる(2026-11-15 の astra-kawasaki-1・astra-seme-1)。
+# だから DNS が引けて、アプリの GET /api/tag が200を3回続けて返すまで待つ。
+READY_T0=$(date +%s); READY=no; OK_STREAK=0
 for i in $(seq 1 90); do
   if [ -n "$(container exec "$BENCH_VM" dig +time=1 +tries=1 @10.99.0.11 pipe.u.isucon.dev +short 2>/dev/null)" ] \
-     && [ "$(container exec "$BENCH_VM" curl -sk -o /dev/null -m 2 -w '%{http_code}' https://10.99.0.11/ 2>/dev/null)" != 000 ]; then READY=yes; break; fi
+     && [ "$(container exec "$BENCH_VM" curl -sk -o /dev/null -m 3 -w '%{http_code}' --resolve pipe.u.isucon.dev:443:10.99.0.11 https://pipe.u.isucon.dev/api/tag 2>/dev/null)" = 200 ]; then
+    OK_STREAK=$((OK_STREAK + 1)); [ "$OK_STREAK" -ge 3 ] && { READY=yes; break; }
+  else OK_STREAK=0; fi
   sleep 2
 done
 event s1_entry_ready "$READY after $(( $(date +%s) - READY_T0 ))s"
