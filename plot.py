@@ -141,7 +141,9 @@ def chart(model, runs, limit_min):
             d = [f"M{X(pts[0][0]):.1f},{Y(pts[0][1]):.1f}"]
             for (px, py), (nx, ny) in zip(pts, pts[1:]):
                 d.append(f"L{X(nx):.1f},{Y(py):.1f}L{X(nx):.1f},{Y(ny):.1f}")
-            d.append(f"L{X(limit_min):.1f},{Y(pts[-1][1]):.1f}")
+            # 実行中の回は、最後のベンチの時点で線を止める(まだ測っていない先を描かない)
+            end = pts[-1][0] if run.get("running") else limit_min
+            d.append(f"L{X(end):.1f},{Y(pts[-1][1]):.1f}")
             o.append(f'<path d="{" ".join(d)}" fill="none" stroke="{color}" stroke-width="{sw}" stroke-linejoin="round"/>')
         for r in s["normal"]:
             x = X(r["elapsed_s"] / 60)
