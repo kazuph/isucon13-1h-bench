@@ -36,7 +36,10 @@ case "$MODEL" in
   sol)   KIND=codex; MODEL_ID=gpt-6.1-sol; INSTR_NAME=AGENTS.md ;;
   *) die "model は opus | astra | sol" ;;
 esac
-if [ "$KIND" = codex ]; then [ -s "$HOME/.codex/auth.json" ] || die "$HOME/.codex/auth.json が無い(Codex にログインが必要)"; fi
+# Codex のログインは、この実験専用のもの(secrets/codex/auth.json)を使う。Mac mini 本体の ~/.codex は使わない。
+# Codex は使うたびに更新用のトークンを入れ替えるので、VM の中で更新された auth.json を毎回ここへ書き戻す(書き戻さないと次の回でログインが切れる)。
+CODEX_AUTH=secrets/codex/auth.json
+if [ "$KIND" = codex ]; then [ -s "$CODEX_AUTH" ] || die "$CODEX_AUTH が無い(この実験専用の Codex のログインが必要。README の「Codex のログイン」を参照)"; fi
 
 RUN_DIR="runs/$RUN_ID"
 [ ! -e "$RUN_DIR/agent.jsonl" ] || die "$RUN_DIR に前の実行の記録がある。別の run-id を使う"
@@ -91,7 +94,7 @@ if [ "$KIND" = claude ]; then
   ENV_ARGS=(-e "CLAUDE_CODE_OAUTH_TOKEN=$(tr -d '\n' < secrets/claude_oauth_token)")
 else
   container exec "$AGENT" install -d -o isucon -g isucon -m 700 /home/isucon/.codex
-  container cp "$HOME/.codex/auth.json" "$AGENT:/home/isucon/.codex/auth.json"
+  container cp "$CODEX_AUTH" "$AGENT:/home/isucon/.codex/auth.json"
   container exec "$AGENT" chown isucon:isucon /home/isucon/.codex/auth.json
   container exec "$AGENT" chmod 600 /home/isucon/.codex/auth.json
   AGENT_CMD=(codex exec --model "$MODEL_ID" --dangerously-bypass-approvals-and-sandbox --json "$LAUNCH_LINE")
@@ -130,12 +133,21 @@ while kill -0 "$AI_PID" 2>/dev/null; do
   if [ "$(date +%s)" -ge "$DEADLINE" ]; then event time_up "AI の VM を止める"; break; fi
   sleep 5
 done
+# VM を止める前に、VM の中で更新された Codex の auth.json を書き戻す
+save_codex_auth() {
+  [ "$KIND" = codex ] || return 0
+  if container cp "$AGENT:/home/isucon/.codex/auth.json" "$CODEX_AUTH.new" 2>/dev/null && jq -e .tokens "$CODEX_AUTH.new" >/dev/null 2>&1; then
+    chmod 600 "$CODEX_AUTH.new"; mv "$CODEX_AUTH.new" "$CODEX_AUTH"; event codex_auth_saved "ok"
+  else rm -f "$CODEX_AUTH.new"; event codex_auth_save_failed "VM から auth.json を取れなかった"; fi
+}
 if kill -0 "$AI_PID" 2>/dev/null; then
+  save_codex_auth
   container stop "$AGENT" >/dev/null 2>&1 || true
   wait "$AI_PID" 2>/dev/null || true
 else
   wait "$AI_PID" 2>/dev/null && AI_RC=0 || AI_RC=$?
   event agent_exited "exit=$AI_RC"
+  save_codex_auth
   container stop "$AGENT" >/dev/null 2>&1 || true
 fi
 AGENT_END_EPOCH=$(date +%s)
@@ -170,4 +182,8 @@ for n in "${SERVERS[@]}"; do
 done
 
 jq --arg ended "$(date -u -r "$AGENT_END_EPOCH" +%Y-%m-%dT%H:%M:%SZ)" --argjson el "$((AGENT_END_EPOCH - START_EPOCH))" '. + {agent_ended_at:$ended, agent_elapsed_s:$el}' "$RUN_DIR/meta.json" > "$RUN_DIR/meta.json.tmp" && mv "$RUN_DIR/meta.json.tmp" "$RUN_DIR/meta.json"
+# ログインが切れていた回は、AI が何もできていないので無効にする(queue.sh は終了コード3で止まる)
+if grep -q "Failed to refresh token\|Not logged in\|Invalid API key\|OAuth token has expired" "$RUN_DIR/agent.stderr" "$RUN_DIR/agent.jsonl" 2>/dev/null; then
+  event auth_failed "AI のログインが切れていた。この回は無効"; log "AUTH FAILED: $RUN_DIR"; exit 3
+fi
 log "done: $RUN_DIR"

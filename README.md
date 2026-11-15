@@ -80,3 +80,16 @@ RUN_MINUTES=60 ./run.sh <run-id> <opus|astra|sol> <empty|kawasaki|seme>
 - VM の中から `sudo reboot` すると、その VM の PID 1 が終了して container ごと止まる。`run.sh` の見張りが数秒で `container start` する（`env.sh` だけで使うときは `./env.sh restart-servers`）。stop/start しても MySQL のデータ・変更したファイルは残る。
 - `container build` の builder VM（`buildkit`、2 GB）はビルド後も動き続ける。メモリを空けたいときは `container builder stop`。
 - ベンチの点数は run ごとにばらつく（同じ初期実装で 8,500〜9,700 点）。メッセージに `report` の 404 などが出ても `pass` は true になる。
+
+## Codex のログイン（実験専用）
+
+Codex は使うたびに更新用のトークンを入れ替える。ほかの場所の `~/.codex/auth.json` を写して使うと、VM の中で入れ替わった時点で元のログインが切れる（2026-11-15、Mac mini の `~/.codex/auth.json` を写した3本目以降が `refresh token was already used` で全部失敗した）。
+だから実験専用のログインを作り、Mac mini の `~/isucon13-1h-bench/secrets/codex/auth.json` に置く。`run.sh` は毎回これを VM に入れ、終わる前に VM の中で更新された `auth.json` を書き戻す。
+
+```
+mkdir -p ~/.codex-isubench && CODEX_HOME=~/.codex-isubench codex login
+ssh mini 'mkdir -p ~/isucon13-1h-bench/secrets/codex && chmod 700 ~/isucon13-1h-bench/secrets/codex'
+scp ~/.codex-isubench/auth.json mini:isucon13-1h-bench/secrets/codex/auth.json && rm -rf ~/.codex-isubench
+```
+
+ログインが切れていた回は `run.sh` が終了コード3を返し、`queue.sh` はその回を `runs/_invalid/` へ移して止まる。

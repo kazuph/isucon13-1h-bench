@@ -13,8 +13,13 @@ for spec in "$@"; do
     echo "[$(date +%T)] skip $id（終わっている）"; continue
   fi
   echo "[$(date +%T)] start $id"
-  ./run.sh "$id" "$model" "$prompt" > "runs-$id.log" 2>&1
-  echo "[$(date +%T)] end $id exit=$?"
+  ./run.sh "$id" "$model" "$prompt" > "runs-$id.log" 2>&1; rc=$?
+  echo "[$(date +%T)] end $id exit=$rc"
   mkdir -p "runs/$id" && mv "runs-$id.log" "runs/$id/run.log"
+  if [ "$rc" = 3 ]; then
+    # ログインが切れていた回は無効なので runs/_invalid/ へ移し、残りも流さずに止まる
+    mkdir -p runs/_invalid && mv "runs/$id" "runs/_invalid/$id-$(date +%Y%m%d%H%M%S)"
+    echo "[$(date +%T)] ログインが切れていたので止まる"; exit 3
+  fi
 done
 echo "[$(date +%T)] queue done"
