@@ -67,6 +67,14 @@ RUN_MINUTES=60 ./run.sh <run-id> <opus|astra|sol> <empty|kawasaki|seme>
 - 記録（`runs/<run-id>/`）: `agent.jsonl`（AI の出力）、`bench.jsonl`（`elapsed_s`・`host_loadavg`・`final` つき）、`events.jsonl`、`meta.json`（コマンド全文・版・時間）、`CONDITIONS.md`、`servers/s1〜s3`、`agent-versions.txt`。
 - AI の VM は Node.js 22、`@anthropic-ai/claude-code`、`@openai/codex` を入れたイメージ（`images/agent/Dockerfile`）。入れた版は `agent-versions.txt` に出る。
 
+## 結果のグラフ（`plot.py`）
+
+```
+./plot.py <runs フォルダ> [-o results.html] [--minutes 60]
+```
+
+`runs/<model>-<prompt>-<n>/` の `bench.jsonl` と `meta.json` から、外部ファイルを読まない1枚の HTML（SVG）を作る（Python 3 標準ライブラリのみ）。run-id がこの形でないもの（smoke など）は飛ばす。モデルごとにスコア推移（pass した最高点の階段、指示ごとに色固定）と、最終ベンチ（再起動後）を右の区画に置いたグラフ、その下に条件ごとの表（最高点・最終ベンチ・回数・5万/10万点を超えた分・負荷平均）を出す。
+
 ## 制約・注意
 
 - VM の中から `sudo reboot` すると、その VM の PID 1 が終了して container ごと止まる。`run.sh` の見張りが数秒で `container start` する（`env.sh` だけで使うときは `./env.sh restart-servers`）。stop/start しても MySQL のデータ・変更したファイルは残る。
