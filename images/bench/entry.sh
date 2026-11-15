@@ -31,8 +31,14 @@ else
   BODY=$(jq -n --arg e "$(tail -n 5 /tmp/bench.stderr | tr '\n' ' ')" '{pass:false,score:0,messages:["result.json が出力されませんでした",$e]}')
 fi
 
+# 開始からの経過秒(run.sh が書く start_epoch)と、Mac mini の負荷平均(run.sh の見張りが5秒おきに書く loadavg)
+ELAPSED=null
+if [ -f "/runs/$RUN_ID/start_epoch" ]; then ELAPSED=$(( $(date +%s) - $(cat "/runs/$RUN_ID/start_epoch") )); fi
+LOAD=$(cat "/runs/$RUN_ID/loadavg" 2>/dev/null || echo "")
+FINAL_FLAG=false; [ "${FINAL:-}" = "1" ] && FINAL_FLAG=true
 LINE=$(jq -c -n --arg run "$RUN_ID" --arg s "$START" --arg e "$END" --argjson code "$CODE" --argjson r "$BODY" \
-  '{run_id:$run, started_at:$s, ended_at:$e, exit_code:$code, pass:$r.pass, score:$r.score, messages:$r.messages, language:($r.language // null), resolved_count:($r.resolved_count // null)}')
+  --argjson el "$ELAPSED" --arg load "$LOAD" --argjson final "$FINAL_FLAG" \
+  '{run_id:$run, started_at:$s, ended_at:$e, elapsed_s:$el, host_loadavg:$load, final:$final, exit_code:$code, pass:$r.pass, score:$r.score, messages:$r.messages, language:($r.language // null), resolved_count:($r.resolved_count // null)}')
 mkdir -p "/runs/$RUN_ID"
 echo "$LINE" >> "/runs/$RUN_ID/bench.jsonl"
 echo "$LINE"

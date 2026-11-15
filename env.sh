@@ -5,7 +5,8 @@
 #   ./env.sh down                  4台を止めて消す
 #   ./env.sh bench <run-id>        ベンチを1回流し、runs/<run-id>/bench.jsonl に1行追記する
 #   ./env.sh restart-servers       s1〜s3 を再起動する(再起動後もアプリは自動で上がる)
-#   ./env.sh ips                   4台の IP を表示する
+#   ./env.sh ips                   4台の IP を表示する(固定 IP: s1=10.99.0.11 s2=.12 s3=.13 bench=.200 agent=.100。container の IP は別に変わる)
+#   ./env.sh agent-up | agent-down AI 用の VM(isu13-agent)を作る/消す
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -15,9 +16,11 @@ export PATH="/opt/homebrew/bin:$PATH"
 SRC_SHA="8f6afdc3603f0c661368de4659a7240862f59623"   # isucon/isucon13 main の固定コミット
 SERVER_IMAGE="isucon13-1h-server:latest"
 BENCH_IMAGE="isucon13-1h-bench:latest"
+AGENT_IMAGE="isucon13-1h-agent:latest"
+AGENT=isu13-agent
 SERVERS=(isu13-s1 isu13-s2 isu13-s3)
 BENCH=isu13-bench
-ALL=("${SERVERS[@]}" "$BENCH")
+ALL=("${SERVERS[@]}" "$BENCH" "$AGENT")
 
 log() { printf '[%s] %s\n' "$(date +%H:%M:%S)" "$*" >&2; }
 die() { log "ERROR: $*"; exit 1; }
@@ -41,6 +44,8 @@ cmd_build() {
   fetch_src
   log "ベンチ用イメージをビルド(Go で linux/arm64)"
   container build --progress plain -t "$BENCH_IMAGE" -f images/bench/Dockerfile . > build/bench.log 2>&1 || { tail -30 build/bench.log >&2; die "bench image build 失敗(build/bench.log)"; }
+  log "AI 用イメージをビルド"
+  container build --progress plain -t "$AGENT_IMAGE" -f images/agent/Dockerfile . > build/agent.log 2>&1 || { tail -30 build/agent.log >&2; die "agent image build 失敗(build/agent.log)"; }
   log "サーバー用イメージをビルド"
   container build --progress plain -t "$SERVER_IMAGE" -f images/server/Dockerfile . > build/server.log 2>&1 || { tail -30 build/server.log >&2; die "server image build 失敗(build/server.log)"; }
   log "build done"
@@ -48,7 +53,7 @@ cmd_build() {
 
 have_images() {
   local list; list=$(container image ls)
-  grep -q 'isucon13-1h-server' <<<"$list" && grep -q 'isucon13-1h-bench' <<<"$list"
+  grep -q 'isucon13-1h-server' <<<"$list" && grep -q 'isucon13-1h-bench' <<<"$list" && grep -q 'isucon13-1h-agent' <<<"$list"
 }
 
 cmd_down() {
@@ -79,7 +84,7 @@ wait_all_servers() { # 1台でも起動しなければ失敗
 }
 
 write_bench_target() { # <run-id>
-  local s1; s1=$(container_ip isu13-s1); [ -n "$s1" ] || die "s1 の IP が取れない"
+  local s1=10.99.0.11   # 固定 IP(images/common-net.sh)
   container exec "$BENCH" bash -c "printf 'RUN_ID=%s\nS1_IP=%s\n' '$1' '$s1' > /etc/bench/env && chmod 0644 /etc/bench/env"
 }
 
@@ -98,11 +103,10 @@ cmd_up() {
   for n in "${SERVERS[@]}"; do
     container run -d --name "$n" --cpus 2 --memory 4g --cap-add ALL "$SERVER_IMAGE" /sbin/init >/dev/null &
   done
-  container run -d --name "$BENCH" --cpus 2 --memory 4g -v "$ROOT/runs:/runs" "$BENCH_IMAGE" >/dev/null &
+  container run -d --name "$BENCH" --cpus 2 --memory 4g --cap-add ALL -v "$ROOT/runs:/runs" "$BENCH_IMAGE" >/dev/null &
   wait
   wait_all_servers
   write_bench_target "$run_id"
-  write_hosts "$run_id"
   log "up done: $((SECONDS - t0)) 秒"
   cmd_ips
 }
@@ -112,11 +116,6 @@ cmd_ips() {
   for n in "${ALL[@]}"; do printf '%s %s\n' "$n" "$(container_ip "$n")"; done
 }
 
-# stop/start で IP が変わるので、いまの IP を runs/<run-id>/hosts.env に書く(AI 側 VM がこれを読む想定)
-write_hosts() { # <run-id>
-  mkdir -p "runs/$1"
-  { printf 'S1_IP=%s\nS2_IP=%s\nS3_IP=%s\nBENCH_IP=%s\n' "$(container_ip isu13-s1)" "$(container_ip isu13-s2)" "$(container_ip isu13-s3)" "$(container_ip $BENCH)"; } > "runs/$1/hosts.env"
-}
 
 current_run_id() {
   container exec "$BENCH" bash -c '. /etc/bench/env && echo $RUN_ID' 2>/dev/null || die "bench VM が無い。先に env.sh up <run-id>"
@@ -126,7 +125,7 @@ cmd_bench() {
   local run_id=${1:-}; [ -n "$run_id" ] || die "usage: env.sh bench <run-id>"
   local cur; cur=$(current_run_id)
   [ "$cur" = "$run_id" ] || die "いま up 済みの run-id は '$cur'。'$run_id' ではベンチを流さない"
-  container exec -u bench "$BENCH" /opt/bench/entry.sh
+  container exec -e FINAL="${FINAL:-0}" -u bench "$BENCH" /opt/bench/entry.sh
 }
 
 cmd_restart_servers() {
@@ -135,12 +134,19 @@ cmd_restart_servers() {
   for n in "${SERVERS[@]}"; do container start "$n" >/dev/null; done
   wait_all_servers
   write_bench_target "$cur"
-  write_hosts "$cur"
   log "restart-servers done"
   cmd_ips
 }
 
+cmd_agent_up() {
+  container stop "$AGENT" >/dev/null 2>&1 || true; container rm "$AGENT" >/dev/null 2>&1 || true
+  container run -d --name "$AGENT" --cpus 2 --memory 4g --cap-add ALL "$AGENT_IMAGE" >/dev/null
+}
+cmd_agent_down() { container stop "$AGENT" >/dev/null 2>&1 || true; container rm "$AGENT" >/dev/null 2>&1 || true; }
+
 case "${1:-}" in
+  agent-up) cmd_agent_up ;;
+  agent-down) cmd_agent_down ;;
   build) cmd_build ;;
   up) shift; cmd_up "$@" ;;
   down) cmd_down ;;

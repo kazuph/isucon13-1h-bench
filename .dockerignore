@@ -1,10 +1,7 @@
 runs
-keys/isucon
-keys/bench_entry
 pki/ca.key
 pki/ca.srl
 .git
 src/isucon13/frontend
-src/isucon13/docs
 src/isucon13/development
 build

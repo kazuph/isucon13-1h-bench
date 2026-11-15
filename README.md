@@ -34,7 +34,7 @@ AI エージェントに「開始から60分」を解かせる実験の土台で
   `ssh -i keys/bench_entry bench@<bench の IP>`
 - `up` を同じ run-id でやり直すと、前の `bench.jsonl` は `bench.jsonl.<日時>` に退避される。
 - 競技サーバーへは `ssh -i keys/isucon isucon@<s1〜s3 の IP>`（鍵のみ、`isucon` はパスワード無しで sudo 可）。
-- IP は VM を stop/start するたびに変わる（Apple container は IP を固定できない）。`up` と `restart-servers` のたびに `runs/<run-id>/hosts.env` へ最新の IP を書く。
+- IP は固定する。Apple container の IP は stop/start で変わるので、各 VM の eth0 に2つ目の固定 IP を足す（`images/common-net.sh`。ホスト名で決まり、起動の早い段階の systemd oneshot または entrypoint で実行）。s1=10.99.0.11、s2=.12、s3=.13、bench=.200、agent=.100。全 VM の `/etc/hosts` に `s1 s2 s3 bench agent` を書く。PowerDNS の A レコードと `ISUCON13_POWERDNS_SUBDOMAIN_ADDRESS` は s1 の 10.99.0.11、ベンチの接続先も 10.99.0.11。
 
 ## 公式から変えた所
 
@@ -47,16 +47,28 @@ AI エージェントに「開始から60分」を解かせる実験の土台で
 | PowerDNS の版 | 公式の auth-48（4.8）から auth-49（4.9）に変更 | repo.powerdns.com の auth-48 は amd64 しか無く、arm64 があるのは auth-49 以降 |
 | CPU アーキテクチャ | amd64 から arm64 | Apple Silicon の VM。Go は 1.21.2 の arm64 版を同じ場所 `/home/isucon/local/golang` に入れた |
 | TLS の証明書 | 公式の証明書は期限切れのため、自前 CA で `*.u.isucon.dev` を署名して差し替え（nginx のファイル名と設定は公式と同じ）。ベンチ VM にその CA を信頼させる | ベンチは `--enable-ssl`（HTTPS、443）で公式の本番どおり nginx を入口にする。HTTP（8080）にすると nginx を通らず Go に直接当たるため HTTPS を選んだ |
-| `ISUCON13_POWERDNS_SUBDOMAIN_ADDRESS` | 公式は AWS の checkip で決める。ここでは起動のたびに `isucon-ip.service` が VM の eth0 の IP に書く | AWS 以外では動かず、IP が起動ごとに変わるため |
-| PowerDNS のゾーン | 起動時に `refresh-zone-ip.sh` で A レコードを今の IP に揃える（`pdns.service` の ExecStartPost） | stop/start で IP が変わるとゾーンに古い IP が残り、ベンチの名前解決が失敗した |
+| `ISUCON13_POWERDNS_SUBDOMAIN_ADDRESS` | 公式は AWS の checkip で決める。ここでは `isucon-ip.service` が固定 IP を足し、s1 の固定 IP 10.99.0.11 を書く | AWS 以外では動かないため |
 | `pdns.service` | `Requires=mysql.service` を足した | MySQL より先に起動して失敗するのを防ぐ |
 | envcheck・globalip ロール | 入れていない | AWS 専用 |
 | フロントエンド（`webapp/public`） | ビルドせず空ディレクトリ | ベンチは API だけを見る。必要なら `frontend/` を別途ビルドして置く |
 | ベンチの実行 | 公式の `supervise`（ポータルから受ける）ではなく `bench run --enable-ssl --nameserver <s1 の IP>` を直接実行 | ポータルが無いため |
-| 3台目の AI 用 VM | 作らない | 依頼の範囲外 |
+
+## AI を無人で走らせる（`run.sh`）
+
+```
+RUN_MINUTES=60 ./run.sh <run-id> <opus|astra|sol> <empty|kawasaki|seme>
+```
+
+- モデル: `opus` は Claude Code（`claude-opus-5-5`、`secrets/claude_oauth_token` の `CLAUDE_CODE_OAUTH_TOKEN` でログイン）、`astra` は Codex（`gpt-6-astra`）、`sol` は Codex（`gpt-6.1-sol`）。Codex は Mac mini の `~/.codex/auth.json` を AI の VM に写し、終わると VM ごと消える。
+- 指示ファイルは `prompts/<名前>.md`。Claude は `CLAUDE.md`、Codex は `AGENTS.md` として AI の作業フォルダに置く。起動の1行は全条件で同じ。
+- 足した CLI の引数は、自動実行に必要な権限の許可（Claude は `--dangerously-skip-permissions`、Codex は `--dangerously-bypass-approvals-and-sandbox`）と出力形式（`stream-json` / `--json`）だけ。
+- 流れ: 4台と AI の VM を作る → `CONDITIONS.md`（毎回生成）と指示ファイルを置く → AI 起動 → `RUN_MINUTES` 分で AI の VM を止める（AI が先に終われば、その時点で次へ）→ `restart-servers` → 最終ベンチ（`final: true`）→ 競技サーバーの `webapp`・`/etc/{nginx,mysql,powerdns,systemd/system}` を持ち帰る → 全 VM を消す。`KEEP=1` で消さない。
+- 見張り: 5秒おきに s1〜s3 の状態を見て、止まっていれば（AI の `sudo reboot` など）`container start` で戻し、`events.jsonl` に記録する。同じ見張りが Mac mini の負荷平均を `loadavg` に書く。
+- 記録（`runs/<run-id>/`）: `agent.jsonl`（AI の出力）、`bench.jsonl`（`elapsed_s`・`host_loadavg`・`final` つき）、`events.jsonl`、`meta.json`（コマンド全文・版・時間）、`CONDITIONS.md`、`servers/s1〜s3`、`agent-versions.txt`。
+- AI の VM は Node.js 22、`@anthropic-ai/claude-code`、`@openai/codex` を入れたイメージ（`images/agent/Dockerfile`）。入れた版は `agent-versions.txt` に出る。
 
 ## 制約・注意
 
-- VM の中から `sudo reboot` すると、その VM の PID 1 が終了して container ごと止まり、自動では戻らない。再起動は `./env.sh restart-servers` を使う（`restart-servers` は s1〜s3 を stop → start し、永続する MySQL のデータ・変更したファイルは残る）。
+- VM の中から `sudo reboot` すると、その VM の PID 1 が終了して container ごと止まる。`run.sh` の見張りが数秒で `container start` する（`env.sh` だけで使うときは `./env.sh restart-servers`）。stop/start しても MySQL のデータ・変更したファイルは残る。
 - `container build` の builder VM（`buildkit`、2 GB）はビルド後も動き続ける。メモリを空けたいときは `container builder stop`。
 - ベンチの点数は run ごとにばらつく（同じ初期実装で 8,500〜9,700 点）。メッセージに `report` の 404 などが出ても `pass` は true になる。

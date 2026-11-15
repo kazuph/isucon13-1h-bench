@@ -75,7 +75,8 @@ RUN rm -f /etc/nginx/sites-enabled/default /etc/nginx/conf.d/nginx.conf \
 
 # 自前ファイル(systemd ユニット、sshd、sysctl、PowerDNS のゾーン初期化)
 COPY images/server/rootfs/ /
-RUN chmod 0755 /opt/isucon-ip.sh /opt/init_zone_once.sh /opt/refresh-zone-ip.sh
+COPY images/common-net.sh /opt/common-net.sh
+RUN chmod 0755 /opt/common-net.sh /opt/isucon-ip.sh /opt/init_zone_once.sh
 
 # 初期データ入りの MySQL を焼き込む(公式は ansible の webapp ロールでスキーマ作成、初回ベンチの /api/initialize でデータ投入。
 # ここでは同じ SQL を先に流して「初期データ投入済み」の状態でイメージにする)

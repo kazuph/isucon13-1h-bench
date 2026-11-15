@@ -16,7 +16,9 @@ RUN useradd -m -s /bin/bash bench && passwd -l bench \
     && install -d -m 0755 /opt/bench /etc/bench /run/sshd /run/bench && chown bench:bench /run/bench
 COPY --from=build /out/bench /opt/bench/bench
 COPY images/bench/entry.sh /opt/bench/entry.sh
-RUN chmod 0755 /opt/bench/bench /opt/bench/entry.sh
+COPY images/common-net.sh /opt/common-net.sh
+COPY images/entrypoint.sh /opt/entrypoint.sh
+RUN chmod 0755 /opt/bench/bench /opt/bench/entry.sh /opt/common-net.sh /opt/entrypoint.sh
 # forced command: この鍵で入ると、何を渡しても entry.sh(ベンチを1回流す)だけが走る
 COPY keys/bench_entry.pub /tmp/bench_entry.pub
 RUN install -d -m 0700 -o bench -g bench /home/bench/.ssh \
@@ -24,4 +26,5 @@ RUN install -d -m 0700 -o bench -g bench /home/bench/.ssh \
     && chown bench:bench /home/bench/.ssh/authorized_keys && chmod 0600 /home/bench/.ssh/authorized_keys && rm /tmp/bench_entry.pub \
     && ssh-keygen -A \
     && printf 'PasswordAuthentication no\nAllowUsers bench\n' > /etc/ssh/sshd_config.d/99-bench.conf
+ENTRYPOINT ["/opt/entrypoint.sh"]
 CMD ["/usr/sbin/sshd","-D","-e"]
