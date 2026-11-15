@@ -61,8 +61,16 @@ cmd_down() {
   for n in "${ALL[@]}"; do container rm "$n" >/dev/null 2>&1 || true; done
 }
 
-wait_server_ready() { # <name>
-  local n=$1 i
+wait_server_ready() { # <name> [strict|boot]  strict: 初期実装の全サービスと /api/tag を確認(up 用)。boot: systemd の起動完了だけを待つ(AI が構成を変えた後の再起動用)
+  local n=$1 mode=${2:-strict} i
+  if [ "$mode" = boot ]; then
+    for i in $(seq 1 120); do
+      st=$(container exec "$n" systemctl is-system-running 2>/dev/null || true)
+      [ "$st" = running ] || [ "$st" = degraded ] && return 0
+      sleep 1
+    done
+    die "$n の起動が終わらない(systemctl is-system-running=$st)"
+  fi
   for i in $(seq 1 120); do
     if container exec "$n" bash -c '
         systemctl is-active --quiet mysql && systemctl is-active --quiet pdns &&
@@ -76,9 +84,9 @@ wait_server_ready() { # <name>
   die "$n が起動しない"
 }
 
-wait_all_servers() { # 1台でも起動しなければ失敗
+wait_all_servers() { # [strict|boot] 1台でも起動しなければ失敗
   local n pids=() rc=0 p
-  for n in "${SERVERS[@]}"; do wait_server_ready "$n" & pids+=($!); done
+  for n in "${SERVERS[@]}"; do wait_server_ready "$n" "${1:-strict}" & pids+=($!); done
   for p in "${pids[@]}"; do wait "$p" || rc=1; done
   [ "$rc" = 0 ] || die "起動しないサーバーがある"
 }
@@ -132,7 +140,7 @@ cmd_restart_servers() {
   local n cur; cur=$(current_run_id)
   for n in "${SERVERS[@]}"; do container stop "$n" >/dev/null; done
   for n in "${SERVERS[@]}"; do container start "$n" >/dev/null; done
-  wait_all_servers
+  wait_all_servers boot
   write_bench_target "$cur"
   log "restart-servers done"
   cmd_ips

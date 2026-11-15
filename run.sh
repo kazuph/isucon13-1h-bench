@@ -16,6 +16,7 @@ RUN_MINUTES=${RUN_MINUTES:-60}
 LAUNCH_LINE='CONDITIONS.md を読み、今回の条件を確認してから、ISUCON を解いてください。'
 AGENT=isu13-agent
 SERVERS=(isu13-s1 isu13-s2 isu13-s3)
+BENCH_VM=isu13-bench
 
 log() { printf '[%s] %s\n' "$(date +%H:%M:%S)" "$*" >&2; }
 die() { log "ERROR: $*"; exit 1; }
@@ -139,10 +140,24 @@ else
 fi
 AGENT_END_EPOCH=$(date +%s)
 
+# AI が打ったベンチが走ったままなら(AI の ssh は切れてもベンチ VM の中では続く)、打ち切る。
+# 残すと最終ベンチが「別のベンチが実行中」で落ち、時間切れ後の点が記録に混ざる。打ち切ったベンチは bench.jsonl に行を残さない。
+KILLED=$(container exec "$BENCH_VM" bash -c 'n=$(pgrep -x entry.sh | wc -l); for p in $(pgrep -x entry.sh) $(pgrep -x bench); do kill "$p" 2>/dev/null; done; echo $n' 2>/dev/null || echo 0)
+[ "${KILLED:-0}" = 0 ] || event bench_cut_at_time_up "実行中のベンチを打ち切った"
+for i in $(seq 1 20); do container exec "$BENCH_VM" pgrep -x bench >/dev/null 2>&1 || break; sleep 1; done
+
 # 6. 見張りを止め、サーバーを再起動して最終ベンチ
 kill "$WATCH_PID" 2>/dev/null || true; WATCH_PID=""
 log "restart-servers → 最終ベンチ"
 ./env.sh restart-servers >/dev/null 2>"$RUN_DIR/restart.log" || event restart_failed "$(tail -2 "$RUN_DIR/restart.log" | tr '\n' ' ')"
+# 再起動後に s1 の入口(DNS 53 と HTTPS 443)が応答するまで待つ(最大180秒)。かかった秒数を記録する。応答しなくても最終ベンチは流す。
+READY_T0=$(date +%s); READY=no
+for i in $(seq 1 90); do
+  if [ -n "$(container exec "$BENCH_VM" dig +time=1 +tries=1 @10.99.0.11 pipe.u.isucon.dev +short 2>/dev/null)" ] \
+     && [ "$(container exec "$BENCH_VM" curl -sk -o /dev/null -m 2 -w '%{http_code}' https://10.99.0.11/ 2>/dev/null)" != 000 ]; then READY=yes; break; fi
+  sleep 2
+done
+event s1_entry_ready "$READY after $(( $(date +%s) - READY_T0 ))s"
 FINAL=1 ./env.sh bench "$RUN_ID" > "$RUN_DIR/final-bench.out" 2>&1 || event final_bench_failed "$(tail -c 300 "$RUN_DIR/final-bench.out")"
 event final_bench "$(tail -n 1 "$RUN_DIR/final-bench.out" | cut -c1-300)"
 
@@ -151,6 +166,7 @@ for n in "${SERVERS[@]}"; do
   d="$RUN_DIR/servers/${n#isu13-}"; mkdir -p "$d"
   container exec "$n" tar -cf - -C / home/isucon/webapp etc/nginx etc/mysql etc/powerdns etc/systemd/system 2>/dev/null | tar -xf - -C "$d" 2>/dev/null \
     || event collect_failed "$n"
+  container exec "$n" journalctl -b --no-pager > "$d/journal-last-boot.txt" 2>/dev/null || true
 done
 
 jq --arg ended "$(date -u -r "$AGENT_END_EPOCH" +%Y-%m-%dT%H:%M:%SZ)" --argjson el "$((AGENT_END_EPOCH - START_EPOCH))" '. + {agent_ended_at:$ended, agent_elapsed_s:$el}' "$RUN_DIR/meta.json" > "$RUN_DIR/meta.json.tmp" && mv "$RUN_DIR/meta.json.tmp" "$RUN_DIR/meta.json"
