@@ -44,7 +44,9 @@ def load_runs(runs_dir):
                 rows.append(json.loads(line))
             except ValueError:
                 continue
-        runs.append({"id": d.name, "model": m.group(1), "prompt": m.group(2), "n": int(m.group(3)), "meta": meta, "rows": rows})
+        note = (d / "NOTE.txt").read_text().strip() if (d / "NOTE.txt").is_file() else ""
+        running = not any(r.get("final") for r in rows)
+        runs.append({"id": d.name, "model": m.group(1), "prompt": m.group(2), "n": int(m.group(3)), "meta": meta, "rows": rows, "note": note, "running": running})
     return runs
 
 
@@ -175,11 +177,13 @@ def table(runs, limit_min):
         s = summarize(run, limit_min)
         f = s["final"]
         if f is None:
-            fin = "なし"
+            fin = "実行中" if run.get("running") else "なし"
         elif f.get("pass"):
             fin = "{:,} 点 (pass)".format(f["score"])
         else:
             fin = "fail (0 点)"
+        if run.get("note"):
+            fin += '<br><span class="note">' + html.escape(run["note"]) + "</span>"
         best = "{:,}".format(s["best"]) if s["best"] is not None else "pass なし"
         load = "{:.2f}".format(s["load"]) if s["load"] is not None else "-"
         h.append(
@@ -214,7 +218,7 @@ code{background:var(--card);padding:1px 5px;border-radius:4px;font-size:13px}
 .scroll{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--card);margin:8px 0}
 .scroll svg{display:block;min-width:776px;max-width:none;height:auto}
 table{border-collapse:collapse;width:100%;min-width:640px}th,td{padding:6px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
-th{font-weight:600;color:var(--mut);font-size:12px}td.n{text-align:right;font-variant-numeric:tabular-nums}
+th{font-weight:600;color:var(--mut);font-size:12px}td.n{text-align:right;font-variant-numeric:tabular-nums}.note{font-size:11px;color:var(--mut)}
 .sw{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
 .legend{display:flex;flex-wrap:wrap;gap:4px 16px;margin:8px 0 0;color:var(--mut);font-size:13px}
 svg .grid{stroke:var(--line);stroke-width:1}svg .axis{stroke:var(--mut);stroke-width:1}svg .sep{stroke:var(--mut);stroke-dasharray:3 4}
@@ -223,7 +227,7 @@ svg .ax{fill:var(--mut);font-size:11px}svg .fl{font-size:11px;font-weight:600}
 
 
 def build(runs, limit_min):
-    out = ['<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ISUCON13 60分 実験結果</title><style>' + CSS + "</style></head><body><main>"]
+    out = ['<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="60"><title>ISUCON13 60分 実験結果</title><style>' + CSS + "</style></head><body><main>"]
     out.append("<h1>ISUCON13 開始から60分 実験結果</h1>")
     out.append(f'<p class="sub">横軸は開始からの分、縦軸はその時点までの pass した最高点(階段)。円は pass したベンチ、×は fail。菱形(右の区画)は {limit_min} 分後にサーバーを再起動して流した最終ベンチ。</p>')
     out.append('<div class="legend">' + "".join('<span><span class="sw" style="background:%s"></span>%s</span>' % (COLORS[p], PROMPT_LABEL[p]) for p in PROMPTS) + "</div>")
