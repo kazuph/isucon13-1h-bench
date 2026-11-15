@@ -23,7 +23,7 @@ log() { printf '[%s] %s\n' "$(date +%H:%M:%S)" "$*" >&2; }
 die() { log "ERROR: $*"; exit 1; }
 
 container_ip() { # <name> -> IPv4 (CIDR を除く)
-  container inspect "$1" | jq -r '.[0].networks[0].ipv4Address // empty' | cut -d/ -f1
+  container inspect "$1" | jq -r '.[0].status.networks[0].ipv4Address // empty' | cut -d/ -f1
 }
 
 fetch_src() {
@@ -71,6 +71,13 @@ wait_server_ready() { # <name>
   die "$n が起動しない"
 }
 
+wait_all_servers() { # 1台でも起動しなければ失敗
+  local n pids=() rc=0 p
+  for n in "${SERVERS[@]}"; do wait_server_ready "$n" & pids+=($!); done
+  for p in "${pids[@]}"; do wait "$p" || rc=1; done
+  [ "$rc" = 0 ] || die "起動しないサーバーがある"
+}
+
 write_bench_target() { # <run-id>
   local s1; s1=$(container_ip isu13-s1); [ -n "$s1" ] || die "s1 の IP が取れない"
   container exec "$BENCH" bash -c "printf 'RUN_ID=%s\nS1_IP=%s\n' '$1' '$s1' > /etc/bench/env && chmod 0644 /etc/bench/env"
@@ -83,15 +90,19 @@ cmd_up() {
   local t0=$SECONDS n
   cmd_down
   mkdir -p "runs/$run_id"
+  # 同じ run-id で up し直したら、前の bench.jsonl は日時付きに退避して、新しい記録は空から始める
+  if [ -f "runs/$run_id/bench.jsonl" ]; then
+    mv "runs/$run_id/bench.jsonl" "runs/$run_id/bench.jsonl.$(date +%Y%m%d-%H%M%S)"
+  fi
   log "4台を起動"
   for n in "${SERVERS[@]}"; do
     container run -d --name "$n" --cpus 2 --memory 4g --cap-add ALL "$SERVER_IMAGE" /sbin/init >/dev/null &
   done
   container run -d --name "$BENCH" --cpus 2 --memory 4g -v "$ROOT/runs:/runs" "$BENCH_IMAGE" >/dev/null &
   wait
-  for n in "${SERVERS[@]}"; do wait_server_ready "$n" & done
-  wait
+  wait_all_servers
   write_bench_target "$run_id"
+  write_hosts "$run_id"
   log "up done: $((SECONDS - t0)) 秒"
   cmd_ips
 }
@@ -99,6 +110,12 @@ cmd_up() {
 cmd_ips() {
   local n
   for n in "${ALL[@]}"; do printf '%s %s\n' "$n" "$(container_ip "$n")"; done
+}
+
+# stop/start で IP が変わるので、いまの IP を runs/<run-id>/hosts.env に書く(AI 側 VM がこれを読む想定)
+write_hosts() { # <run-id>
+  mkdir -p "runs/$1"
+  { printf 'S1_IP=%s\nS2_IP=%s\nS3_IP=%s\nBENCH_IP=%s\n' "$(container_ip isu13-s1)" "$(container_ip isu13-s2)" "$(container_ip isu13-s3)" "$(container_ip $BENCH)"; } > "runs/$1/hosts.env"
 }
 
 current_run_id() {
@@ -116,9 +133,9 @@ cmd_restart_servers() {
   local n cur; cur=$(current_run_id)
   for n in "${SERVERS[@]}"; do container stop "$n" >/dev/null; done
   for n in "${SERVERS[@]}"; do container start "$n" >/dev/null; done
-  for n in "${SERVERS[@]}"; do wait_server_ready "$n" & done
-  wait
+  wait_all_servers
   write_bench_target "$cur"
+  write_hosts "$cur"
   log "restart-servers done"
   cmd_ips
 }
