@@ -238,10 +238,50 @@ th{font-weight:600;color:var(--mut);font-size:12px}td.n{text-align:right;font-va
 .legend{display:flex;flex-wrap:wrap;gap:4px 16px;margin:8px 0 0;color:var(--mut);font-size:13px}
 svg .grid{stroke:var(--line);stroke-width:1}svg .axis{stroke:var(--mut);stroke-width:1}svg .sep{stroke:var(--mut);stroke-dasharray:3 4}
 svg .ax{fill:var(--mut);font-size:11px}svg .fl{font-size:11px;font-weight:600}
+pre.full{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:13px;margin:6px 0 14px}
+h3{font-size:14px;margin:20px 0 4px}.an ol,.an ul{padding-left:1.4em}.an li{margin:4px 0}.an .scroll table{min-width:720px}.an td{white-space:normal;vertical-align:top}
 """
 
+LAUNCH_RE = re.compile(r"^LAUNCH_LINE='(.*)'$", re.M)
+PROMPT_TITLE = {"empty": "素(empty.md)", "kawasaki": "川崎さん版(kawasaki.md)", "seme": "攻め(seme.md)"}
 
-def build(runs, limit_min):
+
+def instructions(runs_dir, base):
+    """AI に渡した指示の全文。run.sh の起動の1行、最後の回の CONDITIONS.md、prompts/*.md をそのまま載せる。"""
+    esc = html.escape
+    out = ['<h2>AI に渡した指示の全文</h2>',
+           '<p class="sub">3つの条件で違うのは、指示ファイルの中身だけ。起動の1行と CONDITIONS.md と manual/ は、全条件で同じものを渡した。'
+           'ファイルの名前は、Claude Code では <code>CLAUDE.md</code>、Codex では <code>AGENTS.md</code>。'
+           'CLI は既定の設定のまま動かした。足したのは、自動で進めるための権限の許可と、出力の形式だけ。</p>']
+    m = LAUNCH_RE.search((base / "run.sh").read_text(encoding="utf-8"))
+    out.append("<h3>起動の1行(全条件で同じ)</h3>")
+    out.append(f'<pre class="full">{esc(m.group(1)) if m else "(run.sh から読めなかった)"}</pre>')
+    conds = sorted(Path(runs_dir).glob("*/CONDITIONS.md"), key=lambda p: p.stat().st_mtime)
+    conds = [p for p in conds if RUN_RE.match(p.parent.name)]
+    out.append("<h3>CONDITIONS.md(全条件で同じ)</h3>")
+    if conds:
+        out.append(f'<p class="note">開始と終了の時刻だけは回ごとに違う。下は {esc(conds[-1].parent.name)} の回のもの。'
+                   'AI には「競技時間は8時間」と伝え、60分で打ち切った。</p>')
+        out.append(f'<pre class="full">{esc(conds[-1].read_text(encoding="utf-8").strip())}</pre>')
+    else:
+        out.append('<p class="note">(CONDITIONS.md が見つからなかった)</p>')
+    out.append("<h3>manual/ に置いたもの(全条件で同じ)</h3>")
+    out.append('<p>ISUCON13 の公式リポジトリの当日マニュアル2つを、そのまま置いた。'
+               '<code>docs/isupipe.md</code>(アプリの説明)と <code>docs/cautionary_note.md</code>(注意事項)。</p>')
+    for p in PROMPTS:
+        f = base / "prompts" / f"{p}.md"
+        body = f.read_text(encoding="utf-8").strip() if f.exists() else None
+        out.append(f"<h3>指示ファイル: {PROMPT_TITLE[p]}</h3>")
+        if body is None:
+            out.append('<p class="note">(ファイルが見つからなかった)</p>')
+        elif not body:
+            out.append('<pre class="full">(空。0バイトのファイルを置いた)</pre>')
+        else:
+            out.append(f'<pre class="full">{esc(body)}</pre>')
+    return "\n".join(out)
+
+
+def build(runs, limit_min, runs_dir=None, analysis=None):
     out = ['<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="60"><title>ISUCON13 60分 実験結果</title><style>' + CSS + "</style></head><body><main>"]
     out.append("<h1>ISUCON13 開始から60分 実験結果</h1>")
     out.append(f'<p class="sub">横軸は開始からの分、縦軸はその時点までの pass した最高点(階段)。円は pass したベンチ、×は fail。菱形(右の区画)は {limit_min} 分後にサーバーを再起動して流した最終ベンチ。</p>')
@@ -263,6 +303,10 @@ def build(runs, limit_min):
         out.append(table(mr, limit_min))
     if not shown:
         out.append("<p>対象の run がありません(run-id は <code>&lt;model&gt;-&lt;prompt&gt;-&lt;n&gt;</code> の形)。</p>")
+    if analysis and Path(analysis).exists():
+        out.append('<div class="an">' + Path(analysis).read_text(encoding="utf-8") + "</div>")
+    if runs_dir:
+        out.append(instructions(runs_dir, Path(__file__).resolve().parent))
     out.append("</main></body></html>")
     return "\n".join(out)
 
@@ -272,9 +316,11 @@ def main():
     ap.add_argument("runs_dir")
     ap.add_argument("-o", "--output", default="results.html")
     ap.add_argument("--minutes", type=int, default=60)
+    ap.add_argument("--analysis", default=str(Path(__file__).resolve().parent / "analysis.html"),
+                    help="グラフの後ろに載せる考察の HTML 断片(無ければ載せない)")
     a = ap.parse_args()
     runs = load_runs(a.runs_dir)
-    Path(a.output).write_text(build(runs, a.minutes), encoding="utf-8")
+    Path(a.output).write_text(build(runs, a.minutes, a.runs_dir, a.analysis), encoding="utf-8")
     print(f"{a.output}: {len(runs)} runs ({', '.join(r['id'] for r in runs)})", file=sys.stderr)
 
 

@@ -140,14 +140,23 @@ save_codex_auth() {
     chmod 600 "$CODEX_AUTH.new"; mv "$CODEX_AUTH.new" "$CODEX_AUTH"; event codex_auth_saved "ok"
   else rm -f "$CODEX_AUTH.new"; event codex_auth_save_failed "VM から auth.json を取れなかった"; fi
 }
+# VM を止める前に、AI の作業フォルダ(書いたコードと git の履歴)を持ち帰る。
+# AI はここで書いたコードを、競技サーバーの /home/isucon/webapp 以外(例: /home/isucon/app)へ置くことがある(2026-11-15 の opus-seme-1)。
+save_agent_work() {
+  mkdir -p "$RUN_DIR/agent-work"
+  container exec "$AGENT" tar -cf - -C /home/isucon/work --exclude ./orig . 2>/dev/null | tar -xf - -C "$RUN_DIR/agent-work" 2>/dev/null \
+    || event collect_failed "agent-work"
+}
 if kill -0 "$AI_PID" 2>/dev/null; then
   save_codex_auth
+  save_agent_work
   container stop "$AGENT" >/dev/null 2>&1 || true
   wait "$AI_PID" 2>/dev/null || true
 else
   wait "$AI_PID" 2>/dev/null && AI_RC=0 || AI_RC=$?
   event agent_exited "exit=$AI_RC"
   save_codex_auth
+  save_agent_work
   container stop "$AGENT" >/dev/null 2>&1 || true
 fi
 AGENT_END_EPOCH=$(date +%s)
@@ -178,10 +187,12 @@ event s1_entry_ready "$READY after $(( $(date +%s) - READY_T0 ))s"
 FINAL=1 ./env.sh bench "$RUN_ID" > "$RUN_DIR/final-bench.out" 2>&1 || event final_bench_failed "$(tail -c 300 "$RUN_DIR/final-bench.out")"
 event final_bench "$(tail -n 1 "$RUN_DIR/final-bench.out" | cut -c1-300)"
 
-# 7. 競技サーバーの設定を持ち帰る
+# 7. 競技サーバーのコードと設定を持ち帰る
+# /home/isucon は丸ごと写す(AI が webapp 以外にコードやデータを置いても残す)。Go の本体とモジュールのキャッシュだけ除く。
 for n in "${SERVERS[@]}"; do
   d="$RUN_DIR/servers/${n#isu13-}"; mkdir -p "$d"
-  container exec "$n" tar -cf - -C / home/isucon/webapp etc/nginx etc/mysql etc/powerdns etc/systemd/system 2>/dev/null | tar -xf - -C "$d" 2>/dev/null \
+  container exec "$n" tar -cf - -C / --exclude home/isucon/local --exclude home/isucon/go/pkg --exclude home/isucon/.cache \
+    home/isucon etc/nginx etc/mysql etc/powerdns etc/systemd/system etc/sysctl.conf etc/sysctl.d 2>/dev/null | tar -xf - -C "$d" 2>/dev/null \
     || event collect_failed "$n"
   container exec "$n" journalctl -b --no-pager > "$d/journal-last-boot.txt" 2>/dev/null || true
 done
