@@ -1,0 +1,13 @@
+[mysqld]
+bind-address = 0.0.0.0
+mysqlx-bind-address = 127.0.0.1
+skip-log-bin
+disable-log-bin
+innodb_flush_log_at_trx_commit = 0
+innodb_doublewrite = 0
+innodb_buffer_pool_size = 1G
+innodb_log_buffer_size = 64M
+innodb_flush_method = O_DIRECT
+max_connections = 1000
+performance_schema = OFF
+slow_query_log = OFF

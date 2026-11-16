@@ -1,0 +1,14 @@
+[Unit]
+Description=ISUPipe synchronous read replica
+After=network-online.target
+Wants=network-online.target
+[Service]
+User=isucon
+WorkingDirectory=/home/isucon/webapp/go
+EnvironmentFile=/home/isucon/read.env
+Environment=GOMAXPROCS=2
+ExecStart=/home/isucon/webapp/go/isupipe-read
+Restart=always
+RestartSec=1
+[Install]
+WantedBy=multi-user.target

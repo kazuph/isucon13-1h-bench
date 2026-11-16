@@ -1,0 +1,13 @@
+[Unit]
+Description=ISUPipe indexed state engine
+After=network.target mysql.service
+Requires=mysql.service
+[Service]
+User=isucon
+WorkingDirectory=/home/isucon/webapp/fast
+ExecStart=/home/isucon/webapp/fast/isupipe
+Restart=always
+RestartSec=2
+LimitNOFILE=100000
+[Install]
+WantedBy=multi-user.target

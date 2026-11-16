@@ -1,0 +1,23 @@
+{"at":"2026-11-15T08:00:55Z","event":"start","detail":"model=gpt-6-astra prompt=seme minutes=60"}
+{"at":"2026-11-15T08:18:55Z","event":"server_down","detail":"isu13-s1 state=stopped"}
+{"at":"2026-11-15T08:18:55Z","event":"server_restarted","detail":"isu13-s1"}
+{"at":"2026-11-15T08:18:56Z","event":"server_down","detail":"isu13-s2 state=stopped"}
+{"at":"2026-11-15T08:18:56Z","event":"server_restarted","detail":"isu13-s2"}
+{"at":"2026-11-15T08:18:56Z","event":"server_down","detail":"isu13-s3 state=stopped"}
+{"at":"2026-11-15T08:18:57Z","event":"server_restarted","detail":"isu13-s3"}
+{"at":"2026-11-15T08:24:00Z","event":"server_down","detail":"isu13-s1 state=stopped"}
+{"at":"2026-11-15T08:24:01Z","event":"server_restarted","detail":"isu13-s1"}
+{"at":"2026-11-15T08:24:01Z","event":"server_down","detail":"isu13-s2 state=stopped"}
+{"at":"2026-11-15T08:24:02Z","event":"server_restarted","detail":"isu13-s2"}
+{"at":"2026-11-15T08:24:02Z","event":"server_down","detail":"isu13-s3 state=stopped"}
+{"at":"2026-11-15T08:24:02Z","event":"server_restarted","detail":"isu13-s3"}
+{"at":"2026-11-15T08:30:33Z","event":"server_down","detail":"isu13-s2 state=stopped"}
+{"at":"2026-11-15T08:30:33Z","event":"server_restarted","detail":"isu13-s2"}
+{"at":"2026-11-15T08:30:34Z","event":"server_down","detail":"isu13-s3 state=stopped"}
+{"at":"2026-11-15T08:30:34Z","event":"server_restarted","detail":"isu13-s3"}
+{"at":"2026-11-15T08:30:39Z","event":"server_down","detail":"isu13-s1 state=stopped"}
+{"at":"2026-11-15T08:30:40Z","event":"server_restarted","detail":"isu13-s1"}
+{"at":"2026-11-15T08:32:48Z","event":"agent_exited","detail":"exit=0"}
+{"at":"2026-11-15T08:32:48Z","event":"codex_auth_saved","detail":"ok"}
+{"at":"2026-11-15T08:33:08Z","event":"s1_entry_ready","detail":"yes after 0s"}
+{"at":"2026-11-15T08:33:08Z","event":"final_bench","detail":"{\"run_id\":\"astra-seme-1\",\"started_at\":\"2026-11-15T08:33:08.549Z\",\"ended_at\":\"2026-11-15T08:33:08.586Z\",\"elapsed_s\":1933,\"host_loadavg\":\"4.42 4.28 4.21\",\"final\":true,\"exit_code\":0,\"pass\":false,\"score\":0,\"messages\":[\"初期化が失敗しました\",\"initialize へのリクエストに対して、期待されたHTTPステータスコードが確認できませんでした (expected:200, actua"}

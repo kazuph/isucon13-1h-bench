@@ -5,3 +5,5 @@
 /runs/
 /build/
 __pycache__/
+# VM の中の MySQL の保守用パスワード。公開しない
+data/**/debian.cnf

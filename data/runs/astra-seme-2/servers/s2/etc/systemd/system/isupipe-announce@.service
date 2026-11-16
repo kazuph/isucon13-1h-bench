@@ -1,0 +1,9 @@
+[Unit]
+Description=Announce fixed competition IPv4 address after NIC recreation
+After=network.target
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/perl /home/isucon/announce-address.pl 10.99.0.%i
+RemainAfterExit=yes
+[Install]
+WantedBy=multi-user.target

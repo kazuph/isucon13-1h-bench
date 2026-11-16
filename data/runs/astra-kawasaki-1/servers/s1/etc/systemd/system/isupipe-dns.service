@@ -1,0 +1,14 @@
+[Unit]
+Description=ISUPipe authoritative DNS
+After=network.target mysql.service
+Requires=mysql.service
+[Service]
+User=isucon
+WorkingDirectory=/home/isucon/dns
+ExecStart=/home/isucon/dns/dns
+Restart=always
+RestartSec=2
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+Environment=GOMAXPROCS=2
+[Install]
+WantedBy=multi-user.target

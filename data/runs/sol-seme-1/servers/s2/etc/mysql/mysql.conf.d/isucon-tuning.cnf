@@ -1,0 +1,8 @@
+[mysqld]
+innodb_buffer_pool_size=2G
+innodb_flush_log_at_trx_commit=2
+innodb_flush_method=O_DIRECT
+max_connections=200
+skip_name_resolve=ON
+skip_log_bin
+innodb_redo_log_capacity=512M

@@ -1,0 +1,12 @@
+[Unit]
+Description=ISUPipe bcrypt worker
+After=network.target
+[Service]
+User=isucon
+Environment=AUTH_WORKER=1
+ExecStart=/home/isucon/webapp/go/isupipe-fast
+Restart=always
+RestartSec=2
+LimitNOFILE=100000
+[Install]
+WantedBy=multi-user.target

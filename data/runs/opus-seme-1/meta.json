@@ -1,0 +1,13 @@
+{
+  "run_id": "opus-seme-1",
+  "model": "opus",
+  "model_id": "claude-opus-5-5",
+  "cli": "claude",
+  "prompt": "seme",
+  "command": "claude -p CONDITIONS.md\\ を読み、今回の条件を確認してから、ISUCON\\ を解いてください。 --model claude-opus-5-5 --dangerously-skip-permissions --output-format stream-json --verbose ",
+  "run_minutes": 60,
+  "started_at": "2026-11-15T13:20:53Z",
+  "versions": "node v22.23.5;claude-code 2.1.325 (Claude Code);codex codex-cli 0.169.0;",
+  "agent_ended_at": "2026-11-15T14:21:00Z",
+  "agent_elapsed_s": 3607
+}

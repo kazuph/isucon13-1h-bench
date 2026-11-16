@@ -1,0 +1,15 @@
+[Unit]
+Description=isupipe crypto worker
+After=network.target
+
+[Service]
+Environment=WORKER_LISTEN=:9000
+Environment=WORKER_KEY=/etc/nginx/tls/_.u.isucon.dev.key
+Environment=GOGC=400
+ExecStart=/home/isucon/app/isupipe
+Restart=always
+RestartSec=1
+LimitNOFILE=1000000
+
+[Install]
+WantedBy=multi-user.target

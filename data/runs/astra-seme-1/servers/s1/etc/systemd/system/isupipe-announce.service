@@ -1,0 +1,11 @@
+[Unit]
+Description=Announce the assigned competition address after network startup
+Wants=network-online.target
+After=network-online.target isucon-ip.service
+Before=nginx.service isupipe-go.service isupipe-worker.service
+[Service]
+Type=oneshot
+ExecStart=/home/isucon/webapp/announce
+RemainAfterExit=yes
+[Install]
+WantedBy=multi-user.target
