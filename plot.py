@@ -23,7 +23,7 @@ MODEL_COLORS = {"opus": "#d0643a", "astra": "#2a5bd7", "sol": "#2f8a57"}
 MODEL_LABEL = {"opus": "Opus 5.5(Claude Code)", "astra": "GPT-6-Astra(Codex)", "sol": "GPT-6.1-Sol(Codex)"}
 DASH = {"empty": "5 4", "kawasaki": "", "seme": ""}
 WIDTH = {"empty": 2.0, "kawasaki": 2.0, "seme": 4.0}
-PROMPT_JA = {"empty": "素(点線)", "kawasaki": "川崎さん版(実線)", "seme": "攻め(太い実線)"}
+PROMPT_JA = {"empty": "素(点線)", "kawasaki": "記事の要約(実線)", "seme": "攻め(太い実線)"}
 
 
 def load_runs(runs_dir):
@@ -243,7 +243,7 @@ h3{font-size:14px;margin:20px 0 4px}.an ol,.an ul{padding-left:1.4em}.an li{marg
 """
 
 LAUNCH_RE = re.compile(r"^LAUNCH_LINE='(.*)'$", re.M)
-PROMPT_TITLE = {"empty": "素(empty.md)", "kawasaki": "川崎さん版(kawasaki.md)", "seme": "攻め(seme.md)"}
+PROMPT_TITLE = {"empty": "素(empty.md)", "kawasaki": "記事の要約(kawasaki.md)", "seme": "攻め(seme.md)"}
 
 
 def instructions(runs_dir, base):
