@@ -44,9 +44,9 @@
 </ul>
 
 <h2>各回のコードの置き場所</h2>
-<p class="sub">Mac mini の <code>~/isucon13-1h-bench/runs/&lt;回&gt;/</code> の下にある。</p>
+<p class="sub">リポジトリの <code>data/runs/&lt;回&gt;/</code> の下にある。</p>
 <ul>
 <li>8本は、60分後の競技サーバーの写し(<code>servers/s1〜s3/home/isucon/webapp/</code>)に最後のコードが入っている。Astra の攻めは <code>servers/s2/home/isucon/webapp/fast/</code>。</li>
-<li>Opus の攻めは、書き直したアプリを <code>/home/isucon/app</code> に置いていて、写しに入っていなかった。作業ログに残っていた AI のファイル操作81手を、同じイメージのコンテナで順に流し直して組み立てた(<code>runs/opus-seme-1/code-reconstructed/</code>)。AI が付けた12のコミットの履歴もそろい、Go のビルドも通った。最後のコミットの後に、計測用の集計を足す変更(17行)が1つ残っている。60分で止めた時点で動いていたかは分からない。</li>
+<li>Opus の攻めは、書き直したアプリを <code>/home/isucon/app</code> に置いていて、写しに入っていなかった。作業ログに残っていた AI のファイル操作81手を、同じイメージのコンテナで順に流し直して組み立てた(<code>data/runs/opus-seme-1/code-reconstructed/</code>)。AI が付けた12のコミットの履歴もそろい、Go のビルドも通った。最後のコミットの後に、計測用の集計を足す変更(17行)が1つ残っている。60分で止めた時点で動いていたかは分からない。</li>
 <li>次の回からは、各サーバーの <code>/home/isucon</code> 全体と、AI の作業フォルダ(git の履歴を含む)も持ち帰る。</li>
 </ul>
