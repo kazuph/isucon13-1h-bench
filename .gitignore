@@ -4,3 +4,4 @@
 /src/
 /runs/
 /build/
+__pycache__/
