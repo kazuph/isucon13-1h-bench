@@ -1,0 +1,38 @@
+File: isupipe
+Type: cpu
+Time: Nov 17, 2026 at 9:17am (UTC)
+Duration: 40.09s, Total samples = 11.56s (28.83%)
+Showing nodes accounting for 7.65s, 66.18% of 11.56s total
+Dropped 479 nodes (cum <= 0.06s)
+Showing top 30 nodes out of 224
+      flat  flat%   sum%        cum   cum%
+     1.28s 11.07% 11.07%      1.28s 11.07%  runtime/internal/syscall.Syscall6
+     1.16s 10.03% 21.11%      1.63s 14.10%  sort.partition_func
+     0.79s  6.83% 27.94%      0.82s  7.09%  runtime.mapiternext
+     0.46s  3.98% 31.92%      0.46s  3.98%  runtime.futex
+     0.42s  3.63% 35.55%      0.51s  4.41%  runtime.mapaccess1_fast64
+     0.38s  3.29% 38.84%      0.38s  3.29%  main.descIDs.func1
+     0.33s  2.85% 41.70%      0.54s  4.67%  encoding/json.appendString[go.shape.string]
+     0.30s  2.60% 44.29%      0.38s  3.29%  sort.insertionSort_func
+     0.25s  2.16% 46.45%      0.47s  4.07%  encoding/json.(*Decoder).readValue
+     0.25s  2.16% 48.62%      4.45s 38.49%  main.streamList
+     0.24s  2.08% 50.69%      0.91s  7.87%  runtime.mallocgc
+     0.20s  1.73% 52.42%      0.20s  1.73%  unicode/utf8.DecodeRuneInString
+     0.19s  1.64% 54.07%      0.19s  1.64%  internal/reflectlite.Swapper.func5
+     0.18s  1.56% 55.62%      0.18s  1.56%  runtime.nextFreeFast (inline)
+     0.12s  1.04% 56.66%      0.13s  1.12%  encoding/json.unquoteBytes
+     0.12s  1.04% 57.70%      0.12s  1.04%  runtime.writeHeapBits.flush
+     0.09s  0.78% 58.48%      0.89s  7.70%  encoding/json.structEncoder.encode
+     0.09s  0.78% 59.26%      0.09s  0.78%  runtime.memclrNoHeapPointers
+     0.09s  0.78% 60.03%      0.09s  0.78%  runtime.memmove
+     0.08s  0.69% 60.73%      0.21s  1.82%  runtime.heapBitsSetType
+     0.08s  0.69% 61.42%      0.08s  0.69%  runtime.nanotime (inline)
+     0.08s  0.69% 62.11%      0.10s  0.87%  time.now
+     0.07s  0.61% 62.72%      0.18s  1.56%  runtime.scanobject
+     0.06s  0.52% 63.24%      0.06s  0.52%  reflect.Value.Field
+     0.06s  0.52% 63.75%      0.06s  0.52%  runtime.findfunc
+     0.06s  0.52% 64.27%      0.12s  1.04%  runtime.mapaccess2
+     0.06s  0.52% 64.79%      0.07s  0.61%  runtime.mapaccess2_faststr
+     0.06s  0.52% 65.31%      0.08s  0.69%  sort.order2_func (inline)
+     0.05s  0.43% 65.74%      0.78s  6.75%  net/http.(*conn).readRequest
+     0.05s  0.43% 66.18%      0.08s  0.69%  runtime.(*unwinder).resolveInternal

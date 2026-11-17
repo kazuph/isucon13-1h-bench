@@ -1,0 +1,23 @@
+{"at":"2026-11-17T09:05:23Z","event":"start","detail":"model=gpt-6-astra prompt=seme3 minutes=60"}
+{"at":"2026-11-17T09:31:10Z","event":"server_down","detail":"isu13-s1 state=stopped"}
+{"at":"2026-11-17T09:31:10Z","event":"server_restarted","detail":"isu13-s1"}
+{"at":"2026-11-17T09:31:10Z","event":"server_down","detail":"isu13-s2 state=stopped"}
+{"at":"2026-11-17T09:31:11Z","event":"server_restarted","detail":"isu13-s2"}
+{"at":"2026-11-17T09:31:11Z","event":"server_down","detail":"isu13-s3 state=stopped"}
+{"at":"2026-11-17T09:31:12Z","event":"server_restarted","detail":"isu13-s3"}
+{"at":"2026-11-17T09:45:19Z","event":"server_down","detail":"isu13-s1 state=stopped"}
+{"at":"2026-11-17T09:45:19Z","event":"server_restarted","detail":"isu13-s1"}
+{"at":"2026-11-17T09:45:19Z","event":"server_down","detail":"isu13-s2 state=stopped"}
+{"at":"2026-11-17T09:45:20Z","event":"server_restarted","detail":"isu13-s2"}
+{"at":"2026-11-17T09:45:20Z","event":"server_down","detail":"isu13-s3 state=stopped"}
+{"at":"2026-11-17T09:45:21Z","event":"server_restarted","detail":"isu13-s3"}
+{"at":"2026-11-17T09:55:08Z","event":"server_down","detail":"isu13-s1 state=stopped"}
+{"at":"2026-11-17T09:55:09Z","event":"server_restarted","detail":"isu13-s1"}
+{"at":"2026-11-17T09:55:09Z","event":"server_down","detail":"isu13-s2 state=stopped"}
+{"at":"2026-11-17T09:55:10Z","event":"server_restarted","detail":"isu13-s2"}
+{"at":"2026-11-17T09:55:10Z","event":"server_down","detail":"isu13-s3 state=stopped"}
+{"at":"2026-11-17T09:55:11Z","event":"server_restarted","detail":"isu13-s3"}
+{"at":"2026-11-17T10:01:53Z","event":"agent_exited","detail":"exit=0"}
+{"at":"2026-11-17T10:01:53Z","event":"codex_auth_saved","detail":"ok"}
+{"at":"2026-11-17T10:02:20Z","event":"s1_entry_ready","detail":"yes after 7s"}
+{"at":"2026-11-17T10:03:28Z","event":"final_bench","detail":"{\"run_id\":\"astra-seme3-1\",\"started_at\":\"2026-11-17T10:02:20.530Z\",\"ended_at\":\"2026-11-17T10:03:28.246Z\",\"elapsed_s\":3485,\"host_loadavg\":\"6.73 20.08 19.59\",\"final\":true,\"exit_code\":0,\"pass\":true,\"score\":287021,\"messages\":[\"[一般エラー] POST /api/livestream/7559/livecomment へのリクエストに対して、期待されたHTTPステータスコードが確認"}

@@ -1,0 +1,19 @@
+?   	github.com/isucon/isucon13/webapp/go/cmd/announce	[no test files]
+?   	github.com/isucon/isucon13/webapp/go/cmd/worker	[no test files]
+ok  	github.com/isucon/isucon13/webapp/go	(cached)
+Synchronizing state of mysql.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install disable mysql
+Synchronizing state of nginx.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install disable nginx
+Synchronizing state of mysql.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install disable mysql
+Synchronizing state of nginx.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install disable nginx
+Synchronizing state of mysql.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install disable mysql
+Synchronizing state of nginx.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install disable nginx
+curl: (7) Failed to connect to pipe.u.isucon.dev port 443 after 0 ms: Connection refused
+curl: (7) Failed to connect to pipe.u.isucon.dev port 443 after 0 ms: Connection refused
+curl: (7) Failed to connect to pipe.u.isucon.dev port 443 after 0 ms: Connection refused
+{"total_tip":424023}10.99.0.11

@@ -1,0 +1,21 @@
+[Unit]
+Wants=isucon-announce.service
+After=isucon-announce.service
+Description=ISUPipe indexed state server
+After=network.target mysql.service
+Requires=mysql.service
+[Service]
+User=isucon
+Group=isucon
+WorkingDirectory=/home/isucon/webapp/current
+EnvironmentFile=/home/isucon/env.sh
+Environment=AUTH_ADDRESS=10.99.0.13:8081
+Environment=PROFILE=0
+Environment=GOMEMLIMIT=1536MiB
+ExecStart=/home/isucon/webapp/current/isupipe
+Restart=always
+RestartSec=1
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+LimitNOFILE=65536
+[Install]
+WantedBy=multi-user.target

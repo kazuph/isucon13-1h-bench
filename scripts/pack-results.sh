@@ -14,6 +14,14 @@ for d in $R; do
     [ -f runs/$d/$f ] && cp runs/$d/$f "$o/"
   done
   cp runs/$d/prompt-*.md "$o/" 2>/dev/null || true
+  # AI がコマンドの出力として秘密鍵（TLS の鍵など）を表示した回がある（2026-11-17 の opus-seme3-1）。記録の中の鍵の本文は伏せる
+  # 出力が途中で切れて END の行が無いこともあるので、jsonl は BEGIN からその文字列の終わりまで、画面の記録は BEGIN から空行までを伏せる
+  if [ -f "$o/agent.jsonl" ]; then
+    perl -pi -e 's/-----BEGIN ([A-Z ]*)PRIVATE KEY-----.*?-----END \1PRIVATE KEY-----/[REDACTED PRIVATE KEY]/g; s/-----BEGIN [A-Z ]*PRIVATE KEY-----(?:[^"\\]|\\.)*/[REDACTED PRIVATE KEY]/g' "$o/agent.jsonl"
+  fi
+  if [ -f "$o/agent-screen.txt" ]; then
+    perl -0pi -e 's/-----BEGIN ([A-Z ]*)PRIVATE KEY-----.*?(?:-----END \1PRIVATE KEY-----|\n\s*\n)/[REDACTED PRIVATE KEY]\n/gs' "$o/agent-screen.txt"
+  fi
   # GOAL=1（Codex の対話画面）の回の agent.jsonl は Codex のセッションの記録で、Codex 自身の組み込みの指示・モデルの一覧・内部の状態が入る。
   # 実験の記録ではないので、それらを除いて公開する（world_state の行、developer の発言、session_meta の指示）
   if [ -f runs/$d/agent-screen.txt ] && [ -f "$o/agent.jsonl" ]; then
@@ -52,5 +60,5 @@ for d in $R; do
   fi
 done
 du -sh publish/data/runs; du -sh publish/data/runs/* | sort -h | tail -3
-echo "--- keys"; grep -rl "PRIVATE KEY" publish || echo none
+echo "--- keys"; grep -rlE "BEGIN [A-Z ]*PRIVATE KEY" publish || echo none
 echo "--- local paths"; grep -rl "/Users/" publish || echo none

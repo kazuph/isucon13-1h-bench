@@ -1,0 +1,11 @@
+[Unit]
+Description=set ISUCON13_POWERDNS_SUBDOMAIN_ADDRESS to this VM's IP (replaces the AWS-only globalip role)
+Before=mysql.service pdns.service isupipe-go.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/opt/isucon-ip.sh
+
+[Install]
+WantedBy=multi-user.target
