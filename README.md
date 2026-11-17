@@ -104,6 +104,8 @@ RUN_MINUTES=60 ./run.sh <run-id> <opus|astra|sol> <empty|kawasaki|seme>
 - 指示ファイルは `prompts/<名前>.md`。Claude は `CLAUDE.md`、Codex は `AGENTS.md` として AI の作業フォルダに置く。起動の1行は全条件で同じ。
 - 足した CLI の引数は、自動実行に必要な権限の許可（Claude は `--dangerously-skip-permissions`、Codex は `--dangerously-bypass-approvals-and-sandbox`）と出力形式（`stream-json` / `--json`）だけ。
 - 流れ: 4台と AI の VM を作る → `CONDITIONS.md`（毎回生成）と指示ファイルを置く → AI 起動 → `RUN_MINUTES` 分で AI の VM を止める（AI が先に終われば、その時点で次へ）→ `restart-servers` → 最終ベンチ（`final: true`）→ 競技サーバーの `/home/isucon` 全体と `/etc/{nginx,mysql,powerdns,systemd/system,sysctl.d}` を持ち帰る → 全 VM を消す。AI の作業フォルダ（`agent-work/`）は、AI の VM を止める前に持ち帰る。公開用にまとめるときは `scripts/pack-results.sh` を Mac mini で流す。`KEEP=1` で消さない。
+- `GOAL=1`（Codex だけ）: Codex を対話画面（TUI）で tmux の中に起動し、起動の1行を `/goal <起動の1行>` として打つ。`codex exec` に `/goal` を渡すと、ゴールは登録されるが続きのターンが始まらずに終わる（2026-11-17、codex-cli 0.169.0 で確かめた）。対話画面ならゴールの達成まで次のターンが自動で続く。画面の最下行に `Goal achieved` が出たら AI の作業の終わりとみなす。記録は、Codex のセッションの jsonl を `agent.jsonl` に、画面の履歴を `agent-screen.txt` に写す。tmux は時計を始める前に AI の VM へ入れる。
+- `PAUSE` ファイル: このフォルダに `PAUSE` があると、`run.sh` は始める前に待つ（待っている間は `PAUSED` を置く）。`queue.sh` で流している途中に、Mac mini で別の重い処理をするとき、回と回の間で止めるために使う。
 - 見張り: 5秒おきに s1〜s3 の状態を見て、止まっていれば（AI の `sudo reboot` など）`container start` で戻し、`events.jsonl` に記録する。同じ見張りが Mac mini の負荷平均を `loadavg` に書く。
 - 記録（`runs/<run-id>/`）: `agent.jsonl`（AI の出力）、`bench.jsonl`（`elapsed_s`・`host_loadavg`・`final` つき）、`events.jsonl`、`meta.json`（コマンド全文・版・時間）、`CONDITIONS.md`、`servers/s1〜s3`、`agent-versions.txt`。
 - AI の VM は Node.js 22、`@anthropic-ai/claude-code`、`@openai/codex` を入れたイメージ（`images/agent/Dockerfile`）。入れた版は `agent-versions.txt` に出る。
