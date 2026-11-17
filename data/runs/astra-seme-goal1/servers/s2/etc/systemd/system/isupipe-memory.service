@@ -1,0 +1,15 @@
+[Unit]
+Description=ISUPipe memory API with durable event log
+After=network-online.target
+Wants=network-online.target
+[Service]
+User=isucon
+Group=isucon
+WorkingDirectory=/home/isucon/webapp/app
+ExecStart=/home/isucon/webapp/app/isupipe
+Restart=always
+RestartSec=1
+LimitNOFILE=65536
+Environment=GOMAXPROCS=2
+[Install]
+WantedBy=multi-user.target

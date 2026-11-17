@@ -1,0 +1,6 @@
+[mysqld]
+bind-address=0.0.0.0
+innodb_buffer_pool_size=2G
+innodb_flush_log_at_trx_commit=1
+# No replication is used; durable InnoDB redo remains enabled.
+skip-log-bin

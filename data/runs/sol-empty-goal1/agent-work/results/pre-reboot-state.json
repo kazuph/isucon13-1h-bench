@@ -1,0 +1,64 @@
+{
+  "username": "shohei440",
+  "stream_id": 8893,
+  "checksums": "isupipe.users\t1285484177\nisupipe.icons\t3323622505\nisupipe.themes\t1580358469\nisupipe.livestreams\t1446680171\nisupipe.livestream_tags\t726774791\nisupipe.reservation_slots\t4076262913\nisupipe.livestream_viewers_history\t3945389785\nisupipe.livecomments\t2554135786\nisupipe.livecomment_reports\t2933551972\nisupipe.ng_words\t1963291772\nisupipe.reactions\t1205817722\nisupipe.tags\t2930895184",
+  "dns_checksums": "0532f4a252019644c59b596ec89202d2c02c8ceb83909e01b0f20000e38905be",
+  "user": {
+    "id": 2403,
+    "name": "shohei440",
+    "display_name": "うめうめうめかし",
+    "description": "普段アニメーターをしています。\nよろしくおねがいします！\n\n連絡は以下からお願いします。\n\nウェブサイト: http://shohei44.example.com/\nメールアドレス: shohei44@example.com\n",
+    "theme": {
+      "id": 2402,
+      "dark_mode": true
+    },
+    "icon_hash": "d9f8294e9d895f81ce62e73dc7d5dff862a4fa40bd4e0fecf53f7526a8edcac0"
+  },
+  "stream": {
+    "id": 8893,
+    "owner": {
+      "id": 1843,
+      "name": "yumiko051",
+      "display_name": "ふくろうのふくれんじ",
+      "description": "普段配管工をしています。\nよろしくおねがいします！\n\n連絡は以下からお願いします。\n\nウェブサイト: http://yumiko05.example.com/\nメールアドレス: yumiko05@example.com\n",
+      "theme": {
+        "id": 1842,
+        "dark_mode": true
+      },
+      "icon_hash": "3ae40348ed31cfe615024f7259344ad53375186ffe3e8e39d01d80586b779765"
+    },
+    "title": "ガーデニングライブ！今日のお花はこれ",
+    "description": "庭やベランダでのガーデニングの様子を公開します。",
+    "playlist_url": "https://media.xiii.isucon.dev/api/3/playlist.m3u8",
+    "thumbnail_url": "https://media.xiii.isucon.dev/BBB.webp",
+    "tags": [
+      {
+        "id": 99,
+        "name": "記念配信"
+      },
+      {
+        "id": 63,
+        "name": "テクノロジー"
+      },
+      {
+        "id": 40,
+        "name": "レシピ紹介"
+      },
+      {
+        "id": 81,
+        "name": "教育"
+      },
+      {
+        "id": 89,
+        "name": "キャリア"
+      }
+    ],
+    "start_at": 1711861200,
+    "end_at": 1711918800
+  },
+  "icon_hash": "d9f8294e9d895f81ce62e73dc7d5dff862a4fa40bd4e0fecf53f7526a8edcac0",
+  "payment": {
+    "total_tip": 112076
+  },
+  "dns": "10.99.0.11"
+}

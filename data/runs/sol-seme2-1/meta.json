@@ -1,0 +1,15 @@
+{
+  "run_id": "sol-seme2-1",
+  "model": "sol",
+  "model_id": "gpt-6.1-sol",
+  "cli": "codex",
+  "prompt": "seme2",
+  "command": "codex exec --model gpt-6.1-sol --dangerously-bypass-approvals-and-sandbox --json CONDITIONS.md\\ を読み、今回の条件を確認してから、ISUCON\\ を解いてください。 ",
+  "goal": false,
+  "typed_in_tui": "",
+  "run_minutes": 60,
+  "started_at": "2026-11-17T04:22:44Z",
+  "versions": "node v22.23.5;claude-code 2.1.325 (Claude Code);codex codex-cli 0.169.0;",
+  "agent_ended_at": "2026-11-17T05:06:32Z",
+  "agent_elapsed_s": 2628
+}

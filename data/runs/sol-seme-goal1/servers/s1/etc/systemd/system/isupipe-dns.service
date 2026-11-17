@@ -1,0 +1,15 @@
+[Unit]
+Description=ISUPipe authoritative memory DNS
+After=network.target
+[Service]
+WorkingDirectory=/home/isucon/webapp/go
+Environment=ISUPIPE_ROLE=dns
+User=isucon
+Group=isucon
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+ExecStart=/home/isucon/webapp/go/isupipe-memory
+Restart=always
+RestartSec=1
+LimitNOFILE=65536
+[Install]
+WantedBy=multi-user.target

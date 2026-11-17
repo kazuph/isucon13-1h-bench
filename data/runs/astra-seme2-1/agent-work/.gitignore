@@ -1,0 +1,6 @@
+/baseline/
+/logs/
+/isupipe-new
+/go/isupipe
+/go/*.prebatch
+/tests/reboot_expected.json

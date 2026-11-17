@@ -1,0 +1,19 @@
+[Unit]
+StartLimitIntervalSec=0
+Description=isupipe in-memory
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+WorkingDirectory=/home/isucon/webapp/app
+EnvironmentFile=/home/isucon/env.sh
+User=isucon
+Group=isucon
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+LimitNOFILE=1000000
+ExecStart=/home/isucon/webapp/app/isupipe
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target

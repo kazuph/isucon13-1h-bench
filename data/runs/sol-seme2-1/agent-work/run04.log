@@ -1,0 +1,1 @@
+{"run_id":"sol-seme2-1","started_at":"2026-11-17T04:31:34.405Z","ended_at":"2026-11-17T04:31:36.501Z","elapsed_s":532,"host_loadavg":"25.98 32.81 35.35","final":false,"exit_code":0,"pass":false,"score":0,"messages":["整合性チェックに失敗しました","名前解決エラー: 「zebra.u.isucon.dev」の名前解決に失敗しました (rcode=3)"],"language":"golang","resolved_count":0}
