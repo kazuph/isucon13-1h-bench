@@ -1,0 +1,1 @@
+CHECKSUM TABLE isupipe.users, isupipe.themes, isupipe.icons, isupipe.livestreams, isupipe.reservation_slots, isupipe.tags, isupipe.livestream_tags, isupipe.livestream_viewers_history, isupipe.livecomments, isupipe.moderated_livecomments, isupipe.livecomment_reports, isupipe.ng_words, isupipe.reactions;

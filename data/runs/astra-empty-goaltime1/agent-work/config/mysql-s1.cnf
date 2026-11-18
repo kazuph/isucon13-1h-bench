@@ -1,0 +1,6 @@
+[mysqld]
+bind-address=0.0.0.0
+innodb_buffer_pool_size=512M
+innodb_flush_method=O_DIRECT
+skip-log-bin
+max_connections=100

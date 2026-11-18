@@ -1,0 +1,5 @@
+=== RUN   TestLiveDatabaseAnswers
+    main_test.go:474: verified 4395 DB A records and 200 absent names
+--- PASS: TestLiveDatabaseAnswers (0.16s)
+PASS
+ok  	github.com/isucon/isucon13/webapp/go/cmd/fastdns	0.165s

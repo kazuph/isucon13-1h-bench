@@ -1,0 +1,26 @@
+DIGEST_TEXT	COUNT_STAR	SUM_TIMER_WAIT
+COMMIT	76726	33989591759000
+SELECT `u` . `id` , `u` . `name` , `u` . `display_name` , `u` . `description` , `t` . `id` `theme_id` , `t` . `dark_mode` , `i` . `image_hash` FROM `users` `u` JOIN `themes` `t` ON `t` . `user_id` = `u` . `id` LEFT JOIN `icons` `i` ON `i` . `user_id` = `u` . `id` WHERE `u` . `id` = ?	50743	6246003410000
+REPLACE INTO `icons` ( `user_id` , `image` ) VALUES ( ? , (_charset) ? )	2681	4955704828000
+SELECT `u` . `id` , `i` . `image_hash` FROM `users` `u` LEFT JOIN `icons` `i` ON `i` . `user_id` = `u` . `id` WHERE `u` . `name` = ?	20525	2077568095000
+START TRANSACTION	98024	2062463456000
+SELECT `l` . `id` AS `livestreamid` , COALESCE ( `r` . `n` , ? ) + COALESCE ( `t` . `n` , ? ) AS `score` FROM `livestreams` `l` LEFT JOIN ( SELECT `livestream_id` , COUNT ( * ) `n` FROM `reactions` GROUP BY `livestream_id` ) `r` ON `r` . `livestream_id` = `l` . `id` LEFT JOIN ( SELECT `livestream_id` , SUM ( `tip` ) `n` FROM `livecomments` GROUP BY `livestream_id` ) `t` ON `t` . `livestream_id` = `l` . `id`	92	1601444339000
+SELECT EXISTS ( SELECT ? FROM `ng_words` WHERE `user_id` = ? AND `livestream_id` = ? AND ? COLLATE `utf8mb4_general_ci` LIKE `CONCAT` ( ? , `word` , ? ) )	11251	1485691001000
+SELECT `u` . `name` AS `username` , COALESCE ( `r` . `n` , ? ) + COALESCE ( `t` . `n` , ? ) AS `score` FROM `users` `u` LEFT JOIN ( SELECT `l` . `user_id` , COUNT ( * ) `n` FROM `reactions` `r` JOIN `livestreams` `l` ON `l` . `id` = `r` . `livestream_id` GROUP BY `l` . `user_id` ) `r` ON `r` . `user_id` = `u` . `id` LEFT JOIN ( SELECT `l` . `user_id` , SUM ( `c` . `tip` ) `n` FROM `livecomments` `c` JOIN `livestreams` `l` ON `l` . `id` = `c` . `livestream_id` GROUP BY `l` . `user_id` ) `t` ON `t` . `user_id` = `u` . `id`	94	1340592667000
+SELECT * FROM `livestreams` WHERE `id` = ?	21477	1261790212000
+SELECT * FROM `livecomments` WHERE `livestream_id` = ? ORDER BY `created_at` DESC	9564	1196260424000
+SELECT * FROM `reactions` WHERE `livestream_id` = ? ORDER BY `created_at` DESC	9597	1181491387000
+SELECT `t` . `id` , `t` . `name` FROM `livestream_tags` `lt` JOIN `tags` `t` ON `t` . `id` = `lt` . `tag_id` WHERE `lt` . `livestream_id` = ? ORDER BY `lt` . `id`	11618	1177296783000
+INSERT INTO `livecomments` ( `user_id` , `livestream_id` , COMMENT , `tip` , `created_at` ) VALUES (...)	11253	1084081802000
+INSERT IGNORE INTO `moderated_livecomments` SELECT * FROM `livecomments` WHERE `livestream_id` = ? AND COMMENT COLLATE `utf8mb4_general_ci` LIKE `CONCAT` (...)	7914	1080209210000
+INSERT INTO `reactions` ( `user_id` , `livestream_id` , `emoji_name` , `created_at` ) VALUES (...)	9580	965713445000
+SELECT * FROM `livestreams` WHERE `id` = ? FOR SHARE	11255	871582738000
+DELETE FROM `livecomments` WHERE `livestream_id` = ? AND COMMENT COLLATE `utf8mb4_general_ci` LIKE `CONCAT` (...)	7911	789113418000
+SELECT * FROM `livestreams` ORDER BY `id` DESC LIMIT ?	4775	532856549000
+ROLLBACK	21385	530729484000
+INSERT INTO `livestream_tags` ( `livestream_id` , `tag_id` ) VALUES (...)	6912	526440991000
+SELECT * FROM `ng_words` WHERE `user_id` = ? AND `livestream_id` = ? ORDER BY `created_at` DESC	4681	508842008000
+SELECT * FROM `livecomment_reports` WHERE `livestream_id` = ?	6318	487329145000
+INSERT INTO `users` ( NAME , `display_name` , DESCRIPTION , PASSWORD ) VALUES (...)	2476	291832244000
+SELECT * FROM `reservation_slots` WHERE `start_at` BETWEEN ? AND ? AND `end_at` <= ? FOR UPDATE	2134	289057750000
+INSERT INTO `ng_words` ( `user_id` , `livestream_id` , `word` , `created_at` ) VALUES (...)	3085	266033965000

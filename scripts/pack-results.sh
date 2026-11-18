@@ -45,9 +45,10 @@ for d in $R; do
       | while read -r f; do file -b "$src/$f" | grep -q ELF && continue; mkdir -p "$dst/$(dirname "$f")"; cp "$src/$f" "$dst/$f"; done)
   done
   # AI の作業フォルダ（AI が書いたコード・メモ・git の履歴）。マニュアルの写し・ログ・データ・実行ファイルは入れない
+  # toolchain は AI が作業フォルダに入れた Go の本体一式（2026-11-18 の astra-empty-goaltime1 で 214MB）。AI が書いたものではないので入れない
   if [ -d runs/$d/agent-work ]; then
     mkdir -p "$o/agent-work"
-    (cd runs/$d/agent-work && find . \( -path ./manual -o -path ./logs -o -path ./.git -o -path ./orig -o -name state -o -name data -o -name node_modules \) -prune \
+    (cd runs/$d/agent-work && find . \( -path ./manual -o -path ./logs -o -path ./.git -o -path ./orig -o -name state -o -name data -o -name node_modules -o -path ./toolchain \) -prune \
         -o -type f -size -1M ! -name '*.gob' ! -name '*.key' ! -name 'auth.json' ! -name '*.jsonl' -print \
       | while read -r f; do file -b "$f" | grep -q ELF && continue; mkdir -p "$OLDPWD/$o/agent-work/$(dirname "$f")"; cp "$f" "$OLDPWD/$o/agent-work/$f"; done)
     [ -d runs/$d/agent-work/.git ] && (cd runs/$d/agent-work && git -c safe.directory='*' bundle create "$OLDPWD/$o/agent-work.history.bundle" --all >/dev/null 2>&1 || true)

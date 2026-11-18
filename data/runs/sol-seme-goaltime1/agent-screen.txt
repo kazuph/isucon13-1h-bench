@@ -1,0 +1,60 @@
+
+• Ran git tag best-265623 c590948 …
+  └     return tx.Exec(q, args...)
+    }
+    func memoryCommit(tx *sqlx.Tx) error { memMu.Unlock(); defer memMu.Lock(); return tx.Commit() }
+    + 108 lines (^t to expand)
+
+• Ran cat > /tmp/unlock-json.py <<'PY' …
+  └ ok      github.com/isucon/isucon13/webapp/go    0.007s
+    ok      github.com/isucon/isucon13/webapp/go    0.001s
+    + Show details
+
+• Ran set -e …
+  └ [master 211c139] Release memory locks before response encoding and serve immutable tag data at ingress
+     4 files changed, 129 insertions(+), 23 deletions(-)
+     create mode 100644 go/response_lock_test.go
+    + 2 lines (^t to expand)
+
+• Ran sed -n '45,135p' go/persistserver/main.go; python3 - <<'PY' …
+  └             case <-timer.C:
+                default:
+    {'pass': True, 'score': 268240, 'resolved_count': 141197}
+    + 89 lines (^t to expand)
+
+• Ran git log -2 --oneline; ssh s3 'curl -s http://10.99.0.13:8090/health'; ssh s2 'curl -s http://127.0.0.1:6060/debug/appmetrics' > results/metrics-unlocked-responses.json
+  └ 211c139 Release memory locks before response encoding and serve immutable tag data at ingress
+    c590948 Point ingress icon upstream at its bound private address
+    {"batches":171169,"db":{"MaxOpenConnections":16,"OpenConnections":8,"InUse":0,"Idle":8,"WaitCount":0,"WaitDuration":0,"MaxIdleClosed":0,"MaxIdleTimeClosed":0,"MaxLifetimeClosed":0},"failures":0,"queries":239038,"que…
+    + 1 line (^t to expand)
+
+• Ran ssh s3 'curl -s http://10.99.0.13:8090/health'; date -u; python3 - <<'PY' …
+  └ {"batches":43199,"db":{"MaxOpenConnections":16,"OpenConnections":8,"InUse":0,"Idle":8,"WaitCount":0,"WaitDuration":0,"MaxIdleClosed":0,"MaxIdleTimeClosed":0,"MaxLifetimeClosed":0},"failures":0,"gc_count":839,"gc_pau…
+    Wed Nov 18 04:14:00 UTC 2026
+    fastpath benchmark running
+    + 1 line (^t to expand)
+
+• Ran cat > /tmp/persist-fastpath.py <<'PY' …
+  └ [master a33392e] Avoid redundant begin/commit round trips for standalone atomic writes
+     2 files changed, 83 insertions(+), 23 deletions(-)
+     create mode 100644 go/persistserver/main_test.go
+    + 1 line (^t to expand)
+
+• Ran ssh s3 'curl -s http://127.0.0.1:6061/debug/pprof/profile?seconds=15 > /home/isucon/persist-cpu.pprof; /home/isucon/local/golang/bin/go tool pprof -top -nodecount=20 /home/isucon/webapp/go/isupipe-persist /home/is…
+  └       10ms  2.08% 68.75%       10ms  2.08%  runtime.checkIdleGCNoP
+          10ms  2.08% 70.83%       50ms 10.42%  runtime.gcBgMarkWorker
+          10ms  2.08% 72.92%       10ms  2.08%  runtime.gfput
+    + 24 lines (^t to expand)
+
+• Ran python3 - <<'PY' …
+  └ {'pass': True, 'score': 266261, 'resolved_count': 141677}
+    {"batches":44693,"db":{"MaxOpenConnections":16,"OpenConnections":8,"InUse":0,"Idle":8,"WaitCount":0,"WaitDuration":0,"MaxIdleClosed":0,"MaxIdleTimeClosed":0,"MaxLifetimeClosed":0},"failures":0,"gc_count":891,"gc_pau…
+    + 1 line (^t to expand)
+
+◦ Working (53m 52s • esc to interrupt)
+
+
+› Ask Codex to do anything
+
+  GPT-6.1-Sol default · ~/work
+  ← for agents · ? for shortcuts                                                                                                                                             Pursuing goal (59m) · ⚠ 1 warning · f2 to view

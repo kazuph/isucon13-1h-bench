@@ -1,0 +1,15 @@
+{
+  "run_id": "astra-seme-goaltime1",
+  "model": "astra",
+  "model_id": "gpt-6-astra",
+  "cli": "codex",
+  "prompt": "seme",
+  "command": "codex --model gpt-6-astra --dangerously-bypass-approvals-and-sandbox ",
+  "goal": true,
+  "typed_in_tui": "/goal CONDITIONS.md を読み、今回の条件を確認してから、ISUCON を解いてください。 競技の終了時刻まで作業を止めず、点を上げ続けてください。",
+  "run_minutes": 60,
+  "started_at": "2026-11-18T04:19:25Z",
+  "versions": "node v22.23.5;claude-code 2.1.325 (Claude Code);codex codex-cli 0.169.0;tmux 3.2a;",
+  "agent_ended_at": "2026-11-18T05:19:37Z",
+  "agent_elapsed_s": 3612
+}

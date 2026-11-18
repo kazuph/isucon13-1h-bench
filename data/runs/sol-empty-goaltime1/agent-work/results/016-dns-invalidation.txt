@@ -1,0 +1,18 @@
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN, id: 32000
+;; flags: qr aa rd; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+;; WARNING: recursion requested but not available
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+{"id":2921,"name":"codexdnsprobe0001","display_name":"DNS test","theme":{"id":2920,"dark_mode":false},"icon_hash":"d9f8294e9d895f81ce62e73dc7d5dff862a4fa40bd4e0fecf53f7526a8edcac0"}
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 12174
+;; flags: qr aa rd; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+;; WARNING: recursion requested but not available
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; ANSWER SECTION:
+codexdnsprobe0001.u.isucon.dev.	0 IN	A	10.99.0.11
+
