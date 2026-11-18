@@ -5,11 +5,22 @@
 #     prompt: empty | kawasaki | seme  (prompts/<prompt>.md)
 #   環境変数 RUN_MINUTES (既定 60): AI を動かす時間(分)
 #   環境変数 KEEP=1: 終了後も VM を消さない(調査用)
+#   環境変数 GOAL=1: Codex を対話画面(TUI)で起動し、起動の1行を `/goal <起動の1行>` として打つ(Codex だけ)。
+#     `codex exec` に `/goal` を渡しても、ゴールは登録されるが続きのターンは始まらずに終わる(2026-11-17 に codex-cli 0.169.0 で確かめた)。
+#     対話画面ならゴールの達成まで自動で次のターンが続くので、人が普段 `/goal` を使うときと同じ動きになる。
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT"
 export PATH="/opt/homebrew/bin:$PATH"
+
+# PAUSE ファイルがある間は、この回を始めない(Mac mini でほかの重い処理をする間、回と回の間で止めるため)。
+# 待っている間は PAUSED ファイルを置く。PAUSE を消すと続ける。
+if [ -e "$ROOT/PAUSE" ]; then
+  touch "$ROOT/PAUSED"
+  while [ -e "$ROOT/PAUSE" ]; do sleep 10; done
+  rm -f "$ROOT/PAUSED"
+fi
 
 RUN_ID=${1:-}; MODEL=${2:-}; PROMPT=${3:-}
 RUN_MINUTES=${RUN_MINUTES:-60}
@@ -24,6 +35,12 @@ die() { log "ERROR: $*"; exit 1; }
 [ -n "$RUN_ID" ] && [ -n "$MODEL" ] && [ -n "$PROMPT" ] || die "usage: ./run.sh <run-id> <opus|astra|sol> <empty|kawasaki|seme>"
 [[ "$RUN_ID" =~ ^[A-Za-z0-9._-]+$ ]] || die "run-id は英数字と . _ - だけ"
 [[ "$RUN_MINUTES" =~ ^[0-9]+$ ]] || die "RUN_MINUTES は整数"
+GOAL=${GOAL:-0}
+# 環境変数 GOAL_TEXT: GOAL=1 のとき、/goal の文の起動の1行の後ろに足す文（2026-11-18 追加）。
+#   11/17 の /goal 4本は時間の条件が無く、AI が早く「達成」と判断して止まったので、「競技の終了まで止まらない」を足して比べる。
+GOAL_TEXT=${GOAL_TEXT:-}
+[ -z "$GOAL_TEXT" ] || [ "$GOAL" = 1 ] || die "GOAL_TEXT は GOAL=1 のときだけ"
+[[ "$GOAL" =~ ^[01]$ ]] || die "GOAL は 0 か 1"
 PROMPT_FILE="prompts/$PROMPT.md"
 [ -f "$PROMPT_FILE" ] || die "$PROMPT_FILE が無い(指示ファイルは親が用意する)"
 
@@ -36,6 +53,7 @@ case "$MODEL" in
   sol)   KIND=codex; MODEL_ID=gpt-6.1-sol; INSTR_NAME=AGENTS.md ;;
   *) die "model は opus | astra | sol" ;;
 esac
+[ "$GOAL" = 0 ] || [ "$KIND" = codex ] || die "GOAL=1 は Codex(astra・sol)だけ"
 # Codex のログインは、この実験専用のもの(secrets/codex/auth.json)を使う。Mac mini 本体の ~/.codex は使わない。
 # Codex は使うたびに更新用のトークンを入れ替えるので、VM の中で更新された auth.json を毎回ここへ書き戻す(書き戻さないと次の回でログインが切れる)。
 CODEX_AUTH=secrets/codex/auth.json
@@ -62,6 +80,12 @@ log "env.sh up $RUN_ID"
 ./env.sh agent-up >/dev/null 2>&1 || die "agent VM を作れない"
 for i in $(seq 1 30); do container exec "$AGENT" true >/dev/null 2>&1 && break; sleep 1; done
 container exec "$AGENT" cat /etc/agent-versions.txt > "$RUN_DIR/agent-versions.txt"
+# GOAL=1 は対話画面を動かすために tmux が要る。競技時間に入れないよう、時計を始める前に入れる。
+if [ "$GOAL" = 1 ]; then
+  container exec "$AGENT" sh -c 'apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install -y -qq tmux' > "$RUN_DIR/tmux-install.log" 2>&1 \
+    || die "agent VM に tmux を入れられない($RUN_DIR/tmux-install.log)"
+  container exec "$AGENT" tmux -V >> "$RUN_DIR/agent-versions.txt"
+fi
 
 # 2. 作業フォルダ(CONDITIONS.md と指示ファイル)
 START_EPOCH=$(date +%s)
@@ -97,13 +121,18 @@ else
   container cp "$CODEX_AUTH" "$AGENT:/home/isucon/.codex/auth.json"
   container exec "$AGENT" chown isucon:isucon /home/isucon/.codex/auth.json
   container exec "$AGENT" chmod 600 /home/isucon/.codex/auth.json
-  AGENT_CMD=(codex exec --model "$MODEL_ID" --dangerously-bypass-approvals-and-sandbox --json "$LAUNCH_LINE")
+  if [ "$GOAL" = 1 ]; then
+    AGENT_CMD=(codex --model "$MODEL_ID" --dangerously-bypass-approvals-and-sandbox)
+    GOAL_LINE="/goal $LAUNCH_LINE${GOAL_TEXT:+ $GOAL_TEXT}"
+  else
+    AGENT_CMD=(codex exec --model "$MODEL_ID" --dangerously-bypass-approvals-and-sandbox --json "$LAUNCH_LINE")
+  fi
   ENV_ARGS=()
 fi
 jq -n --arg run "$RUN_ID" --arg model "$MODEL" --arg model_id "$MODEL_ID" --arg prompt "$PROMPT" --arg kind "$KIND" \
-  --arg cmd "$(printf '%q ' "${AGENT_CMD[@]}")" --argjson minutes "$RUN_MINUTES" --arg started "$(date -u -r "$START_EPOCH" +%Y-%m-%dT%H:%M:%SZ)" \
+  --arg cmd "$(printf '%q ' "${AGENT_CMD[@]}")" --argjson minutes "$RUN_MINUTES" --argjson goal "$GOAL" --arg typed "${GOAL_LINE:-}" --arg started "$(date -u -r "$START_EPOCH" +%Y-%m-%dT%H:%M:%SZ)" \
   --arg versions "$(cat "$RUN_DIR/agent-versions.txt" | tr '\n' ';')" \
-  '{run_id:$run, model:$model, model_id:$model_id, cli:$kind, prompt:$prompt, command:$cmd, run_minutes:$minutes, started_at:$started, versions:$versions}' > "$RUN_DIR/meta.json"
+  '{run_id:$run, model:$model, model_id:$model_id, cli:$kind, prompt:$prompt, command:$cmd, goal:($goal == 1), typed_in_tui:$typed, run_minutes:$minutes, started_at:$started, versions:$versions}' > "$RUN_DIR/meta.json"
 
 # 4. 見張り(5秒おき): Mac mini の負荷平均を書き、止まった競技サーバーを戻す
 echo "$START_EPOCH" > "$RUN_DIR/start_epoch"
@@ -125,9 +154,30 @@ event start "model=$MODEL_ID prompt=$PROMPT minutes=$RUN_MINUTES"
 
 # 5. AI を起動し、RUN_MINUTES 分で止める
 log "AI 起動: $MODEL_ID / $PROMPT / ${RUN_MINUTES}分"
-container exec -u isucon -w /home/isucon/work -e HOME=/home/isucon ${ENV_ARGS[@]+"${ENV_ARGS[@]}"} "$AGENT" "${AGENT_CMD[@]}" \
-  > "$RUN_DIR/agent.jsonl" 2> "$RUN_DIR/agent.stderr" &
-AI_PID=$!
+if [ "$GOAL" = 1 ]; then
+  # 対話画面を tmux の中で起動し、入力欄が出てから `/goal <起動の1行>` を打つ。
+  container exec -u isucon -w /home/isucon/work -e HOME=/home/isucon -e TERM=xterm-256color "$AGENT" \
+    tmux new-session -d -s agent -x 220 -y 60 "$(printf '%q ' "${AGENT_CMD[@]}")" 2> "$RUN_DIR/agent.stderr" || die "Codex の対話画面を起動できない"
+  for i in $(seq 1 60); do container exec -u isucon "$AGENT" tmux capture-pane -p -t agent 2>/dev/null | grep -q "Ask Codex" && break; sleep 1; done
+  container exec -u isucon "$AGENT" tmux send-keys -t agent -l "$GOAL_LINE"
+  sleep 1
+  container exec -u isucon "$AGENT" tmux send-keys -t agent Enter
+  event goal_typed "$GOAL_LINE"
+  # 画面の一番下の行に「Goal achieved」が出たら終わり(0)。tmux ごと消えたら異常終了(1)。
+  goal_wait() {
+    while true; do
+      scr=$(container exec -u isucon "$AGENT" tmux capture-pane -p -t agent 2>/dev/null) || exit 1
+      printf '%s\n' "$scr" | grep -v '^[[:space:]]*$' | tail -n 3 | grep -q "Goal achieved" && exit 0
+      sleep 5
+    done
+  }
+  goal_wait >/dev/null 2>&1 &
+  AI_PID=$!
+else
+  container exec -u isucon -w /home/isucon/work -e HOME=/home/isucon ${ENV_ARGS[@]+"${ENV_ARGS[@]}"} "$AGENT" "${AGENT_CMD[@]}" \
+    > "$RUN_DIR/agent.jsonl" 2> "$RUN_DIR/agent.stderr" &
+  AI_PID=$!
+fi
 DEADLINE=$((START_EPOCH + RUN_MINUTES * 60))
 while kill -0 "$AI_PID" 2>/dev/null; do
   if [ "$(date +%s)" -ge "$DEADLINE" ]; then event time_up "AI の VM を止める"; break; fi
@@ -142,19 +192,33 @@ save_codex_auth() {
 }
 # VM を止める前に、AI の作業フォルダ(書いたコードと git の履歴)を持ち帰る。
 # AI はここで書いたコードを、競技サーバーの /home/isucon/webapp 以外(例: /home/isucon/app)へ置くことがある(2026-11-15 の opus-seme-1)。
+# GOAL=1 の回は、対話画面の記録(Codex のセッションの jsonl)を agent.jsonl に、最後の画面と履歴を agent-screen.txt に写す。
+save_goal_logs() {
+  [ "$GOAL" = 1 ] || return 0
+  container exec -u isucon "$AGENT" tmux capture-pane -p -t agent -S -5000 > "$RUN_DIR/agent-screen.txt" 2>/dev/null || true
+  container exec "$AGENT" sh -c 'cat $(ls /home/isucon/.codex/sessions/*/*/*/rollout-*.jsonl | sort)' > "$RUN_DIR/agent.jsonl" 2>/dev/null \
+    || event collect_failed "codex session"
+}
 save_agent_work() {
   mkdir -p "$RUN_DIR/agent-work"
   container exec "$AGENT" tar -cf - -C /home/isucon/work --exclude ./orig . 2>/dev/null | tar -xf - -C "$RUN_DIR/agent-work" 2>/dev/null \
     || event collect_failed "agent-work"
 }
 if kill -0 "$AI_PID" 2>/dev/null; then
+  kill "$AI_PID" 2>/dev/null || true
+  save_goal_logs
   save_codex_auth
   save_agent_work
   container stop "$AGENT" >/dev/null 2>&1 || true
   wait "$AI_PID" 2>/dev/null || true
 else
   wait "$AI_PID" 2>/dev/null && AI_RC=0 || AI_RC=$?
-  event agent_exited "exit=$AI_RC"
+  if [ "$GOAL" = 1 ]; then
+    if [ "$AI_RC" = 0 ]; then event goal_achieved "画面に Goal achieved が出た"; else event agent_exited "tmux が消えた exit=$AI_RC"; fi
+  else
+    event agent_exited "exit=$AI_RC"
+  fi
+  save_goal_logs
   save_codex_auth
   save_agent_work
   container stop "$AGENT" >/dev/null 2>&1 || true
@@ -199,7 +263,7 @@ done
 
 jq --arg ended "$(date -u -r "$AGENT_END_EPOCH" +%Y-%m-%dT%H:%M:%SZ)" --argjson el "$((AGENT_END_EPOCH - START_EPOCH))" '. + {agent_ended_at:$ended, agent_elapsed_s:$el}' "$RUN_DIR/meta.json" > "$RUN_DIR/meta.json.tmp" && mv "$RUN_DIR/meta.json.tmp" "$RUN_DIR/meta.json"
 # ログインが切れていた回は、AI が何もできていないので無効にする(queue.sh は終了コード3で止まる)
-if grep -q "Failed to refresh token\|Not logged in\|Invalid API key\|OAuth token has expired" "$RUN_DIR/agent.stderr" "$RUN_DIR/agent.jsonl" 2>/dev/null; then
+if grep -q "Failed to refresh token\|Not logged in\|Invalid API key\|OAuth token has expired" "$RUN_DIR/agent.stderr" "$RUN_DIR/agent.jsonl" "$RUN_DIR/agent-screen.txt" 2>/dev/null; then
   event auth_failed "AI のログインが切れていた。この回は無効"; log "AUTH FAILED: $RUN_DIR"; exit 3
 fi
 log "done: $RUN_DIR"

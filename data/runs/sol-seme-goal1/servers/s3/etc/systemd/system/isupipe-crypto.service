@@ -1,0 +1,14 @@
+[Unit]
+Description=ISUPipe bcrypt worker
+After=network.target
+[Service]
+WorkingDirectory=/home/isucon/webapp/go
+Environment=ISUPIPE_ROLE=crypto
+User=isucon
+Group=isucon
+ExecStart=/home/isucon/webapp/go/isupipe-memory
+Restart=always
+RestartSec=1
+LimitNOFILE=65536
+[Install]
+WantedBy=multi-user.target

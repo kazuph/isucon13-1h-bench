@@ -1,0 +1,10 @@
+[Unit]
+Description=Announce assigned ISUPipe address %i after reboot
+Wants=network-online.target
+After=network-online.target
+[Service]
+Type=oneshot
+ExecStart=/home/isucon/webapp/announce-address %i
+RemainAfterExit=yes
+[Install]
+WantedBy=multi-user.target

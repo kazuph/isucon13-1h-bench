@@ -1,0 +1,25 @@
+# /etc/systemd/system/isupipe-go.service
+[Unit]
+Description=isupipe-go
+After=syslog.target
+After=mysql.service
+Requires=mysql.service
+
+[Service]
+WorkingDirectory=/home/isucon/webapp/go
+EnvironmentFile=/home/isucon/env.sh
+
+User=isucon
+Group=isucon
+ExecStart=/home/isucon/webapp/go/isupipe
+ExecStop=/bin/kill -s QUIT $MAINPID
+
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+
+# /etc/systemd/system/isupipe-go.service.d/worker.conf
+[Service]
+Environment=BCRYPT_WORKER=1

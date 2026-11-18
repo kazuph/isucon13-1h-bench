@@ -1,0 +1,17 @@
+[Unit]
+Description=ISUPipe durable memory API
+After=network-online.target mysql.service
+Wants=network-online.target
+[Service]
+User=isucon
+WorkingDirectory=/home/isucon/webapp/memory
+EnvironmentFile=/home/isucon/env.sh
+Environment=WAL_SYNC_MODE=buffered
+Environment=DIRECT_TLS=1
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+ExecStart=/home/isucon/webapp/memory/isupipe
+Restart=always
+RestartSec=1
+LimitNOFILE=65536
+[Install]
+WantedBy=multi-user.target

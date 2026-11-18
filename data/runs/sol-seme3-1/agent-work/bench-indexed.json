@@ -1,0 +1,1 @@
+{"run_id":"sol-seme3-1","started_at":"2026-11-17T08:28:16.468Z","ended_at":"2026-11-17T08:28:16.538Z","elapsed_s":675,"host_loadavg":"61.80 52.13 48.54","final":false,"exit_code":0,"pass":false,"score":0,"messages":["初期化が失敗しました","initialize へのリクエストに対して、期待されたHTTPステータスコードが確認できませんでした (expected:200, actual:502)"],"language":"unknown","resolved_count":0}

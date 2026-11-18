@@ -1,0 +1,13 @@
+[Unit]
+Description=ISUPipe bcrypt workers
+After=network-online.target
+[Service]
+User=isucon
+WorkingDirectory=/home/isucon/webapp/app
+ExecStart=/home/isucon/webapp/app/isupipe bcrypt
+Restart=always
+RestartSec=1
+LimitNOFILE=65536
+Environment=GOMAXPROCS=2
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,241 @@
+package main
+
+// ISUCON的な参考: https://github.com/isucon/isucon12-qualify/blob/main/webapp/go/isuports.go#L336
+// sqlx的な参考: https://jmoiron.github.io/sqlx/
+
+import (
+	"fmt"
+	"log"
+	"net"
+	"net/http"
+	_ "net/http/pprof"
+	"os"
+	"os/exec"
+	"runtime"
+	"strconv"
+
+	"github.com/go-sql-driver/mysql"
+	"github.com/jmoiron/sqlx"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
+
+	"github.com/gorilla/sessions"
+	"github.com/labstack/echo-contrib/session"
+	echolog "github.com/labstack/gommon/log"
+)
+
+const (
+	listenPort                     = 8080
+	powerDNSSubdomainAddressEnvKey = "ISUCON13_POWERDNS_SUBDOMAIN_ADDRESS"
+)
+
+var (
+	powerDNSSubdomainAddress string
+	dbConn                   *sqlx.DB
+	secret                   = []byte("isucon13_session_cookiestore_defaultsecret")
+)
+
+func init() {
+	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+	if secretKey, ok := os.LookupEnv("ISUCON13_SESSION_SECRETKEY"); ok {
+		secret = []byte(secretKey)
+	}
+}
+
+type InitializeResponse struct {
+	Language string `json:"language"`
+}
+
+func connectDB(logger echo.Logger) (*sqlx.DB, error) {
+	const (
+		networkTypeEnvKey = "ISUCON13_MYSQL_DIALCONFIG_NET"
+		addrEnvKey        = "ISUCON13_MYSQL_DIALCONFIG_ADDRESS"
+		portEnvKey        = "ISUCON13_MYSQL_DIALCONFIG_PORT"
+		userEnvKey        = "ISUCON13_MYSQL_DIALCONFIG_USER"
+		passwordEnvKey    = "ISUCON13_MYSQL_DIALCONFIG_PASSWORD"
+		dbNameEnvKey      = "ISUCON13_MYSQL_DIALCONFIG_DATABASE"
+		parseTimeEnvKey   = "ISUCON13_MYSQL_DIALCONFIG_PARSETIME"
+	)
+
+	conf := mysql.NewConfig()
+
+	// 環境変数がセットされていなかった場合でも一旦動かせるように、デフォルト値を入れておく
+	// この挙動を変更して、エラーを出すようにしてもいいかもしれない
+	conf.Net = "tcp"
+	conf.Addr = net.JoinHostPort("127.0.0.1", "3306")
+	conf.User = "isucon"
+	conf.Passwd = "isucon"
+	conf.DBName = "isupipe"
+	conf.ParseTime = true
+
+	if v, ok := os.LookupEnv(networkTypeEnvKey); ok {
+		conf.Net = v
+	}
+	if addr, ok := os.LookupEnv(addrEnvKey); ok {
+		if port, ok2 := os.LookupEnv(portEnvKey); ok2 {
+			conf.Addr = net.JoinHostPort(addr, port)
+		} else {
+			conf.Addr = net.JoinHostPort(addr, "3306")
+		}
+	}
+	if v, ok := os.LookupEnv(userEnvKey); ok {
+		conf.User = v
+	}
+	if v, ok := os.LookupEnv(passwordEnvKey); ok {
+		conf.Passwd = v
+	}
+	if v, ok := os.LookupEnv(dbNameEnvKey); ok {
+		conf.DBName = v
+	}
+	if v, ok := os.LookupEnv(parseTimeEnvKey); ok {
+		parseTime, err := strconv.ParseBool(v)
+		if err != nil {
+			return nil, fmt.Errorf("failed to parse environment variable '%s' as bool: %+v", parseTimeEnvKey, err)
+		}
+		conf.ParseTime = parseTime
+	}
+
+	db, err := sqlx.Open("mysql", conf.FormatDSN())
+	if err != nil {
+		return nil, err
+	}
+	db.SetMaxOpenConns(10)
+
+	if err := db.Ping(); err != nil {
+		return nil, err
+	}
+
+	return db, nil
+}
+
+func initializeHandler(c echo.Context) error {
+	if out, err := exec.Command("../sql/init.sh").CombinedOutput(); err != nil {
+		c.Logger().Warnf("init.sh failed with err=%s", string(out))
+		return echo.NewHTTPError(http.StatusInternalServerError, "failed to initialize: "+err.Error())
+	}
+
+	c.Request().Header.Add("Content-Type", "application/json;charset=utf-8")
+	return c.JSON(http.StatusOK, InitializeResponse{
+		Language: "golang",
+	})
+}
+
+func main() {
+	if os.Getenv("BCRYPT_WORKER") == "1" {
+		log.Fatal(servePasswordWorker())
+		return
+	}
+	runtime.SetMutexProfileFraction(10)
+	go func() { log.Print(http.ListenAndServe(":6060", nil)) }()
+	e := echo.New()
+	e.Debug = false
+	e.Logger.SetLevel(echolog.DEBUG)
+	e.Use(middleware.Recover())
+	cookieStore := sessions.NewCookieStore(secret)
+	cookieStore.Options.Domain = "*.u.isucon.dev"
+	e.Use(session.Middleware(cookieStore))
+	// e.Use(middleware.Recover())
+
+	// 初期化
+	e.POST("/api/initialize", memInitialize)
+
+	// top
+	e.GET("/api/tag", memTags)
+	e.GET("/api/user/:username/theme", memGetUser)
+
+	// livestream
+	// reserve livestream
+	e.POST("/api/livestream/reservation", memReserve)
+	// list livestream
+	e.GET("/api/livestream/search", memSearch)
+	e.GET("/api/livestream", memUserStreams)
+	e.GET("/api/user/:username/livestream", memUserStreams)
+	// get livestream
+	e.GET("/api/livestream/:livestream_id", memStreamGet)
+	// get polling livecomment timeline
+	e.GET("/api/livestream/:livestream_id/livecomment", memComments)
+	// ライブコメント投稿
+	e.POST("/api/livestream/:livestream_id/livecomment", memPostComment)
+	e.POST("/api/livestream/:livestream_id/reaction", memPostReaction)
+	e.GET("/api/livestream/:livestream_id/reaction", memReactions)
+
+	// (配信者向け)ライブコメントの報告一覧取得API
+	e.GET("/api/livestream/:livestream_id/report", memReports)
+	e.GET("/api/livestream/:livestream_id/ngwords", memWords)
+	// ライブコメント報告
+	e.POST("/api/livestream/:livestream_id/livecomment/:livecomment_id/report", memPostReport)
+	// 配信者によるモデレーション (NGワード登録)
+	e.POST("/api/livestream/:livestream_id/moderate", memModerate)
+
+	// livestream_viewersにINSERTするため必要
+	// ユーザ視聴開始 (viewer)
+	e.POST("/api/livestream/:livestream_id/enter", memEnterExit)
+	// ユーザ視聴終了 (viewer)
+	e.DELETE("/api/livestream/:livestream_id/exit", memEnterExit)
+
+	// user
+	e.POST("/api/register", memRegister)
+	e.POST("/api/login", memLogin)
+	e.GET("/api/user/me", memGetUser)
+	// フロントエンドで、配信予約のコラボレーターを指定する際に必要
+	e.GET("/api/user/:username", memGetUser)
+	e.GET("/api/user/:username/statistics", memUserStats)
+	e.GET("/api/user/:username/icon", memGetIcon)
+	e.POST("/api/icon", memPostIcon)
+
+	// stats
+	// ライブ配信統計情報
+	e.GET("/api/livestream/:livestream_id/statistics", memStreamStats)
+
+	// 課金情報
+	e.GET("/api/payment", memPayment)
+
+	e.HTTPErrorHandler = errorResponseHandler
+
+	// DB接続
+	conn, err := connectDB(e.Logger)
+	if err != nil {
+		e.Logger.Errorf("failed to connect db: %v", err)
+		os.Exit(1)
+	}
+	defer conn.Close()
+	dbConn = conn
+
+	subdomainAddr, ok := os.LookupEnv(powerDNSSubdomainAddressEnvKey)
+	if !ok {
+		e.Logger.Errorf("environ %s must be provided", powerDNSSubdomainAddressEnvKey)
+		os.Exit(1)
+	}
+	powerDNSSubdomainAddress = subdomainAddr
+
+	if err := restoreStore(); err != nil {
+		log.Fatal(err)
+	}
+	go serveMemoryDNS()
+	// HTTPサーバ起動
+	listenAddr := net.JoinHostPort("", strconv.Itoa(listenPort))
+	if err := e.Start(listenAddr); err != nil {
+		e.Logger.Errorf("failed to start HTTP server: %v", err)
+		os.Exit(1)
+	}
+}
+
+type ErrorResponse struct {
+	Error string `json:"error"`
+}
+
+func errorResponseHandler(err error, c echo.Context) {
+	if he, ok := err.(*echo.HTTPError); !ok || he.Code >= 500 {
+		c.Logger().Errorf("error at %s: %+v", c.Path(), err)
+	}
+	if he, ok := err.(*echo.HTTPError); ok {
+		if e := c.JSON(he.Code, &ErrorResponse{Error: err.Error()}); e != nil {
+			c.Logger().Errorf("%+v", e)
+		}
+		return
+	}
+
+	if e := c.JSON(http.StatusInternalServerError, &ErrorResponse{Error: err.Error()}); e != nil {
+		c.Logger().Errorf("%+v", e)
+	}
+}

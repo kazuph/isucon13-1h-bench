@@ -1,0 +1,5 @@
+--- FAIL: TestConcurrentDurableUpdates (0.02s)
+    durable_test.go:59: committed read view diverged
+FAIL
+FAIL	github.com/isucon/isucon13/webapp/go	0.025s
+FAIL

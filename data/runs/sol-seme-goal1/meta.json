@@ -1,0 +1,15 @@
+{
+  "run_id": "sol-seme-goal1",
+  "model": "sol",
+  "model_id": "gpt-6.1-sol",
+  "cli": "codex",
+  "prompt": "seme",
+  "command": "codex --model gpt-6.1-sol --dangerously-bypass-approvals-and-sandbox ",
+  "goal": true,
+  "typed_in_tui": "/goal CONDITIONS.md を読み、今回の条件を確認してから、ISUCON を解いてください。",
+  "run_minutes": 60,
+  "started_at": "2026-11-17T02:27:02Z",
+  "versions": "node v22.23.5;claude-code 2.1.325 (Claude Code);codex codex-cli 0.169.0;tmux 3.2a;",
+  "agent_ended_at": "2026-11-17T03:07:12Z",
+  "agent_elapsed_s": 2410
+}

@@ -1,0 +1,17 @@
+File: isupipe
+Type: delay
+Time: Nov 17, 2026 at 9:18am (UTC)
+Showing nodes accounting for 40.94s, 100% of 40.94s total
+Dropped 3 nodes (cum <= 0.20s)
+      flat  flat%   sum%        cum   cum%
+    22.74s 55.55% 55.55%     22.74s 55.55%  sync.(*Mutex).Unlock (inline)
+    13.81s 33.75% 89.30%     36.56s 89.30%  sync.(*RWMutex).Unlock
+     4.38s 10.70%   100%      4.38s 10.70%  sync.(*RWMutex).RUnlock
+         0     0%   100%     40.94s   100%  github.com/labstack/echo/v4.(*Echo).ServeHTTP
+         0     0%   100%     40.94s   100%  github.com/labstack/echo/v4.(*Echo).add.func1
+         0     0%   100%     40.94s   100%  main.main.Middleware.MiddlewareWithConfig.func4.1
+         0     0%   100%      4.36s 10.66%  main.readAPI
+         0     0%   100%      4.17s 10.19%  main.registerHandler
+         0     0%   100%     32.38s 79.10%  main.writeAPI
+         0     0%   100%     40.94s   100%  net/http.(*conn).serve
+         0     0%   100%     40.94s   100%  net/http.serverHandler.ServeHTTP

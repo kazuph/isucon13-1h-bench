@@ -1,0 +1,9 @@
+Nov 17 09:55:09 isu13-s1 systemd[1]: Starting Announce static competition IP after MAC changes on reboot...
+Nov 17 09:55:10 isu13-s1 announce-address[57]: Announced 10.99.0.11 at f2:c5:1e:56:40:d8
+Nov 17 09:55:10 isu13-s1 systemd[1]: Finished Announce static competition IP after MAC changes on reboot.
+Nov 17 09:55:09 isu13-s2 systemd[1]: Starting Announce static competition IP after MAC changes on reboot...
+Nov 17 09:55:10 isu13-s2 announce-address[57]: Announced 10.99.0.12 at f2:41:78:e6:c9:1d
+Nov 17 09:55:10 isu13-s2 systemd[1]: Finished Announce static competition IP after MAC changes on reboot.
+Nov 17 09:55:11 isu13-s3 systemd[1]: Starting Announce static competition IP after MAC changes on reboot...
+Nov 17 09:55:11 isu13-s3 announce-address[57]: Announced 10.99.0.13 at f6:17:23:b4:1a:eb
+Nov 17 09:55:11 isu13-s3 systemd[1]: Finished Announce static competition IP after MAC changes on reboot.

@@ -1,0 +1,11 @@
+[Unit]
+Description=Announce static competition IP after MAC changes on reboot
+Requires=isucon-ip.service
+After=isucon-ip.service network.target
+Before=isupipe-dns.service isupipe-fast.service isupipe-auth.service
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/home/isucon/announce-address
+[Install]
+WantedBy=multi-user.target

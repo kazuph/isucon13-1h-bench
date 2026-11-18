@@ -1,0 +1,13 @@
+[Unit]
+Description=Announce the server's own address after network startup
+After=network-online.target
+Wants=network-online.target
+[Service]
+Type=oneshot
+ExecStart=/home/isucon/arp-announce %i
+RemainAfterExit=yes
+Restart=on-failure
+RestartSec=2
+TimeoutStartSec=45
+[Install]
+WantedBy=multi-user.target

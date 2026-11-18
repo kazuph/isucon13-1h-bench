@@ -1,0 +1,12 @@
+[Unit]
+Description=Announce competition network address after boot
+Wants=network-online.target
+After=network-online.target
+[Service]
+Type=oneshot
+Environment=ISUPIPE_ROLE=announce
+EnvironmentFile=/home/isucon/announce.env
+ExecStart=/home/isucon/webapp/go/isupipe-memory
+RemainAfterExit=yes
+[Install]
+WantedBy=multi-user.target

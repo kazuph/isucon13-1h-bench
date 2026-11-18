@@ -1,0 +1,1 @@
+{"run_id":"sol-seme-goaltime1","started_at":"2026-11-18T03:50:56.574Z","ended_at":"2026-11-18T03:50:56.622Z","elapsed_s":2016,"host_loadavg":"3.38 4.37 5.06","final":false,"exit_code":0,"pass":false,"score":0,"messages":["初期化が失敗しました","initialize へのリクエストに対して、期待されたHTTPステータスコードが確認できませんでした (expected:200, actual:502)"],"language":"unknown","resolved_count":0}

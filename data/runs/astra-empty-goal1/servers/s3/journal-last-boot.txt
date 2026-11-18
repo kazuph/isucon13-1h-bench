@@ -1,0 +1,379 @@
+Nov 17 02:23:50 isu13-s3 kernel: Booting Linux on physical CPU 0x0000000000 [0x610f0000]
+Nov 17 02:23:50 isu13-s3 kernel: Linux version 6.18.56 (@f06c1e042bae) (gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #1 SMP Fri Oct 16 18:41:09 UTC 2026
+Nov 17 02:23:50 isu13-s3 kernel: KASLR enabled
+Nov 17 02:23:50 isu13-s3 kernel: efi: UEFI not found.
+Nov 17 02:23:50 isu13-s3 kernel: OF: reserved mem: Reserved memory: No reserved-memory node in the DT
+Nov 17 02:23:50 isu13-s3 kernel: NUMA: Faking a node at [mem 0x0000000070000000-0x0000000177ffffff]
+Nov 17 02:23:50 isu13-s3 kernel: NODE_DATA(0) allocated [mem 0x1777bf340-0x1777c1cbf]
+Nov 17 02:23:50 isu13-s3 kernel: Zone ranges:
+Nov 17 02:23:50 isu13-s3 kernel:   DMA      [mem 0x0000000070000000-0x00000000ffffffff]
+Nov 17 02:23:50 isu13-s3 kernel:   Normal   [mem 0x0000000100000000-0x0000000177ffffff]
+Nov 17 02:23:50 isu13-s3 kernel:   Device   empty
+Nov 17 02:23:50 isu13-s3 kernel: Movable zone start for each node
+Nov 17 02:23:50 isu13-s3 kernel: Early memory node ranges
+Nov 17 02:23:50 isu13-s3 kernel:   node   0: [mem 0x0000000070000000-0x0000000177ffffff]
+Nov 17 02:23:50 isu13-s3 kernel: Initmem setup node 0 [mem 0x0000000070000000-0x0000000177ffffff]
+Nov 17 02:23:50 isu13-s3 kernel: psci: probing for conduit method from DT.
+Nov 17 02:23:50 isu13-s3 kernel: psci: PSCIv1.1 detected in firmware.
+Nov 17 02:23:50 isu13-s3 kernel: psci: Using standard PSCI v0.2 function IDs
+Nov 17 02:23:50 isu13-s3 kernel: psci: Trusted OS migration not required
+Nov 17 02:23:50 isu13-s3 kernel: psci: SMC Calling Convention v1.1
+Nov 17 02:23:50 isu13-s3 kernel: percpu: Embedded 29 pages/cpu s86168 r0 d32616 u118784
+Nov 17 02:23:50 isu13-s3 kernel: pcpu-alloc: s86168 r0 d32616 u118784 alloc=29*4096
+Nov 17 02:23:50 isu13-s3 kernel: pcpu-alloc: [0] 0 [0] 1 [0] 2 
+Nov 17 02:23:50 isu13-s3 kernel: Detected PIPT I-cache on CPU0
+Nov 17 02:23:50 isu13-s3 kernel: CPU features: detected: GICv3 CPU interface
+Nov 17 02:23:50 isu13-s3 kernel: CPU features: detected: Spectre-v4
+Nov 17 02:23:50 isu13-s3 kernel: CPU features: detected: Spectre-BHB
+Nov 17 02:23:50 isu13-s3 kernel: CPU features: kernel page table isolation disabled by kernel configuration
+Nov 17 02:23:50 isu13-s3 kernel: alternatives: applying boot alternatives
+Nov 17 02:23:50 isu13-s3 kernel: Kernel command line: console=hvc0 tsc=reliable panic=0 oops=panic lsm=lockdown,capability,landlock,yama,apparmor init=/sbin/vminitd ro rootfstype=ext4 root=/dev/vda
+Nov 17 02:23:50 isu13-s3 kernel: Unknown kernel command line parameters "tsc=reliable", will be passed to user space.
+Nov 17 02:23:50 isu13-s3 kernel: printk: log buffer data + meta data: 131072 + 458752 = 589824 bytes
+Nov 17 02:23:50 isu13-s3 kernel: Dentry cache hash table entries: 1048576 (order: 11, 8388608 bytes, linear)
+Nov 17 02:23:50 isu13-s3 kernel: Inode-cache hash table entries: 524288 (order: 10, 4194304 bytes, linear)
+Nov 17 02:23:50 isu13-s3 kernel: software IO TLB: area num 4.
+Nov 17 02:23:50 isu13-s3 kernel: software IO TLB: mapped [mem 0x00000000fbfff000-0x00000000fffff000] (64MB)
+Nov 17 02:23:50 isu13-s3 kernel: Fallback order for Node 0: 0 
+Nov 17 02:23:50 isu13-s3 kernel: Built 1 zonelists, mobility grouping on.  Total pages: 1081344
+Nov 17 02:23:50 isu13-s3 kernel: Policy zone: Normal
+Nov 17 02:23:50 isu13-s3 kernel: mem auto-init: stack:off, heap alloc:off, heap free:off
+Nov 17 02:23:50 isu13-s3 kernel: SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=3, Nodes=1
+Nov 17 02:23:50 isu13-s3 kernel: ftrace: allocating 45619 entries in 180 pages
+Nov 17 02:23:50 isu13-s3 kernel: ftrace: allocated 180 pages with 4 groups
+Nov 17 02:23:50 isu13-s3 kernel: rcu: Hierarchical RCU implementation.
+Nov 17 02:23:50 isu13-s3 kernel: rcu:         RCU restricting CPUs from NR_CPUS=255 to nr_cpu_ids=3.
+Nov 17 02:23:50 isu13-s3 kernel:         Rude variant of Tasks RCU enabled.
+Nov 17 02:23:50 isu13-s3 kernel:         Tracing variant of Tasks RCU enabled.
+Nov 17 02:23:50 isu13-s3 kernel: rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+Nov 17 02:23:50 isu13-s3 kernel: rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=3
+Nov 17 02:23:50 isu13-s3 kernel: RCU Tasks Rude: Setting shift to 2 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=3.
+Nov 17 02:23:50 isu13-s3 kernel: RCU Tasks Trace: Setting shift to 2 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=3.
+Nov 17 02:23:50 isu13-s3 kernel: NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+Nov 17 02:23:50 isu13-s3 kernel: GICv3: 988 SPIs implemented
+Nov 17 02:23:50 isu13-s3 kernel: GICv3: 0 Extended SPIs implemented
+Nov 17 02:23:50 isu13-s3 kernel: Root IRQ handler: gic_handle_irq
+Nov 17 02:23:50 isu13-s3 kernel: GICv3: GICv3 features: 16 PPIs, RSS
+Nov 17 02:23:50 isu13-s3 kernel: GICv3: GICD_CTLR.DS=1, SCR_EL3.FIQ=0
+Nov 17 02:23:50 isu13-s3 kernel: GICv3: CPU0: found redistributor 0 region 0:0x0000000010010000
+Nov 17 02:23:50 isu13-s3 kernel: rcu: srcu_init: Setting srcu_struct sizes based on contention.
+Nov 17 02:23:50 isu13-s3 kernel: clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+Nov 17 02:23:50 isu13-s3 kernel: arch_timer: cp15 timer running at 24.00MHz (virt).
+Nov 17 02:23:50 isu13-s3 kernel: clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x588fe9dc0, max_idle_ns: 440795202592 ns
+Nov 17 02:23:50 isu13-s3 kernel: sched_clock: 56 bits at 24MHz, resolution 41ns, wraps every 4398046511097ns
+Nov 17 02:23:50 isu13-s3 kernel: Console: colour dummy device 80x25
+Nov 17 02:23:50 isu13-s3 kernel: Calibrating delay loop (skipped), value calculated using timer frequency.. 48.00 BogoMIPS (lpj=96000)
+Nov 17 02:23:50 isu13-s3 kernel: pid_max: default: 32768 minimum: 301
+Nov 17 02:23:50 isu13-s3 kernel: LSM: initializing lsm=capability,landlock
+Nov 17 02:23:50 isu13-s3 kernel: landlock: Up and running.
+Nov 17 02:23:50 isu13-s3 kernel: Mount-cache hash table entries: 16384 (order: 5, 131072 bytes, linear)
+Nov 17 02:23:50 isu13-s3 kernel: Mountpoint-cache hash table entries: 16384 (order: 5, 131072 bytes, linear)
+Nov 17 02:23:50 isu13-s3 kernel: rcu: Hierarchical SRCU implementation.
+Nov 17 02:23:50 isu13-s3 kernel: rcu:         Max phase no-delay instances is 1000.
+Nov 17 02:23:50 isu13-s3 kernel: Timer migration: 1 hierarchy levels; 8 children per group; 1 crossnode level
+Nov 17 02:23:50 isu13-s3 kernel: EFI services will not be available.
+Nov 17 02:23:50 isu13-s3 kernel: smp: Bringing up secondary CPUs ...
+Nov 17 02:23:50 isu13-s3 kernel: Detected PIPT I-cache on CPU1
+Nov 17 02:23:50 isu13-s3 kernel: GICv3: CPU1: found redistributor 1 region 0:0x0000000010030000
+Nov 17 02:23:50 isu13-s3 kernel: CPU1: Booted secondary processor 0x0000000001 [0x610f0000]
+Nov 17 02:23:50 isu13-s3 kernel: Detected PIPT I-cache on CPU2
+Nov 17 02:23:50 isu13-s3 kernel: GICv3: CPU2: found redistributor 2 region 0:0x0000000010050000
+Nov 17 02:23:50 isu13-s3 kernel: CPU2: Booted secondary processor 0x0000000002 [0x610f0000]
+Nov 17 02:23:50 isu13-s3 kernel: smp: Brought up 1 node, 3 CPUs
+Nov 17 02:23:50 isu13-s3 kernel: SMP: Total of 3 processors activated.
+Nov 17 02:23:50 isu13-s3 kernel: CPU: All CPU(s) started at EL1
+Nov 17 02:23:50 isu13-s3 kernel: CPU features: detected: ARMv8.4 Translation Table Level
+Nov 17 02:23:50 isu13-s3 kernel: CPU features: detected: Data cache clean to the PoU not required for I/D coherence
+Nov 17 02:23:50 isu13-s3 kernel: CPU features: detected: Common not Private translations
+Nov 17 02:23:50 isu13-s3 kernel: CPU features: detected: CRC32 instructions
+Nov 17 02:23:50 isu13-s3 kernel: CPU features: detected: Data cache clean to Point of Deep Persistence
+Nov 17 02:23:50 isu13-s3 kernel: CPU features: detected: Data cache clean to Point of Persistence
+Nov 17 02:23:50 isu13-s3 kernel: CPU features: detected: Data independent timing control (DIT)
+Nov 17 02:23:50 isu13-s3 kernel: CPU features: detected: RCpc load-acquire (LDAPR)
+Nov 17 02:23:50 isu13-s3 kernel: CPU features: detected: Privileged Access Never
+Nov 17 02:23:50 isu13-s3 kernel: CPU features: detected: RAS Extension Support
+Nov 17 02:23:50 isu13-s3 kernel: CPU features: detected: Speculation barrier (SB)
+Nov 17 02:23:50 isu13-s3 kernel: CPU features: detected: TLB range maintenance instructions
+Nov 17 02:23:50 isu13-s3 kernel: alternatives: applying system-wide alternatives
+Nov 17 02:23:50 isu13-s3 kernel: Memory: 4134532K/4325376K available (13888K kernel code, 2072K rwdata, 8768K rodata, 4992K init, 599K bss, 185592K reserved, 0K cma-reserved)
+Nov 17 02:23:50 isu13-s3 kernel: devtmpfs: initialized
+Nov 17 02:23:50 isu13-s3 kernel: posixtimers hash table entries: 2048 (order: 3, 32768 bytes, linear)
+Nov 17 02:23:50 isu13-s3 kernel: futex hash table entries: 1024 (65536 bytes on 1 NUMA nodes, total 64 KiB, linear).
+Nov 17 02:23:50 isu13-s3 kernel: 25136 pages in range for non-PLT usage
+Nov 17 02:23:50 isu13-s3 kernel: 516656 pages in range for PLT usage
+Nov 17 02:23:50 isu13-s3 kernel: NET: Registered PF_NETLINK/PF_ROUTE protocol family
+Nov 17 02:23:50 isu13-s3 kernel: DMA: preallocated 512 KiB GFP_KERNEL pool for atomic allocations
+Nov 17 02:23:50 isu13-s3 kernel: DMA: preallocated 512 KiB GFP_KERNEL|GFP_DMA pool for atomic allocations
+Nov 17 02:23:50 isu13-s3 kernel: audit: initializing netlink subsys (disabled)
+Nov 17 02:23:50 isu13-s3 kernel: audit: type=2000 audit(0.000:1): state=initialized audit_enabled=0 res=1
+Nov 17 02:23:50 isu13-s3 kernel: thermal_sys: Registered thermal governor 'step_wise'
+Nov 17 02:23:50 isu13-s3 kernel: cpuidle: using governor menu
+Nov 17 02:23:50 isu13-s3 kernel: hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.
+Nov 17 02:23:50 isu13-s3 kernel: ASID allocator initialised with 256 entries
+Nov 17 02:23:50 isu13-s3 kernel: Serial: AMBA PL011 UART driver
+Nov 17 02:23:50 isu13-s3 kernel: HugeTLB: registered 1.00 GiB page size, pre-allocated 0 pages
+Nov 17 02:23:50 isu13-s3 kernel: HugeTLB: 0 KiB vmemmap can be freed for a 1.00 GiB page
+Nov 17 02:23:50 isu13-s3 kernel: HugeTLB: registered 32.0 MiB page size, pre-allocated 0 pages
+Nov 17 02:23:50 isu13-s3 kernel: HugeTLB: 0 KiB vmemmap can be freed for a 32.0 MiB page
+Nov 17 02:23:50 isu13-s3 kernel: HugeTLB: registered 2.00 MiB page size, pre-allocated 0 pages
+Nov 17 02:23:50 isu13-s3 kernel: HugeTLB: 0 KiB vmemmap can be freed for a 2.00 MiB page
+Nov 17 02:23:50 isu13-s3 kernel: HugeTLB: registered 64.0 KiB page size, pre-allocated 0 pages
+Nov 17 02:23:50 isu13-s3 kernel: HugeTLB: 0 KiB vmemmap can be freed for a 64.0 KiB page
+Nov 17 02:23:50 isu13-s3 kernel: ACPI: Interpreter disabled.
+Nov 17 02:23:50 isu13-s3 kernel: iommu: Default domain type: Translated
+Nov 17 02:23:50 isu13-s3 kernel: iommu: DMA domain TLB invalidation policy: strict mode
+Nov 17 02:23:50 isu13-s3 kernel: SCSI subsystem initialized
+Nov 17 02:23:50 isu13-s3 kernel: pps_core: LinuxPPS API ver. 1 registered
+Nov 17 02:23:50 isu13-s3 kernel: pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+Nov 17 02:23:50 isu13-s3 kernel: PTP clock support registered
+Nov 17 02:23:50 isu13-s3 kernel: clocksource: Switched to clocksource arch_sys_counter
+Nov 17 02:23:50 isu13-s3 kernel: pnp: PnP ACPI: disabled
+Nov 17 02:23:50 isu13-s3 kernel: NET: Registered PF_INET protocol family
+Nov 17 02:23:50 isu13-s3 kernel: IP idents hash table entries: 131072 (order: 8, 1048576 bytes, linear)
+Nov 17 02:23:50 isu13-s3 kernel: tcp_listen_portaddr_hash hash table entries: 4096 (order: 4, 65536 bytes, linear)
+Nov 17 02:23:50 isu13-s3 kernel: Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+Nov 17 02:23:50 isu13-s3 kernel: TCP established hash table entries: 65536 (order: 7, 524288 bytes, linear)
+Nov 17 02:23:50 isu13-s3 kernel: TCP bind hash table entries: 65536 (order: 9, 2097152 bytes, linear)
+Nov 17 02:23:50 isu13-s3 kernel: TCP: Hash tables configured (established 65536 bind 65536)
+Nov 17 02:23:50 isu13-s3 kernel: UDP hash table entries: 4096 (order: 6, 262144 bytes, linear)
+Nov 17 02:23:50 isu13-s3 kernel: UDP-Lite hash table entries: 4096 (order: 6, 262144 bytes, linear)
+Nov 17 02:23:50 isu13-s3 kernel: NET: Registered PF_UNIX/PF_LOCAL protocol family
+Nov 17 02:23:50 isu13-s3 kernel: PCI: CLS 0 bytes, default 64
+Nov 17 02:23:50 isu13-s3 kernel: workingset: timestamp_bits=42 max_order=20 bucket_order=0
+Nov 17 02:23:50 isu13-s3 kernel: Key type cifs.spnego registered
+Nov 17 02:23:50 isu13-s3 kernel: Key type cifs.idmap registered
+Nov 17 02:23:50 isu13-s3 kernel: fuse: init (API version 7.45)
+Nov 17 02:23:50 isu13-s3 kernel: SGI XFS with security attributes, no debug enabled
+Nov 17 02:23:50 isu13-s3 kernel: 9p: Installing v9fs 9p2000 file system support
+Nov 17 02:23:50 isu13-s3 kernel: NET: Registered PF_ALG protocol family
+Nov 17 02:23:50 isu13-s3 kernel: Block layer SCSI generic (bsg) driver version 0.4 loaded (major 248)
+Nov 17 02:23:50 isu13-s3 kernel: pci-host-generic 40000000.pci: host bridge /pci ranges:
+Nov 17 02:23:50 isu13-s3 kernel: pci-host-generic 40000000.pci:       IO 0x006fff0000..0x006fffffff -> 0x0000000000
+Nov 17 02:23:50 isu13-s3 kernel: pci-host-generic 40000000.pci:      MEM 0x0050000000..0x006ffdffff -> 0x0050000000
+Nov 17 02:23:50 isu13-s3 kernel: pci-host-generic 40000000.pci:      MEM 0x0180000000..0x057fffffff -> 0x0180000000
+Nov 17 02:23:50 isu13-s3 kernel: pci-host-generic 40000000.pci: Memory resource size exceeds max for 32 bits
+Nov 17 02:23:50 isu13-s3 kernel: pci-host-generic 40000000.pci: ECAM at [mem 0x40000000-0x4fffffff] for [bus 00-ff]
+Nov 17 02:23:50 isu13-s3 kernel: pci-host-generic 40000000.pci: PCI host bridge to bus 0000:00
+Nov 17 02:23:50 isu13-s3 kernel: pci_bus 0000:00: root bus resource [bus 00-ff]
+Nov 17 02:23:50 isu13-s3 kernel: pci_bus 0000:00: root bus resource [io  0x0000-0xffff]
+Nov 17 02:23:50 isu13-s3 kernel: pci_bus 0000:00: root bus resource [mem 0x50000000-0x6ffdffff]
+Nov 17 02:23:50 isu13-s3 kernel: pci_bus 0000:00: root bus resource [mem 0x180000000-0x57fffffff]
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:00.0: [106b:1a05] type 00 class 0x060000 conventional PCI endpoint
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:01.0: [1af4:1041] type 00 class 0x020000 conventional PCI endpoint
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:01.0: BAR 0 [mem 0x00000000-0x0000ffff 64bit]
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:01.0: BAR 2 [mem 0x00000000-0x0000003f]
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:05.0: [1af4:1043] type 00 class 0x078000 conventional PCI endpoint
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:05.0: BAR 0 [mem 0x00000000-0x0000ffff 64bit]
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:05.0: BAR 2 [mem 0x00000000-0x0000007f]
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:06.0: [1af4:1042] type 00 class 0x018000 conventional PCI endpoint
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:06.0: BAR 0 [mem 0x00000000-0x0000ffff 64bit]
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:06.0: BAR 2 [mem 0x00000000-0x0000003f]
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:07.0: [1af4:1042] type 00 class 0x018000 conventional PCI endpoint
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:07.0: BAR 0 [mem 0x00000000-0x0000ffff 64bit]
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:07.0: BAR 2 [mem 0x00000000-0x0000003f]
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:08.0: [1af4:105a] type 00 class 0x018000 conventional PCI endpoint
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:08.0: BAR 0 [mem 0x00000000-0x0000ffff 64bit]
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:08.0: BAR 2 [mem 0x00000000-0x0000003f]
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:09.0: [1af4:1053] type 00 class 0x078000 conventional PCI endpoint
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:09.0: BAR 0 [mem 0x00000000-0x0000ffff 64bit]
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:09.0: BAR 2 [mem 0x00000000-0x0000007f]
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:0a.0: [1af4:1044] type 00 class 0x100000 conventional PCI endpoint
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:0a.0: BAR 0 [mem 0x00000000-0x00007fff 64bit]
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:0a.0: BAR 2 [mem 0x00000000-0x0000003f]
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:01.0: BAR 0 [mem 0x180000000-0x18000ffff 64bit]: assigned
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:05.0: BAR 0 [mem 0x180010000-0x18001ffff 64bit]: assigned
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:06.0: BAR 0 [mem 0x180020000-0x18002ffff 64bit]: assigned
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:07.0: BAR 0 [mem 0x180030000-0x18003ffff 64bit]: assigned
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:08.0: BAR 0 [mem 0x180040000-0x18004ffff 64bit]: assigned
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:09.0: BAR 0 [mem 0x180050000-0x18005ffff 64bit]: assigned
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:0a.0: BAR 0 [mem 0x180060000-0x180067fff 64bit]: assigned
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:05.0: BAR 2 [mem 0x50000000-0x5000007f]: assigned
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:09.0: BAR 2 [mem 0x50000080-0x500000ff]: assigned
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:01.0: BAR 2 [mem 0x50000100-0x5000013f]: assigned
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:06.0: BAR 2 [mem 0x50000140-0x5000017f]: assigned
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:07.0: BAR 2 [mem 0x50000180-0x500001bf]: assigned
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:08.0: BAR 2 [mem 0x500001c0-0x500001ff]: assigned
+Nov 17 02:23:50 isu13-s3 kernel: pci 0000:00:0a.0: BAR 2 [mem 0x50000200-0x5000023f]: assigned
+Nov 17 02:23:50 isu13-s3 kernel: pci_bus 0000:00: resource 4 [io  0x0000-0xffff]
+Nov 17 02:23:50 isu13-s3 kernel: pci_bus 0000:00: resource 5 [mem 0x50000000-0x6ffdffff]
+Nov 17 02:23:50 isu13-s3 kernel: pci_bus 0000:00: resource 6 [mem 0x180000000-0x57fffffff]
+Nov 17 02:23:50 isu13-s3 kernel: virtio-pci 0000:00:01.0: enabling device (0000 -> 0002)
+Nov 17 02:23:50 isu13-s3 kernel: virtio-pci 0000:00:05.0: enabling device (0000 -> 0002)
+Nov 17 02:23:50 isu13-s3 kernel: virtio-pci 0000:00:06.0: enabling device (0000 -> 0002)
+Nov 17 02:23:50 isu13-s3 kernel: virtio-pci 0000:00:07.0: enabling device (0000 -> 0002)
+Nov 17 02:23:50 isu13-s3 kernel: virtio-pci 0000:00:08.0: enabling device (0000 -> 0002)
+Nov 17 02:23:50 isu13-s3 kernel: virtiofs virtio4: discovered new tag: virtiofs
+Nov 17 02:23:50 isu13-s3 kernel: virtiofs virtio4: virtio_fs_setup_dax: No cache capability
+Nov 17 02:23:50 isu13-s3 kernel: virtio-pci 0000:00:09.0: enabling device (0000 -> 0002)
+Nov 17 02:23:50 isu13-s3 kernel: virtio-pci 0000:00:0a.0: enabling device (0000 -> 0002)
+Nov 17 02:23:50 isu13-s3 kernel: Serial: 8250/16550 driver, 4 ports, IRQ sharing disabled
+Nov 17 02:23:50 isu13-s3 kernel: printk: legacy console [hvc0] enabled
+Nov 17 02:23:50 isu13-s3 kernel: random: crng init done
+Nov 17 02:23:50 isu13-s3 kernel: brd: module loaded
+Nov 17 02:23:50 isu13-s3 kernel: loop: module loaded
+Nov 17 02:23:50 isu13-s3 kernel: virtio_blk virtio2: 1/0/0 default/read/poll queues
+Nov 17 02:23:50 isu13-s3 kernel: virtio_blk virtio2: [vda] 1064960 512-byte logical blocks (545 MB/520 MiB)
+Nov 17 02:23:50 isu13-s3 kernel: virtio_blk virtio3: 1/0/0 default/read/poll queues
+Nov 17 02:23:50 isu13-s3 kernel: virtio_blk virtio3: [vdb] 1075838976 512-byte logical blocks (551 GB/513 GiB)
+Nov 17 02:23:50 isu13-s3 kernel: tun: Universal TUN/TAP device driver, 1.6
+Nov 17 02:23:50 isu13-s3 kernel: VFIO - User Level meta-driver version: 0.3
+Nov 17 02:23:50 isu13-s3 kernel: rtc-pl031 20050000.pl031: registered as rtc0
+Nov 17 02:23:50 isu13-s3 kernel: rtc-pl031 20050000.pl031: setting system clock to 2026-11-17T02:23:50 UTC (1794882230)
+Nov 17 02:23:50 isu13-s3 kernel: xt_time: kernel timezone is -0000
+Nov 17 02:23:50 isu13-s3 kernel: IPVS: Registered protocols (TCP, UDP, SCTP, AH, ESP)
+Nov 17 02:23:50 isu13-s3 kernel: IPVS: Connection hash table configured (size=4096, memory=32Kbytes)
+Nov 17 02:23:50 isu13-s3 kernel: IPVS: ipvs loaded.
+Nov 17 02:23:50 isu13-s3 kernel: IPVS: [rr] scheduler registered.
+Nov 17 02:23:50 isu13-s3 kernel: IPVS: [wrr] scheduler registered.
+Nov 17 02:23:50 isu13-s3 kernel: IPVS: [lc] scheduler registered.
+Nov 17 02:23:50 isu13-s3 kernel: IPVS: [wlc] scheduler registered.
+Nov 17 02:23:50 isu13-s3 kernel: IPVS: [fo] scheduler registered.
+Nov 17 02:23:50 isu13-s3 kernel: IPVS: [ovf] scheduler registered.
+Nov 17 02:23:50 isu13-s3 kernel: IPVS: [lblc] scheduler registered.
+Nov 17 02:23:50 isu13-s3 kernel: IPVS: [lblcr] scheduler registered.
+Nov 17 02:23:50 isu13-s3 kernel: IPVS: [dh] scheduler registered.
+Nov 17 02:23:50 isu13-s3 kernel: IPVS: [sh] scheduler registered.
+Nov 17 02:23:50 isu13-s3 kernel: IPVS: [sed] scheduler registered.
+Nov 17 02:23:50 isu13-s3 kernel: IPVS: [nq] scheduler registered.
+Nov 17 02:23:50 isu13-s3 kernel: IPVS: [sip] pe registered.
+Nov 17 02:23:50 isu13-s3 kernel: Initializing XFRM netlink socket
+Nov 17 02:23:50 isu13-s3 kernel: NET: Registered PF_INET6 protocol family
+Nov 17 02:23:50 isu13-s3 kernel: Segment Routing with IPv6
+Nov 17 02:23:50 isu13-s3 kernel: In-situ OAM (IOAM) with IPv6
+Nov 17 02:23:50 isu13-s3 kernel: NET: Registered PF_PACKET protocol family
+Nov 17 02:23:50 isu13-s3 kernel: Bridge firewalling registered
+Nov 17 02:23:50 isu13-s3 kernel: 9pnet: Installing 9P2000 support
+Nov 17 02:23:50 isu13-s3 kernel: Key type dns_resolver registered
+Nov 17 02:23:50 isu13-s3 kernel: NET: Registered PF_VSOCK protocol family
+Nov 17 02:23:50 isu13-s3 kernel: registered taskstats version 1
+Nov 17 02:23:50 isu13-s3 kernel: Demotion targets for Node 0: null
+Nov 17 02:23:50 isu13-s3 kernel: alg: No test for fips(ansi_cprng) (fips_ansi_cprng)
+Nov 17 02:23:50 isu13-s3 kernel: clk: Disabling unused clocks
+Nov 17 02:23:50 isu13-s3 kernel: check access for rdinit=/init failed: -2, ignoring
+Nov 17 02:23:50 isu13-s3 kernel: EXT4-fs (vda): mounted filesystem b1fc9fdd-c6e5-4f45-b2be-a6cb41cae9fb ro with ordered data mode. Quota mode: disabled.
+Nov 17 02:23:50 isu13-s3 kernel: VFS: Mounted root (ext4 filesystem) readonly on device 254:0.
+Nov 17 02:23:50 isu13-s3 kernel: devtmpfs: mounted
+Nov 17 02:23:50 isu13-s3 kernel: Freeing unused kernel memory: 4992K
+Nov 17 02:23:50 isu13-s3 kernel: Run /sbin/vminitd as init process
+Nov 17 02:23:50 isu13-s3 kernel:   with arguments:
+Nov 17 02:23:50 isu13-s3 kernel:     /sbin/vminitd
+Nov 17 02:23:50 isu13-s3 kernel:   with environment:
+Nov 17 02:23:50 isu13-s3 kernel:     HOME=/
+Nov 17 02:23:50 isu13-s3 kernel:     TERM=linux
+Nov 17 02:23:50 isu13-s3 kernel:     tsc=reliable
+Nov 17 02:23:50 isu13-s3 kernel: EXT4-fs (vdb): mounted filesystem 1d2d0725-847d-41ca-9fe7-3942165b5362 r/w with ordered data mode. Quota mode: disabled.
+Nov 17 02:23:50 isu13-s3 systemd-journald[18]: Journal started
+Nov 17 02:23:50 isu13-s3 systemd-journald[18]: Runtime Journal (/run/log/journal/aea7018a26224fc48ddfd608e16c7478) is 8.0M, max 80.9M, 72.9M free.
+Nov 17 02:23:50 isu13-s3 systemd[19]: modprobe@configfs.service: Executable /sbin/modprobe missing, skipping: No such file or directory
+Nov 17 02:23:50 isu13-s3 systemd[20]: modprobe@drm.service: Executable /sbin/modprobe missing, skipping: No such file or directory
+Nov 17 02:23:50 isu13-s3 systemd[21]: modprobe@efi_pstore.service: Executable /sbin/modprobe missing, skipping: No such file or directory
+Nov 17 02:23:50 isu13-s3 systemd[22]: modprobe@fuse.service: Executable /sbin/modprobe missing, skipping: No such file or directory
+Nov 17 02:23:50 isu13-s3 systemd[1]: Starting Flush Journal to Persistent Storage...
+Nov 17 02:23:50 isu13-s3 systemd[1]: Finished Create System Users.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Starting Create Static Device Nodes in /dev...
+Nov 17 02:23:50 isu13-s3 systemd-journald[18]: Time spent on flushing to /var/log/journal/aea7018a26224fc48ddfd608e16c7478 is 1.756ms for 273 entries.
+Nov 17 02:23:50 isu13-s3 systemd-journald[18]: System Journal (/var/log/journal/aea7018a26224fc48ddfd608e16c7478) is 16.0M, max 4.0G, 3.9G free.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Finished Create Static Device Nodes in /dev.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Reached target Preparation for Local File Systems.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Reached target Local File Systems.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Condition check resulted in Set Up Additional Binary Formats being skipped.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Condition check resulted in Store a System Token in an EFI Variable being skipped.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Condition check resulted in Commit a transient machine-id on disk being skipped.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Finished Flush Journal to Persistent Storage.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Starting Create Volatile Files and Directories...
+Nov 17 02:23:50 isu13-s3 systemd[1]: Finished Create Volatile Files and Directories.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Starting Record System Boot/Shutdown in UTMP...
+Nov 17 02:23:50 isu13-s3 systemd[1]: Finished Record System Boot/Shutdown in UTMP.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Reached target System Initialization.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Started Daily apt download activities.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Started Daily apt upgrade and clean activities.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Started Daily dpkg database backup timer.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Started Periodic ext4 Online Metadata Check for All Filesystems.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Condition check resulted in Discard unused blocks once a week being skipped.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Started Message of the Day.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Started Daily Cleanup of Temporary Directories.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Reached target Basic System.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Reached target Timer Units.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Listening on D-Bus System Message Bus Socket.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Started D-Bus System Message Bus.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Starting Remove Stale Online ext4 Metadata Check Snapshots...
+Nov 17 02:23:50 isu13-s3 systemd[1]: Condition check resulted in getty on tty2-tty6 if dbus and logind are not available being skipped.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Starting set ISUCON13_POWERDNS_SUBDOMAIN_ADDRESS to this VM's IP (replaces the AWS-only globalip role)...
+Nov 17 02:23:50 isu13-s3 systemd[1]: Starting A high performance web server and a reverse proxy server...
+Nov 17 02:23:50 isu13-s3 systemd[1]: Starting OpenBSD Secure Shell server...
+Nov 17 02:23:50 isu13-s3 systemd[1]: Starting User Login Management...
+Nov 17 02:23:50 isu13-s3 systemd[1]: Starting Permit User Sessions...
+Nov 17 02:23:50 isu13-s3 systemd[1]: Finished Permit User Sessions.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Started Console Getty.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Started Getty on tty1.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Reached target Login Prompts.
+Nov 17 02:23:50 isu13-s3 systemd[1]: e2scrub_reap.service: Deactivated successfully.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Finished Remove Stale Online ext4 Metadata Check Snapshots.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Finished set ISUCON13_POWERDNS_SUBDOMAIN_ADDRESS to this VM's IP (replaces the AWS-only globalip role).
+Nov 17 02:23:50 isu13-s3 systemd[1]: Starting MySQL Community Server...
+Nov 17 02:23:50 isu13-s3 systemd-logind[39]: New seat seat0.
+Nov 17 02:23:50 isu13-s3 sshd[55]: Server listening on 0.0.0.0 port 22.
+Nov 17 02:23:50 isu13-s3 sshd[55]: Server listening on :: port 22.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Started OpenBSD Secure Shell server.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Started User Login Management.
+Nov 17 02:23:50 isu13-s3 systemd[1]: Started A high performance web server and a reverse proxy server.
+Nov 17 02:23:51 isu13-s3 systemd[1]: Started MySQL Community Server.
+Nov 17 02:23:51 isu13-s3 systemd[1]: Started isupipe-go.
+Nov 17 02:23:51 isu13-s3 systemd[1]: Starting PowerDNS Authoritative Server...
+Nov 17 02:23:51 isu13-s3 isupipe[127]:    ____    __
+Nov 17 02:23:51 isu13-s3 isupipe[127]:   / __/___/ /  ___
+Nov 17 02:23:51 isu13-s3 isupipe[127]:  / _// __/ _ \/ _ \
+Nov 17 02:23:51 isu13-s3 isupipe[127]: /___/\__/_//_/\___/ v4.11.1
+Nov 17 02:23:51 isu13-s3 isupipe[127]: High performance, minimalist Go web framework
+Nov 17 02:23:51 isu13-s3 isupipe[127]: https://echo.labstack.com
+Nov 17 02:23:51 isu13-s3 isupipe[127]: ____________________________________O/_______
+Nov 17 02:23:51 isu13-s3 isupipe[127]:                                     O\
+Nov 17 02:23:51 isu13-s3 isupipe[127]: ⇨ http server started on [::]:8080
+Nov 17 02:23:51 isu13-s3 pdns_server[128]: Loading '/usr/lib/aarch64-linux-gnu/pdns/libgmysqlbackend.so'
+Nov 17 02:23:51 isu13-s3 pdns_server[128]: [gmysqlbackend] This is the gmysql backend version 4.9.18 (Oct  7 2026 06:11:41) reporting
+Nov 17 02:23:51 isu13-s3 pdns_server[128]: This is a standalone pdns
+Nov 17 02:23:51 isu13-s3 pdns_server[128]: Listening on controlsocket in '/run/pdns/pdns.controlsocket'
+Nov 17 02:23:51 isu13-s3 pdns_server[128]: UDP server bound to 0.0.0.0:53
+Nov 17 02:23:51 isu13-s3 pdns_server[128]: UDP server bound to [::]:53
+Nov 17 02:23:51 isu13-s3 pdns_server[128]: TCP server bound to 0.0.0.0:53
+Nov 17 02:23:51 isu13-s3 pdns_server[128]: TCP server bound to [::]:53
+Nov 17 02:23:51 isu13-s3 pdns_server[128]: PowerDNS Authoritative Server 4.9.18 (C) PowerDNS.COM BV
+Nov 17 02:23:51 isu13-s3 pdns_server[128]: Using 64-bits mode. Built using gcc 11.4.0 on Oct  7 2026 06:11:41 by root@localhost.
+Nov 17 02:23:51 isu13-s3 pdns_server[128]: PowerDNS comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it according to the terms of the GPL version 2.
+Nov 17 02:23:51 isu13-s3 pdns_server[128]: Packet cache disabled, logging queries without HIT/MISS
+Nov 17 02:23:51 isu13-s3 pdns_server[128]: [webserver] Listening for HTTP requests on 127.0.0.1:8081
+Nov 17 02:23:51 isu13-s3 pdns_server[128]: gmysql Connection successful. Connected to database 'isudns' on '127.0.0.1'.
+Nov 17 02:23:51 isu13-s3 pdns_server[128]: Creating backend connection for TCP
+Nov 17 02:23:51 isu13-s3 pdns_server[128]: gmysql Connection successful. Connected to database 'isudns' on '127.0.0.1'.
+Nov 17 02:23:51 isu13-s3 pdns_server[128]: About to create 3 backend threads for UDP
+Nov 17 02:23:51 isu13-s3 pdns_server[128]: gmysql Connection successful. Connected to database 'isudns' on '127.0.0.1'.
+Nov 17 02:23:51 isu13-s3 pdns_server[143]: ++ dirname /opt/init_zone_once.sh
+Nov 17 02:23:51 isu13-s3 pdns_server[142]: + cd /opt
+Nov 17 02:23:51 isu13-s3 pdns_server[142]: + test -f /home/isucon/env.sh
+Nov 17 02:23:51 isu13-s3 pdns_server[142]: + source /home/isucon/env.sh
+Nov 17 02:23:51 isu13-s3 pdns_server[142]: ++ ISUCON13_MYSQL_DIALCONFIG_NET=tcp
+Nov 17 02:23:51 isu13-s3 pdns_server[142]: ++ ISUCON13_MYSQL_DIALCONFIG_ADDRESS=127.0.0.1
+Nov 17 02:23:51 isu13-s3 pdns_server[142]: ++ ISUCON13_MYSQL_DIALCONFIG_PORT=3306
+Nov 17 02:23:51 isu13-s3 pdns_server[142]: ++ ISUCON13_MYSQL_DIALCONFIG_USER=isucon
+Nov 17 02:23:51 isu13-s3 pdns_server[142]: ++ ISUCON13_MYSQL_DIALCONFIG_DATABASE=isupipe
+Nov 17 02:23:51 isu13-s3 pdns_server[142]: ++ ISUCON13_MYSQL_DIALCONFIG_PARSETIME=true
+Nov 17 02:23:51 isu13-s3 pdns_server[142]: ++ ISUCON13_POWERDNS_SUBDOMAIN_ADDRESS=10.99.0.11
+Nov 17 02:23:51 isu13-s3 pdns_server[142]: ++ ISUCON13_POWERDNS_DISABLED=false
+Nov 17 02:23:51 isu13-s3 pdns_server[142]: + ISUCON_SUBDOMAIN_ADDRESS=10.99.0.11
+Nov 17 02:23:51 isu13-s3 pdns_server[145]: + pdnsutil list-all-zones
+Nov 17 02:23:51 isu13-s3 pdns_server[146]: + grep u.isucon.dev
+Nov 17 02:23:51 isu13-s3 pdns_server[145]: Nov 17 02:23:51 gmysql Connection successful. Connected to database 'isudns' on '127.0.0.1'.
+Nov 17 02:23:51 isu13-s3 pdns_server[145]: Nov 17 02:23:51 gmysql Connection successful. Connected to database 'isudns' on '127.0.0.1'.
+Nov 17 02:23:51 isu13-s3 pdns_server[146]: u.isucon.dev
+Nov 17 02:23:51 isu13-s3 pdns_server[142]: + exit
+Nov 17 02:23:51 isu13-s3 systemd[1]: Started PowerDNS Authoritative Server.
+Nov 17 02:23:51 isu13-s3 systemd[1]: Reached target Multi-User System.
+Nov 17 02:23:51 isu13-s3 systemd[1]: Reached target Graphical Interface.
+Nov 17 02:23:51 isu13-s3 systemd[1]: Starting Record Runlevel Change in UTMP...
+Nov 17 02:23:51 isu13-s3 systemd[1]: systemd-update-utmp-runlevel.service: Deactivated successfully.
+Nov 17 02:23:51 isu13-s3 systemd[1]: Finished Record Runlevel Change in UTMP.
+Nov 17 02:23:51 isu13-s3 systemd[1]: Startup finished in 647ms.
+Nov 17 02:23:51 isu13-s3 pdns_server[128]: gmysql Connection successful. Connected to database 'isudns' on '127.0.0.1'.
+Nov 17 02:23:51 isu13-s3 pdns_server[128]: gmysql Connection successful. Connected to database 'isudns' on '127.0.0.1'.
+Nov 17 02:23:51 isu13-s3 pdns_server[128]: Done launching threads, ready to distribute questions
+Nov 17 02:23:58 isu13-s3 kernel: TCP: eth0: Driver has suspect GRO implementation, TCP performance may be compromised.

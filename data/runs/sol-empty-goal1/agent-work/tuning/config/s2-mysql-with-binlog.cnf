@@ -1,0 +1,6 @@
+[mysqld]
+bind-address=0.0.0.0
+innodb_buffer_pool_size=2G
+# Group durable commits without relaxing fsync guarantees.
+binlog_group_commit_sync_delay=1000
+binlog_group_commit_sync_no_delay_count=10
