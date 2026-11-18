@@ -36,6 +36,10 @@ die() { log "ERROR: $*"; exit 1; }
 [[ "$RUN_ID" =~ ^[A-Za-z0-9._-]+$ ]] || die "run-id は英数字と . _ - だけ"
 [[ "$RUN_MINUTES" =~ ^[0-9]+$ ]] || die "RUN_MINUTES は整数"
 GOAL=${GOAL:-0}
+# 環境変数 GOAL_TEXT: GOAL=1 のとき、/goal の文の起動の1行の後ろに足す文（2026-11-18 追加）。
+#   11/17 の /goal 4本は時間の条件が無く、AI が早く「達成」と判断して止まったので、「競技の終了まで止まらない」を足して比べる。
+GOAL_TEXT=${GOAL_TEXT:-}
+[ -z "$GOAL_TEXT" ] || [ "$GOAL" = 1 ] || die "GOAL_TEXT は GOAL=1 のときだけ"
 [[ "$GOAL" =~ ^[01]$ ]] || die "GOAL は 0 か 1"
 PROMPT_FILE="prompts/$PROMPT.md"
 [ -f "$PROMPT_FILE" ] || die "$PROMPT_FILE が無い(指示ファイルは親が用意する)"
@@ -119,7 +123,7 @@ else
   container exec "$AGENT" chmod 600 /home/isucon/.codex/auth.json
   if [ "$GOAL" = 1 ]; then
     AGENT_CMD=(codex --model "$MODEL_ID" --dangerously-bypass-approvals-and-sandbox)
-    GOAL_LINE="/goal $LAUNCH_LINE"
+    GOAL_LINE="/goal $LAUNCH_LINE${GOAL_TEXT:+ $GOAL_TEXT}"
   else
     AGENT_CMD=(codex exec --model "$MODEL_ID" --dangerously-bypass-approvals-and-sandbox --json "$LAUNCH_LINE")
   fi
