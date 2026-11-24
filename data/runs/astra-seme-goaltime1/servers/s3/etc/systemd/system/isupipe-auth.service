@@ -1,0 +1,12 @@
+[Unit]
+Description=ISUPipe bcrypt worker
+After=network.target
+[Service]
+User=isucon
+Environment=AUTH_CACHE=1
+WorkingDirectory=/home/isucon/webapp/authworker
+ExecStart=/home/isucon/webapp/authworker/authworker
+Restart=always
+RestartSec=1
+[Install]
+WantedBy=multi-user.target

@@ -7,7 +7,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Node.js 22(arm64)
 RUN curl -fsSL "https://nodejs.org/dist/latest-v22.x/$(curl -fsSL https://nodejs.org/dist/latest-v22.x/ | grep -o 'node-v22[^"]*linux-arm64.tar.xz' | head -1)" | tar -xJ -C /usr/local --strip-components=1
 RUN npm install -g @anthropic-ai/claude-code @openai/codex \
-    && { echo "node $(node --version)"; echo "claude-code $(claude --version)"; echo "codex $(codex --version)"; } > /etc/agent-versions.txt \
+    && curl -fsSL https://antigravity.google/cli/install.sh | bash -s -- -d /usr/local/bin \
+    && { echo "node $(node --version)"; echo "claude-code $(claude --version)"; echo "codex $(codex --version)"; echo "agy $(agy --version)"; } > /etc/agent-versions.txt \
     && cat /etc/agent-versions.txt
 RUN groupadd -g 1100 isucon && useradd -m -u 1100 -g isucon -s /bin/bash isucon
 COPY --chown=isucon:isucon keys/isucon /home/isucon/.ssh/id_isucon

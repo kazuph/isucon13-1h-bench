@@ -1,0 +1,11 @@
+{"at":"2026-11-17T05:08:15Z","event":"start","detail":"model=gpt-6-astra prompt=seme2 minutes=60"}
+{"at":"2026-11-17T05:25:43Z","event":"server_down","detail":"isu13-s1 state=stopped"}
+{"at":"2026-11-17T05:25:44Z","event":"server_restarted","detail":"isu13-s1"}
+{"at":"2026-11-17T05:25:44Z","event":"server_down","detail":"isu13-s2 state=stopped"}
+{"at":"2026-11-17T05:25:44Z","event":"server_restarted","detail":"isu13-s2"}
+{"at":"2026-11-17T05:25:44Z","event":"server_down","detail":"isu13-s3 state=stopped"}
+{"at":"2026-11-17T05:25:45Z","event":"server_restarted","detail":"isu13-s3"}
+{"at":"2026-11-17T05:29:16Z","event":"agent_exited","detail":"exit=0"}
+{"at":"2026-11-17T05:29:16Z","event":"codex_auth_saved","detail":"ok"}
+{"at":"2026-11-17T05:29:41Z","event":"s1_entry_ready","detail":"yes after 13s"}
+{"at":"2026-11-17T05:30:48Z","event":"final_bench","detail":"{\"run_id\":\"astra-seme2-1\",\"started_at\":\"2026-11-17T05:29:41.597Z\",\"ended_at\":\"2026-11-17T05:30:48.321Z\",\"elapsed_s\":1354,\"host_loadavg\":\"3.86 3.92 5.24\",\"final\":true,\"exit_code\":0,\"pass\":true,\"score\":266916,\"messages\":[\"[一般エラー] GET /api/livestream/7528/report へのリクエストに対して、期待されたHTTPステータスコードが確認できませんでした"}

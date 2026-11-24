@@ -1,0 +1,8 @@
+baseline/
+app/isupipe
+logs/
+artifacts/
+backups/
+toolchain/
+test-app/
+__pycache__/

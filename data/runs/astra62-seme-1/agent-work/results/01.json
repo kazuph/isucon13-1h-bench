@@ -1,0 +1,21 @@
+{
+  "run_id": "astra62-seme-1",
+  "started_at": "2026-11-20T13:42:14.702Z",
+  "ended_at": "2026-11-20T13:43:35.662Z",
+  "elapsed_s": 96,
+  "host_loadavg": "21.51 25.86 21.81",
+  "final": false,
+  "exit_code": 0,
+  "pass": true,
+  "score": 8865,
+  "messages": [
+    "[一般エラー] POST /api/livestream/7529/livecomment/1034/report へのリクエストに対して、期待されたHTTPステータスコードが確認できませんでした (expected:201, actual:404)",
+    "[一般エラー] POST /api/livestream/7529/livecomment/1039/report へのリクエストに対して、期待されたHTTPステータスコードが確認できませんでした (expected:201, actual:404)",
+    "[一般エラー] POST /api/livestream/7529/livecomment/1044/report へのリクエストに対して、期待されたHTTPステータスコードが確認できませんでした (expected:201, actual:404)",
+    "[一般エラー] POST /api/livestream/7538/livecomment/1117/report へのリクエストに対して、期待されたHTTPステータスコードが確認できませんでした (expected:201, actual:404)",
+    "名前解決成功数 10977",
+    "売上: 8865"
+  ],
+  "language": "golang",
+  "resolved_count": 10977
+}

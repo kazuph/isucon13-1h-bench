@@ -1,0 +1,5 @@
+WITH RECURSIVE byte_values(n) AS (SELECT 0 UNION ALL SELECT n+1 FROM byte_values WHERE n<255)
+SELECT a.n*256+b.n AS codepoint, HEX(WEIGHT_STRING(CONVERT(CONVERT(UNHEX(LPAD(HEX(a.n*256+b.n),8,'0')) USING utf32) USING utf8mb4) COLLATE utf8mb4_general_ci)) AS weight
+FROM byte_values a CROSS JOIN byte_values b
+WHERE a.n*256+b.n NOT BETWEEN 55296 AND 57343 ORDER BY codepoint;
+SELECT 128512,HEX(WEIGHT_STRING(_utf8mb4 0xF09F9880 COLLATE utf8mb4_general_ci));

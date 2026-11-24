@@ -1,0 +1,17 @@
+[Unit]
+Description=ISUPipe durable group transaction service
+After=network.target mysql.service
+Requires=mysql.service
+
+[Service]
+User=isucon
+ExecStart=/home/isucon/webapp/go/isupipe-persist
+Environment=GOMAXPROCS=2
+Environment=PERSIST_WORKERS=8
+Environment=PERSIST_BATCH_US=0
+Restart=always
+RestartSec=2
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

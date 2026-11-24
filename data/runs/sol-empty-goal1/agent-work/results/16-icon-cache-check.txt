@@ -1,0 +1,2 @@
+PASS http://10.99.0.11:8080 icon update and conditional GET 0.512 seconds
+PASS http://10.99.0.13:8080 icon update and conditional GET 0.548 seconds

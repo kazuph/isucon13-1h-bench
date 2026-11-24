@@ -1,0 +1,17 @@
+{
+  "run_id": "astra62-seme-1",
+  "started_at": "2026-11-20T13:47:31.179Z",
+  "ended_at": "2026-11-20T13:47:33.598Z",
+  "elapsed_s": 334,
+  "host_loadavg": "6.42 14.61 17.74",
+  "final": false,
+  "exit_code": 0,
+  "pass": false,
+  "score": 0,
+  "messages": [
+    "整合性チェックに失敗しました",
+    "名前解決エラー: 「ms-sql-s.u.isucon.dev」の名前解決に失敗しました。「10.99.0.13」はサーバーリストに含まれていません"
+  ],
+  "language": "golang",
+  "resolved_count": 0
+}

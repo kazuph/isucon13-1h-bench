@@ -1,0 +1,24 @@
+[Unit]
+Description=isupipe-go
+After=syslog.target network-online.target isucon-ip.service
+Wants=network-online.target
+
+[Service]
+WorkingDirectory=/home/isucon/webapp/go
+EnvironmentFile=/home/isucon/env.sh
+Environment="ISUCON13_UNIX_SOCK=/run/isupipe/isupipe.sock"
+
+User=isucon
+Group=isucon
+RuntimeDirectory=isupipe
+RuntimeDirectoryMode=0755
+LimitNOFILE=65536
+ExecStart=/home/isucon/webapp/go/isupipe
+ExecStop=/bin/kill -s QUIT $MAINPID
+TimeoutStopSec=15
+
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

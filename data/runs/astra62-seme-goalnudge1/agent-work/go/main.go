@@ -1,0 +1,384 @@
+package main
+
+// ISUCON的な参考: https://github.com/isucon/isucon12-qualify/blob/main/webapp/go/isuports.go#L336
+// sqlx的な参考: https://jmoiron.github.io/sqlx/
+
+import (
+	"context"
+	"errors"
+	"fmt"
+	"log"
+	"net"
+	"net/http"
+	_ "net/http/pprof"
+	"os"
+	"os/exec"
+	"os/signal"
+	"strconv"
+	"sync"
+	"syscall"
+	"time"
+
+	"github.com/go-sql-driver/mysql"
+	"github.com/jmoiron/sqlx"
+	"github.com/labstack/echo/v4"
+
+	"github.com/gorilla/sessions"
+
+	echolog "github.com/labstack/gommon/log"
+)
+
+const (
+	listenPort                     = 8080
+	powerDNSSubdomainAddressEnvKey = "ISUCON13_POWERDNS_SUBDOMAIN_ADDRESS"
+)
+
+var (
+	powerDNSSubdomainAddress string
+	dbConn                   *sqlx.DB
+	secret                   = []byte("isucon13_session_cookiestore_defaultsecret")
+)
+
+var cookieStore *sessions.CookieStore
+
+func init() {
+	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+	if secretKey, ok := os.LookupEnv("ISUCON13_SESSION_SECRETKEY"); ok {
+		secret = []byte(secretKey)
+	}
+	cookieStore = sessions.NewCookieStore(secret)
+	cookieStore.Options.Domain = "*.u.isucon.dev"
+}
+
+type InitializeResponse struct {
+	Lang     string `json:"lang"`
+	Language string `json:"language"`
+}
+
+func connectDB(logger echo.Logger) (*sqlx.DB, error) {
+	const (
+		networkTypeEnvKey = "ISUCON13_MYSQL_DIALCONFIG_NET"
+		addrEnvKey        = "ISUCON13_MYSQL_DIALCONFIG_ADDRESS"
+		portEnvKey        = "ISUCON13_MYSQL_DIALCONFIG_PORT"
+		userEnvKey        = "ISUCON13_MYSQL_DIALCONFIG_USER"
+		passwordEnvKey    = "ISUCON13_MYSQL_DIALCONFIG_PASSWORD"
+		dbNameEnvKey      = "ISUCON13_MYSQL_DIALCONFIG_DATABASE"
+		parseTimeEnvKey   = "ISUCON13_MYSQL_DIALCONFIG_PARSETIME"
+	)
+
+	conf := mysql.NewConfig()
+
+	// 環境変数がセットされていなかった場合でも一旦動かせるように、デフォルト値を入れておく
+	// この挙動を変更して、エラーを出すようにしてもいいかもしれない
+	conf.Net = "tcp"
+	conf.Addr = net.JoinHostPort("127.0.0.1", "3306")
+	conf.User = "isucon"
+	conf.Passwd = "isucon"
+	conf.DBName = "isupipe"
+	conf.ParseTime = true
+	conf.InterpolateParams = true
+
+	if v, ok := os.LookupEnv(networkTypeEnvKey); ok {
+		conf.Net = v
+	}
+	if addr, ok := os.LookupEnv(addrEnvKey); ok {
+		if port, ok2 := os.LookupEnv(portEnvKey); ok2 {
+			conf.Addr = net.JoinHostPort(addr, port)
+		} else {
+			conf.Addr = net.JoinHostPort(addr, "3306")
+		}
+	}
+	if v, ok := os.LookupEnv(userEnvKey); ok {
+		conf.User = v
+	}
+	if v, ok := os.LookupEnv(passwordEnvKey); ok {
+		conf.Passwd = v
+	}
+	if v, ok := os.LookupEnv(dbNameEnvKey); ok {
+		conf.DBName = v
+	}
+	if v, ok := os.LookupEnv(parseTimeEnvKey); ok {
+		parseTime, err := strconv.ParseBool(v)
+		if err != nil {
+			return nil, fmt.Errorf("failed to parse environment variable '%s' as bool: %+v", parseTimeEnvKey, err)
+		}
+		conf.ParseTime = parseTime
+	}
+
+	db, err := sqlx.Open("mysql", conf.FormatDSN())
+	if err != nil {
+		return nil, err
+	}
+	db.SetMaxOpenConns(48)
+	db.SetMaxIdleConns(48)
+
+	if err := db.Ping(); err != nil {
+		return nil, err
+	}
+
+	return db, nil
+}
+
+func initializeHandler(c echo.Context) error {
+	if out, err := exec.Command("../sql/init.sh").CombinedOutput(); err != nil {
+		c.Logger().Warnf("init.sh failed with err=%s", string(out))
+		return echo.NewHTTPError(http.StatusInternalServerError, "failed to initialize: "+err.Error())
+	}
+
+	if _, err := dbConn.Exec("TRUNCATE TABLE registered_domains"); err != nil {
+		return err
+	}
+	if _, err := dbConn.Exec("TRUNCATE TABLE icon_refs"); err != nil {
+		return err
+	}
+	if err := loadCatalog(); err != nil {
+		return err
+	}
+	if os.Getenv("ISUPIPE_ZONE_URL") != "" && zone.db == nil {
+		if err := zoneRequest("reset", ""); err != nil {
+			return err
+		}
+	}
+	if err := loadZone(); err != nil {
+		return err
+	}
+	if zone.db != nil {
+		if err := edge.reset(); err != nil {
+			return err
+		}
+	}
+	if err := loadActivity(); err != nil {
+		return err
+	}
+	if err := loadInventory(); err != nil {
+		return err
+	}
+	if err := resetActivityLog(); err != nil {
+		return err
+	}
+	c.Request().Header.Add("Content-Type", "application/json;charset=utf-8")
+	return c.JSON(http.StatusOK, InitializeResponse{
+		Language: "golang", Lang: "golang",
+	})
+}
+
+func main() {
+	profiler := os.Getenv("ISUPIPE_PPROF_ADDR")
+	if profiler == "" {
+		switch {
+		case os.Getenv("ISUPIPE_ZONE_LISTEN") != "" && os.Getenv("ISUPIPE_INTEGRATED_DNS") != "yes":
+			profiler = "127.0.0.1:6061"
+		case os.Getenv("ISUPIPE_ACCOUNTS_LISTEN") != "":
+			profiler = "127.0.0.1:6062"
+		default:
+			profiler = "127.0.0.1:6060"
+		}
+	}
+	go func() { log.Print(http.ListenAndServe(profiler, nil)) }()
+
+	if addr := os.Getenv("ISUPIPE_ACCOUNTS_LISTEN"); addr != "" {
+		log.Fatal(serveAccounts(addr))
+	}
+	if os.Getenv("ISUPIPE_ZONE_LISTEN") != "" && os.Getenv("ISUPIPE_INTEGRATED_DNS") != "yes" {
+		powerDNSSubdomainAddress = os.Getenv(powerDNSSubdomainAddressEnvKey)
+		if err := runDNS(); err != nil {
+			log.Fatal(err)
+		}
+		log.Fatal(serveZoneControl())
+	}
+
+	e := echo.New()
+	e.Debug = false
+	e.Use(timeRequest)
+	e.Logger.SetLevel(echolog.WARN)
+
+	var epoch sync.RWMutex
+	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) error {
+			if c.Path() == "/api/initialize" {
+				epoch.Lock()
+				defer epoch.Unlock()
+			} else {
+				epoch.RLock()
+				defer epoch.RUnlock()
+			}
+			return next(c)
+		}
+	})
+	// 初期化
+	e.POST("/api/initialize", initializeHandler)
+
+	// top
+	e.GET("/api/tag", getTagHandler)
+	e.GET("/api/user/:username/theme", getStreamerThemeHandler)
+
+	// livestream
+	// reserve livestream
+	e.POST("/api/livestream/reservation", reserve)
+	// list livestream
+	e.GET("/api/livestream/search", searchLivestreamsHandler)
+	e.GET("/api/livestream", getMyLivestreamsHandler)
+	e.GET("/api/user/:username/livestream", getUserLivestreamsHandler)
+	// get livestream
+	e.GET("/api/livestream/:livestream_id", getLivestreamHandler)
+	// get polling livecomment timeline
+	e.GET("/api/livestream/:livestream_id/livecomment", func(c echo.Context) error { return timeline(c, false) })
+	// ライブコメント投稿
+	e.POST("/api/livestream/:livestream_id/livecomment", postComment)
+	e.POST("/api/livestream/:livestream_id/reaction", postReaction)
+	e.GET("/api/livestream/:livestream_id/reaction", func(c echo.Context) error { return timeline(c, true) })
+
+	// (配信者向け)ライブコメントの報告一覧取得API
+	e.GET("/api/livestream/:livestream_id/report", listReports)
+	e.GET("/api/livestream/:livestream_id/ngwords", listWords)
+	// ライブコメント報告
+	e.POST("/api/livestream/:livestream_id/livecomment/:livecomment_id/report", postReport)
+	// 配信者によるモデレーション (NGワード登録)
+	e.POST("/api/livestream/:livestream_id/moderate", moderate)
+
+	// livestream_viewersにINSERTするため必要
+	// ユーザ視聴開始 (viewer)
+	e.POST("/api/livestream/:livestream_id/enter", func(c echo.Context) error { return visit(c, true) })
+	// ユーザ視聴終了 (viewer)
+	e.DELETE("/api/livestream/:livestream_id/exit", func(c echo.Context) error { return visit(c, false) })
+
+	// user
+	e.POST("/api/register", registerAccount)
+	e.POST("/api/login", loginHandler)
+	e.GET("/api/user/me", getMeHandler)
+	// フロントエンドで、配信予約のコラボレーターを指定する際に必要
+	e.GET("/api/user/:username", getUserHandler)
+	e.GET("/api/user/:username/statistics", userStats)
+	e.GET("/api/user/:username/icon", getIconHandler)
+	e.POST("/api/icon", postIconHandler)
+
+	// stats
+	// ライブ配信統計情報
+	e.GET("/api/livestream/:livestream_id/statistics", streamStats)
+
+	// 課金情報
+	e.GET("/api/payment", payment)
+
+	e.HTTPErrorHandler = errorResponseHandler
+
+	// DB接続
+	conn, err := connectDB(e.Logger)
+	if err != nil {
+		e.Logger.Errorf("failed to connect db: %v", err)
+		os.Exit(1)
+	}
+	defer conn.Close()
+	dbConn = conn
+	if err := loadCatalog(); err != nil {
+		log.Fatal(err)
+	}
+	if err := loadActivity(); err != nil {
+		log.Fatal(err)
+	}
+
+	if err := loadInventory(); err != nil {
+		log.Fatal(err)
+	}
+	if err := openActivityLog(); err != nil {
+		log.Fatal(err)
+	}
+	subdomainAddr, ok := os.LookupEnv(powerDNSSubdomainAddressEnvKey)
+	if !ok {
+		e.Logger.Errorf("environ %s must be provided", powerDNSSubdomainAddressEnvKey)
+		os.Exit(1)
+	}
+	powerDNSSubdomainAddress = subdomainAddr
+	if os.Getenv("ISUPIPE_ZONE_DSN") != "" {
+		if err := runDNS(); err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	if os.Getenv("ISUPIPE_INTEGRATED_DNS") == "yes" {
+		if err := startEdgeIcons(); err != nil {
+			log.Fatal(err)
+		}
+		go func() { log.Fatal(zoneControlListener()) }()
+	}
+	// HTTPサーバ起動
+	if path := os.Getenv("ISUPIPE_UNIX_SOCKET"); path != "" {
+		if info, err := os.Lstat(path); err == nil {
+			if info.Mode()&os.ModeSocket == 0 {
+				log.Fatal("configured socket path is not a socket")
+			}
+			if err = os.Remove(path); err != nil {
+				log.Fatal(err)
+			}
+		}
+		listener, err := net.Listen("unix", path)
+		if err != nil {
+			log.Fatal(err)
+		}
+		if err = os.Chmod(path, 0666); err != nil {
+			log.Fatal(err)
+		}
+		go func() { log.Fatal(http.Serve(listener, e)) }()
+	}
+	listenAddr := os.Getenv("ISUPIPE_APP_ADDR")
+	if listenAddr == "" {
+		listenAddr = net.JoinHostPort("", strconv.Itoa(listenPort))
+	}
+	var public *http.Server
+	if addr := os.Getenv("ISUPIPE_TLS_ADDR"); addr != "" {
+		var ln net.Listener
+		public, ln, err = nativeIngress(e, addr)
+		if err != nil {
+			log.Fatal(err)
+		}
+		go func() {
+			if err := public.ServeTLS(ln, "", ""); err != nil && !errors.Is(err, http.ErrServerClosed) {
+				log.Fatal(err)
+			}
+		}()
+	}
+	signals := make(chan os.Signal, 1)
+	signal.Notify(signals, syscall.SIGQUIT, syscall.SIGTERM, syscall.SIGINT)
+	stopped := make(chan struct{})
+	go func() {
+		<-signals
+		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+		defer cancel()
+		if public != nil {
+			if err := public.Shutdown(ctx); err != nil {
+				log.Print(err)
+			}
+		}
+		if err := e.Shutdown(ctx); err != nil {
+			log.Print(err)
+		}
+		epoch.Lock()
+		if err := activityLog.file.Sync(); err != nil {
+			log.Print(err)
+		}
+		epoch.Unlock()
+		close(stopped)
+	}()
+	if err := e.Start(listenAddr); err != nil && !errors.Is(err, http.ErrServerClosed) {
+		log.Fatal(err)
+	}
+	<-stopped
+
+}
+
+type ErrorResponse struct {
+	Error string `json:"error"`
+}
+
+func errorResponseHandler(err error, c echo.Context) {
+	c.Logger().Errorf("error at %s: %+v", c.Path(), err)
+	if he, ok := err.(*echo.HTTPError); ok {
+		if e := c.JSON(he.Code, &ErrorResponse{Error: err.Error()}); e != nil {
+			c.Logger().Errorf("%+v", e)
+		}
+		return
+	}
+
+	if e := c.JSON(http.StatusInternalServerError, &ErrorResponse{Error: err.Error()}); e != nil {
+		c.Logger().Errorf("%+v", e)
+	}
+}

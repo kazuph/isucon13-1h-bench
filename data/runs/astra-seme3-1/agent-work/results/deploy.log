@@ -1,0 +1,6 @@
+ok  	github.com/isucon/isucon13/webapp/go	0.027s
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+curl: (7) Failed to connect to 127.0.0.1 port 8080 after 0 ms: Connection refused
+curl: (7) Failed to connect to 127.0.0.1 port 8080 after 0 ms: Connection refused
+Deployed 047cdda

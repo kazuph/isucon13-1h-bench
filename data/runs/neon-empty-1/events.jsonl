@@ -1,0 +1,6 @@
+{"at":"2026-11-21T13:46:16Z","event":"start","detail":"model=gemini-4-neon-high prompt=empty minutes=60"}
+{"at":"2026-11-21T14:46:20Z","event":"time_up","detail":"AI の VM を止める"}
+{"at":"2026-11-21T14:46:20Z","event":"agy_auth_saved","detail":"ok"}
+{"at":"2026-11-21T14:46:26Z","event":"bench_cut_at_time_up","detail":"実行中のベンチを打ち切った"}
+{"at":"2026-11-21T14:46:40Z","event":"s1_entry_ready","detail":"yes after 5s"}
+{"at":"2026-11-21T14:47:46Z","event":"final_bench","detail":"{\"run_id\":\"neon-empty-1\",\"started_at\":\"2026-11-21T14:46:40.350Z\",\"ended_at\":\"2026-11-21T14:47:46.701Z\",\"elapsed_s\":3690,\"host_loadavg\":\"7.39 4.91 4.40\",\"final\":true,\"exit_code\":0,\"pass\":true,\"score\":437417,\"messages\":[\"[一般エラー] POST /api/livestream/7638/livecomment へのリクエストに対して、期待されたHTTPステータスコードが確認できま"}

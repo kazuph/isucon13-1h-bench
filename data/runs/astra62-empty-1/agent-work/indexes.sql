@@ -1,0 +1,10 @@
+ALTER TABLE icons ADD image_hash CHAR(64) GENERATED ALWAYS AS (SHA2(image,256)) STORED, ADD INDEX(user_id,image_hash);
+ALTER TABLE themes ADD INDEX(user_id);
+ALTER TABLE livestreams ADD INDEX(user_id);
+ALTER TABLE livestream_tags ADD INDEX(livestream_id,tag_id), ADD INDEX(tag_id,livestream_id);
+ALTER TABLE reservation_slots ADD INDEX(start_at,end_at);
+ALTER TABLE livecomments ADD INDEX(livestream_id,created_at), ADD INDEX(livestream_id,tip);
+ALTER TABLE reactions ADD INDEX(livestream_id,created_at);
+ALTER TABLE ng_words ADD INDEX(livestream_id,user_id);
+ALTER TABLE livestream_viewers_history ADD INDEX(livestream_id,user_id);
+ALTER TABLE livecomment_reports ADD INDEX(livestream_id);

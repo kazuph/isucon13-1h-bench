@@ -1,0 +1,15 @@
+[Unit]
+Description=ISUPipe timeline service on the ingress host
+After=network-online.target mysql.service
+[Service]
+User=isucon
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+WorkingDirectory=/home/isucon/webapp/go
+EnvironmentFile=/home/isucon/env.sh
+EnvironmentFile=/home/isucon/zone-client.env
+EnvironmentFile=-/home/isucon/pipe-app.env
+ExecStart=/home/isucon/webapp/go/isupipe
+Restart=on-failure
+RestartSec=2
+[Install]
+WantedBy=multi-user.target

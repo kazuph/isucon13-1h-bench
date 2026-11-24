@@ -1,0 +1,36 @@
+1-gomax-incumbent score=241074 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0}
+1-gomax-candidate score=248915 pass=True {'gomax': 1, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0}
+1-gc-incumbent score=260959 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0}
+1-pool-incumbent score=278548 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0}
+1-pool-candidate score=280345 pass=True {'gomax': 2, 'gc': 100, 'pool': 16, 'workers': 2, 'gzip': 0}
+1-workers-incumbent score=291865 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0}
+1-gzip-incumbent score=292812 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0}
+2-gomax-incumbent score=300242 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0}
+2-gomax-candidate score=294433 pass=True {'gomax': 4, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0}
+1-connections-incumbent score=296951 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 64}
+1-connections-candidate score=301917 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 256}
+1-dns-incumbent score=316876 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 64}
+1-dns-candidate score=311739 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'reuse2', 'http2': 0, 'buffer': 1, 'connections': 64}
+1-dns-candidate score=317160 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'reuse2', 'http2': 0, 'buffer': 1, 'connections': 64}
+1-dns-incumbent score=304360 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 64}
+1-accelerate-incumbent score=312655 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 64, 'accelerate': 0, 'batch': 32}
+1-accelerate-candidate score=320745 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 64, 'accelerate': 1, 'batch': 32}
+1-accelerate-candidate score=314030 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 64, 'accelerate': 1, 'batch': 32}
+1-accelerate-incumbent score=323101 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 64, 'accelerate': 0, 'batch': 32}
+1-accelerate-incumbent score=322147 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 64, 'accelerate': 0, 'batch': 32}
+1-accelerate-candidate score=311120 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 64, 'accelerate': 1, 'batch': 32}
+1-accelerate-candidate score=293278 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 64, 'accelerate': 1, 'batch': 32}
+1-accelerate-incumbent score=299735 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 64, 'accelerate': 0, 'batch': 32}
+1-http2-incumbent score=318010 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 64, 'accelerate': 0, 'batch': 32}
+1-http2-candidate score=319317 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 1, 'buffer': 1, 'connections': 64, 'accelerate': 0, 'batch': 32}
+1-http2-candidate score=320495 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 1, 'buffer': 1, 'connections': 64, 'accelerate': 0, 'batch': 32}
+1-http2-incumbent score=310096 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 64, 'accelerate': 0, 'batch': 32}
+1-gzip-incumbent score=321634 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 64, 'accelerate': 0, 'batch': 32}
+1-gzip-candidate score=304594 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 1, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 64, 'accelerate': 0, 'batch': 32}
+1-gzip-candidate score=302511 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 1, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 64, 'accelerate': 0, 'batch': 32}
+1-gzip-incumbent score=313841 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 64, 'accelerate': 0, 'batch': 32}
+1-batch-incumbent score=318686 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 64, 'accelerate': 0, 'batch': 32}
+1-batch-candidate score=315347 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 64, 'accelerate': 0, 'batch': 64}
+1-batch-candidate score=313227 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 64, 'accelerate': 0, 'batch': 64}
+1-batch-incumbent score=309417 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 64, 'accelerate': 0, 'batch': 32}
+1-gc-incumbent score=318260 pass=True {'gomax': 2, 'gc': 100, 'pool': 32, 'workers': 2, 'gzip': 0, 'dns': 'original', 'http2': 0, 'buffer': 1, 'connections': 64, 'accelerate': 0, 'batch': 32}

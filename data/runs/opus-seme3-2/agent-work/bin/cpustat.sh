@@ -1,0 +1,2 @@
+#!/bin/bash
+ssh ${1:-s1} 'for s in nginx isupipe-go; do echo "$s $(grep usage_usec /sys/fs/cgroup/system.slice/$s.service/cpu.stat 2>/dev/null | cut -d" " -f2)"; done; echo "total $(grep usage_usec /sys/fs/cgroup/cpu.stat|cut -d" " -f2)"; echo "throttled $(grep throttled_usec /sys/fs/cgroup/cpu.stat|cut -d" " -f2) $(grep nr_throttled /sys/fs/cgroup/cpu.stat|cut -d" " -f2)"' | awk 'NF==1{print $1, 0; next}{print}'

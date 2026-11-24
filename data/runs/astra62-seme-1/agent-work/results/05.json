@@ -1,0 +1,17 @@
+{
+  "run_id": "astra62-seme-1",
+  "started_at": "2026-11-20T13:48:01.892Z",
+  "ended_at": "2026-11-20T13:48:01.925Z",
+  "elapsed_s": 362,
+  "host_loadavg": "5.90 13.81 17.36",
+  "final": false,
+  "exit_code": 0,
+  "pass": false,
+  "score": 0,
+  "messages": [
+    "初期化が失敗しました",
+    "initializeのリクエストに失敗しました Post \"https://pipe.u.isucon.dev:443/api/initialize\": 「pipe.u.isucon.dev」の名前解決に失敗しました。「10.99.0.13」はサーバーリストに含まれていません"
+  ],
+  "language": "unknown",
+  "resolved_count": 0
+}

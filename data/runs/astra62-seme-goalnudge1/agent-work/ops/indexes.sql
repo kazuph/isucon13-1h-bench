@@ -1,0 +1,11 @@
+CREATE INDEX stream_owner ON livestreams(user_id);
+CREATE INDEX theme_owner ON themes(user_id);
+CREATE INDEX icon_owner ON icons(user_id);
+CREATE INDEX slot_range ON reservation_slots(start_at,end_at);
+CREATE INDEX stream_tags ON livestream_tags(livestream_id);
+CREATE INDEX tag_streams ON livestream_tags(tag_id,livestream_id);
+CREATE INDEX comment_timeline ON livecomments(livestream_id,created_at,id);
+CREATE INDEX reaction_timeline ON reactions(livestream_id,created_at,id);
+CREATE INDEX report_stream ON livecomment_reports(livestream_id);
+CREATE INDEX word_stream ON ng_words(livestream_id,user_id);
+CREATE INDEX viewer_stream ON livestream_viewers_history(livestream_id,user_id);

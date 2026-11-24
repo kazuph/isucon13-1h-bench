@@ -1,0 +1,1 @@
+{"Version": 2, "mysql_static_variables": {"innodb_buffer_pool_size": {"Value": "2147483648", "Metadata": {"Host": "localhost", "User": "root", "Timestamp": 1794889812957573}}}, "mysql_dynamic_variables": {"innodb_flush_log_at_trx_commit": {"Value": "2", "Metadata": {"Host": "localhost", "User": "root", "Timestamp": 1794890615501719}}}}

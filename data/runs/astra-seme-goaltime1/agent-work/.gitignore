@@ -1,0 +1,7 @@
+go/isupipe
+logs/
+
+**/__pycache__/
+memory/isupipe
+authworker/authworker
+edgedns/edgedns

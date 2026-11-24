@@ -1,0 +1,13 @@
+[Unit]
+Description=ISUPipe account service
+After=network-online.target mysql.service
+[Service]
+User=isucon
+WorkingDirectory=/home/isucon/webapp/go
+EnvironmentFile=/home/isucon/env.sh
+EnvironmentFile=/home/isucon/accounts.env
+ExecStart=/home/isucon/pipe-current/isupipe
+Restart=on-failure
+RestartSec=2
+[Install]
+WantedBy=multi-user.target

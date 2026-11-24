@@ -1,0 +1,12 @@
+=== s1 BEFORE ===
+#kernel
+TcpRetransSegs                  9732               0.0
+TcpExtTW                        26066              0.0
+=== s2 BEFORE ===
+#kernel
+TcpRetransSegs                  0                  0.0
+TcpExtTW                        15                 0.0
+=== s3 BEFORE ===
+#kernel
+TcpRetransSegs                  0                  0.0
+TcpExtTW                        14                 0.0

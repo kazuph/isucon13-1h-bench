@@ -1,0 +1,14 @@
+{"at":"2026-11-18T04:19:25Z","event":"start","detail":"model=gpt-6-astra prompt=seme minutes=60"}
+{"at":"2026-11-18T04:19:28Z","event":"goal_typed","detail":"/goal CONDITIONS.md を読み、今回の条件を確認してから、ISUCON を解いてください。 競技の終了時刻まで作業を止めず、点を上げ続けてください。"}
+{"at":"2026-11-18T04:45:16Z","event":"server_down","detail":"isu13-s1 state=stopped"}
+{"at":"2026-11-18T04:45:17Z","event":"server_restarted","detail":"isu13-s1"}
+{"at":"2026-11-18T04:45:17Z","event":"server_down","detail":"isu13-s2 state=stopped"}
+{"at":"2026-11-18T04:45:18Z","event":"server_restarted","detail":"isu13-s2"}
+{"at":"2026-11-18T04:45:18Z","event":"server_down","detail":"isu13-s3 state=stopped"}
+{"at":"2026-11-18T04:45:19Z","event":"server_restarted","detail":"isu13-s3"}
+{"at":"2026-11-18T04:51:44Z","event":"server_down","detail":"isu13-s2 state=stopped"}
+{"at":"2026-11-18T04:51:44Z","event":"server_restarted","detail":"isu13-s2"}
+{"at":"2026-11-18T05:19:29Z","event":"time_up","detail":"AI の VM を止める"}
+{"at":"2026-11-18T05:19:29Z","event":"codex_auth_saved","detail":"ok"}
+{"at":"2026-11-18T05:20:20Z","event":"s1_entry_ready","detail":"yes after 26s"}
+{"at":"2026-11-18T05:21:28Z","event":"final_bench","detail":"{\"run_id\":\"astra-seme-goaltime1\",\"started_at\":\"2026-11-18T05:20:20.290Z\",\"ended_at\":\"2026-11-18T05:21:27.938Z\",\"elapsed_s\":3722,\"host_loadavg\":\"3.89 3.83 3.87\",\"final\":true,\"exit_code\":0,\"pass\":true,\"score\":413093,\"messages\":[\"[一般エラー] POST /api/livestream/7553/livecomment へのリクエストに対して、期待されたHTTPステータスコ"}

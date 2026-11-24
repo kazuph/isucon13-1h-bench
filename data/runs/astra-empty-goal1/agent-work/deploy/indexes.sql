@@ -1,0 +1,10 @@
+ALTER TABLE icons ADD INDEX icons_user (user_id);
+ALTER TABLE themes ADD INDEX themes_user (user_id);
+ALTER TABLE livestreams ADD INDEX livestreams_user (user_id);
+ALTER TABLE reservation_slots ADD INDEX reservation_time (start_at, end_at);
+ALTER TABLE livestream_tags ADD INDEX livestream_tags_stream (livestream_id, tag_id), ADD INDEX livestream_tags_tag (tag_id, livestream_id);
+ALTER TABLE livestream_viewers_history ADD INDEX viewers_stream_user (livestream_id, user_id);
+ALTER TABLE livecomments ADD INDEX comments_stream_time (livestream_id, created_at), ADD INDEX comments_stream_tip (livestream_id, tip);
+ALTER TABLE livecomment_reports ADD INDEX reports_stream (livestream_id);
+ALTER TABLE ng_words ADD INDEX ngwords_stream_user (livestream_id, user_id);
+ALTER TABLE reactions ADD INDEX reactions_stream_time (livestream_id, created_at);

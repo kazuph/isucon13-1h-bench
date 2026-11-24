@@ -1,0 +1,94 @@
+ICON_304=286466 ICON_200=336 DNS_HIT=1665 DNS_NX=134438 BCRYPT_LOCAL=7331 BCRYPT_OFFLOAD=694 RSA_LOCAL=23445 RSA_OFFLOAD=4068
+ENDPOINT                                                COUNT   TOTAL_MS   AVG_MS     PIPE      SUB
+POST /api/icon                                           4593     7060.5    1.537     4593        0
+POST /api/register                                       4011     5682.3    1.417     4011        0
+POST /api/login                                          4017     5605.5    1.395     4017        0
+GET /api/livestream/:livestream_id/livecomment          26038     1186.1    0.046        0    26038
+GET /api/livestream/:livestream_id/reaction             26069      954.2    0.037        0    26069
+POST /api/initialize                                        1      859.9  859.864        1        0
+GET /api/livestream/search                              14021      716.0    0.051    14021        0
+POST /api/livestream/:livestream_id/livecomment         30313      667.5    0.022        0    30313
+POST /api/livestream/:livestream_id/reaction            23765      394.6    0.017        0    23765
+POST /api/livestream/:livestream_id/moderate             8959      199.8    0.022        0     8959
+GET /api/livestream/:livestream_id/ngwords              13557      146.7    0.011        0    13557
+POST /api/livestream/reservation                         5560      135.1    0.024        0     5560
+GET /api/livestream/:livestream_id/statistics             249      117.3    0.471        0      249
+GET /api/livestream                                     10010      105.7    0.011    10010        0
+GET /api/livestream/:livestream_id/report               18184      101.0    0.006        0    18184
+GET /api/user/:username/statistics                        229       75.0    0.328      229        0
+GET /api/tag                                             5761       27.2    0.005     5761        0
+POST /api/livestream/:livestream_id/enter                2286       14.2    0.006        0     2286
+DELETE /api/livestream/:livestream_id/exit               2276       13.6    0.006        0     2276
+GET /api/user/:username/livestream                        227        6.4    0.028      227        0
+GET /api/user/:username/theme                             228        1.4    0.006      228        0
+POST /api/livestream/:livestream_id/livecomment/:livecomment_id/report       62        1.3    0.021        0       62
+GET /api/payment                                            1        0.3    0.342        1        0
+GET /api/user/me                                            3        0.1    0.025        3        0
+GET /api/user/:username                                     1        0.0    0.004        1        0
+GET /api/livestream/:livestream_id                          1        0.0    0.003        0        1
+
+=== TIMELINE (sec: reqs reg lc tips) ===
+T+01s: reqs=   67 reg=   2 lc=   2 tips=     4
+T+03s: reqs=   75 reg=   0 lc=   1 tips=     0
+T+05s: reqs=   36 reg=   6 lc=   7 tips=   600
+T+06s: reqs= 9297 reg= 103 lc= 575 tips=  8840
+T+07s: reqs= 9352 reg=  93 lc= 602 tips=  9240
+T+08s: reqs= 9619 reg=  96 lc= 604 tips=  9350
+T+09s: reqs= 9146 reg=  93 lc= 540 tips=  9140
+T+10s: reqs= 9538 reg=  95 lc= 593 tips=  9350
+T+11s: reqs= 9220 reg=  97 lc= 595 tips= 10140
+T+12s: reqs= 8553 reg=  88 lc= 539 tips=  8650
+T+13s: reqs= 8738 reg=  91 lc= 501 tips=  7370
+T+14s: reqs= 9060 reg=  94 lc= 562 tips=  8720
+T+15s: reqs= 8589 reg=  93 lc= 530 tips=  8780
+T+16s: reqs= 9032 reg=  95 lc= 616 tips= 10690
+T+17s: reqs= 8780 reg=  94 lc= 542 tips=  8540
+T+18s: reqs= 8128 reg=  89 lc= 491 tips=  7290
+T+19s: reqs= 8720 reg=  94 lc= 546 tips=  8860
+T+20s: reqs= 8499 reg=  92 lc= 527 tips=  7410
+T+21s: reqs= 8758 reg=  95 lc= 568 tips=  8030
+T+22s: reqs= 9093 reg=  97 lc= 523 tips=  7970
+T+23s: reqs= 8214 reg=  93 lc= 564 tips=  9270
+T+24s: reqs= 7968 reg=  85 lc= 455 tips=  6640
+T+25s: reqs= 8430 reg=  88 lc= 505 tips=  7570
+T+26s: reqs= 7576 reg=  86 lc= 501 tips=  7200
+T+27s: reqs= 7928 reg=  89 lc= 514 tips=  7270
+T+28s: reqs= 7248 reg=  83 lc= 442 tips=  6450
+T+29s: reqs= 8147 reg=  92 lc= 473 tips=  7000
+T+30s: reqs= 7990 reg=  89 lc= 502 tips=  7280
+T+31s: reqs= 7290 reg=  80 lc= 457 tips=  6390
+T+32s: reqs= 8024 reg=  91 lc= 502 tips=  7210
+T+33s: reqs= 7166 reg=  85 lc= 453 tips=  6630
+T+34s: reqs= 7964 reg=  91 lc= 459 tips=  6360
+T+35s: reqs= 8684 reg=  99 lc= 589 tips=  8290
+T+36s: reqs= 7253 reg=  86 lc= 488 tips=  6830
+T+37s: reqs= 8391 reg=  95 lc= 523 tips=  7310
+T+38s: reqs= 7860 reg=  90 lc= 486 tips=  6850
+T+39s: reqs= 7269 reg=  82 lc= 460 tips=  6590
+T+40s: reqs= 8024 reg=  92 lc= 431 tips=  5660
+T+41s: reqs= 7872 reg=  91 lc= 495 tips=  6750
+T+42s: reqs= 7311 reg=  91 lc= 462 tips=  6920
+T+43s: reqs= 8614 reg=  95 lc= 509 tips=  6330
+T+44s: reqs= 7150 reg=  87 lc= 470 tips=  6410
+T+45s: reqs= 6762 reg=  87 lc= 420 tips=  5990
+T+46s: reqs= 7276 reg=  83 lc= 423 tips=  6730
+T+47s: reqs= 7611 reg=  93 lc= 452 tips=  6140
+T+48s: reqs= 7062 reg=  86 lc= 415 tips=  6090
+T+49s: reqs= 7017 reg=  82 lc= 425 tips=  6010
+T+50s: reqs= 8188 reg=  11 lc= 508 tips=  7540
+T+51s: reqs= 7349 reg=   0 lc= 503 tips=  7240
+T+52s: reqs= 8774 reg=   0 lc= 497 tips=  6980
+T+53s: reqs= 8219 reg=   0 lc= 498 tips=  6940
+T+54s: reqs= 7740 reg=   0 lc= 519 tips=  6810
+T+55s: reqs= 8112 reg=   0 lc= 519 tips=  7130
+T+56s: reqs= 8034 reg=   0 lc= 493 tips=  6410
+T+57s: reqs= 8121 reg=   0 lc= 551 tips=  7740
+T+58s: reqs= 7549 reg=   0 lc= 481 tips=  6640
+T+59s: reqs= 7947 reg=   0 lc= 458 tips=  6670
+T+60s: reqs= 7823 reg=   0 lc= 455 tips=  6370
+T+61s: reqs= 7968 reg=   0 lc= 516 tips=  6430
+T+62s: reqs= 8412 reg=   0 lc= 543 tips=  7470
+T+63s: reqs= 7566 reg=   0 lc= 479 tips=  6800
+T+64s: reqs= 7443 reg=   0 lc= 469 tips=  6950
+T+65s: reqs= 7474 reg=   0 lc= 475 tips=  5480
+T+66s: reqs=  104 reg=   0 lc=   7 tips=    50

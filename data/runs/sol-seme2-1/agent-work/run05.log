@@ -1,0 +1,1 @@
+{"run_id":"sol-seme2-1","started_at":"2026-11-17T04:32:14.389Z","ended_at":"2026-11-17T04:32:16.256Z","elapsed_s":572,"host_loadavg":"23.01 31.24 34.67","final":false,"exit_code":0,"pass":false,"score":0,"messages":["整合性チェックに失敗しました","名前解決エラー: 「ms-sql-s.u.isucon.dev」の名前解決に失敗しました (rcode=3)"],"language":"golang","resolved_count":0}

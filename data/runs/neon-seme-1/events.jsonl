@@ -1,0 +1,5 @@
+{"at":"2026-11-21T14:47:57Z","event":"start","detail":"model=gemini-4-neon-high prompt=seme minutes=60"}
+{"at":"2026-11-21T15:29:29Z","event":"agent_exited","detail":"exit=3"}
+{"at":"2026-11-21T15:29:29Z","event":"agy_auth_saved","detail":"ok"}
+{"at":"2026-11-21T15:29:55Z","event":"s1_entry_ready","detail":"yes after 14s"}
+{"at":"2026-11-21T15:32:01Z","event":"final_bench","detail":"{\"run_id\":\"neon-seme-1\",\"started_at\":\"2026-11-21T15:29:55.165Z\",\"ended_at\":\"2026-11-21T15:32:01.084Z\",\"elapsed_s\":2644,\"host_loadavg\":\"6.44 4.50 4.55\",\"final\":true,\"exit_code\":0,\"pass\":true,\"score\":495002,\"messages\":[\"[一般エラー] POST /api/livestream/7731/livecomment へのリクエストに対して、期待されたHTTPステータスコードが確認できませ"}

@@ -1,0 +1,13 @@
+CREATE UNIQUE INDEX icons_user ON icons(user_id);
+CREATE INDEX themes_user ON themes(user_id);
+CREATE INDEX streams_user ON livestreams(user_id);
+CREATE INDEX slots_time ON reservation_slots(start_at,end_at);
+CREATE INDEX tags_stream ON livestream_tags(livestream_id,tag_id);
+CREATE INDEX streams_tag ON livestream_tags(tag_id,livestream_id);
+CREATE INDEX viewers_stream ON livestream_viewers_history(livestream_id,user_id);
+CREATE INDEX comments_stream ON livecomments(livestream_id,created_at);
+CREATE INDEX reports_stream ON livecomment_reports(livestream_id);
+CREATE INDEX words_stream ON ng_words(livestream_id,user_id,created_at);
+CREATE INDEX reactions_stream ON reactions(livestream_id,created_at);
+ALTER TABLE icons ADD COLUMN image_hash CHAR(64) AS (SHA2(image,256)) STORED;
+ALTER TABLE livecomments ADD COLUMN moderated BOOLEAN NOT NULL DEFAULT FALSE;

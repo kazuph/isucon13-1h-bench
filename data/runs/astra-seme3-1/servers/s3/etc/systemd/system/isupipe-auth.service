@@ -1,0 +1,13 @@
+[Unit]
+Wants=isucon-announce.service
+After=isucon-announce.service
+Description=ISUPipe bcrypt worker
+After=network.target
+[Service]
+User=isucon
+Environment=AUTH_ONLY=1
+ExecStart=/home/isucon/webapp/current/isupipe
+Restart=always
+RestartSec=1
+[Install]
+WantedBy=multi-user.target

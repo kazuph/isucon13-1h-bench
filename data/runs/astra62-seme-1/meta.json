@@ -1,0 +1,15 @@
+{
+  "run_id": "astra62-seme-1",
+  "model": "astra62",
+  "model_id": "gpt-6.2-astra",
+  "cli": "codex",
+  "prompt": "seme",
+  "command": "codex exec --model gpt-6.2-astra --dangerously-bypass-approvals-and-sandbox --json CONDITIONS.md\\ を読み、今回の条件を確認してから、ISUCON\\ を解いてください。 ",
+  "goal": false,
+  "typed_in_tui": "",
+  "run_minutes": 60,
+  "started_at": "2026-11-20T13:41:59Z",
+  "versions": "node v22.23.5;claude-code 2.1.329 (Claude Code);codex codex-cli 0.171.0;",
+  "agent_ended_at": "2026-11-20T14:03:31Z",
+  "agent_elapsed_s": 1292
+}

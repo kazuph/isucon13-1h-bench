@@ -7,3 +7,8 @@
 __pycache__/
 # VM の中の MySQL の保守用パスワード。公開しない
 data/**/debian.cnf
+PAUSE
+PAUSED
+
+# AI がディスクにキャッシュしたアイコン画像（270MB超）は公開リポジトリに入れない
+data/runs/*/servers/*/home/isucon/webapp/icons/

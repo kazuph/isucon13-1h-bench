@@ -1,0 +1,33 @@
+{
+  "boot_ids": {
+    "s1": {
+      "before": "e7c1a500-c63d-4e86-b4f2-ded4a854c539",
+      "after": "5939ee8b-a341-4144-b194-7b19e58ca2aa"
+    },
+    "s2": {
+      "before": "cc40dfa4-3419-46d4-84b3-673879208833",
+      "after": "28ce7cf7-255e-49c0-88f4-983f7ead7944"
+    },
+    "s3": {
+      "before": "adbcf234-31ff-437b-9406-309e9a32fd88",
+      "after": "34263887-04a3-45a2-b483-51cc76a43662"
+    }
+  },
+  "identical_api_snapshot": true,
+  "sha256": "54751eac76eb5d779faa43ae8423a9f4456801b162491832b853eb8676db566e",
+  "compared": [
+    "comments",
+    "dns",
+    "icon",
+    "latest",
+    "owner",
+    "payment",
+    "reactions",
+    "stream_stats",
+    "user_stats"
+  ],
+  "payment": {
+    "total_tip": 300830
+  },
+  "stream_id": 8893
+}

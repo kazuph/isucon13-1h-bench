@@ -1,0 +1,12 @@
+ALTER TABLE icons ADD UNIQUE INDEX idx_user(user_id);
+ALTER TABLE themes ADD INDEX idx_user(user_id);
+ALTER TABLE livestreams ADD INDEX idx_user(user_id);
+ALTER TABLE livestream_tags ADD INDEX idx_stream(livestream_id), ADD INDEX idx_tag(tag_id,livestream_id);
+ALTER TABLE reservation_slots ADD INDEX idx_time(start_at,end_at);
+ALTER TABLE livestream_viewers_history ADD INDEX idx_stream(livestream_id,user_id);
+ALTER TABLE livecomments ADD INDEX idx_stream(livestream_id,created_at);
+ALTER TABLE livecomment_reports ADD INDEX idx_stream(livestream_id);
+ALTER TABLE ng_words ADD INDEX idx_stream(livestream_id,user_id);
+ALTER TABLE reactions ADD INDEX idx_stream(livestream_id,created_at);
+ALTER TABLE isudns.records ADD INDEX idx_name_type(name,type);
+CREATE TABLE IF NOT EXISTS archived_livecomments LIKE livecomments;

@@ -1,0 +1,23 @@
+[Unit]
+Description=isupipe-go
+After=network-online.target isucon-ip.service
+
+[Service]
+WorkingDirectory=/home/isucon/webapp/go
+EnvironmentFile=-/home/isucon/env.sh
+EnvironmentFile=/home/isucon/isupipe.env
+
+User=isucon
+Group=isucon
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+LimitNOFILE=65536
+ExecStart=/home/isucon/webapp/go/isupipe
+KillSignal=SIGTERM
+TimeoutStopSec=15
+
+Restart=on-failure
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target

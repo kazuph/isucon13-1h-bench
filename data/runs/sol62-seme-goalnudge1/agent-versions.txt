@@ -1,0 +1,4 @@
+node v22.23.5
+claude-code 2.1.329 (Claude Code)
+codex codex-cli 0.171.0
+tmux 3.2a

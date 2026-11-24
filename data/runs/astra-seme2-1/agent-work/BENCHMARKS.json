@@ -1,0 +1,82 @@
+[
+  {
+    "log": "logs/bench-initial.log",
+    "started_at": "2026-11-17T05:08:44.362Z",
+    "ended_at": "2026-11-17T05:10:01.635Z",
+    "pass": true,
+    "score": 9049,
+    "resolved_count": 11728
+  },
+  {
+    "log": "logs/bench-memory1.log",
+    "started_at": "2026-11-17T05:13:13.185Z",
+    "ended_at": "2026-11-17T05:13:14.864Z",
+    "pass": false,
+    "score": 0,
+    "resolved_count": 0
+  },
+  {
+    "log": "logs/bench-memory2.log",
+    "started_at": "2026-11-17T05:13:31.576Z",
+    "ended_at": "2026-11-17T05:14:38.550Z",
+    "pass": true,
+    "score": 241112,
+    "resolved_count": 162954
+  },
+  {
+    "log": "logs/bench-split1.log",
+    "started_at": "2026-11-17T05:16:01.826Z",
+    "ended_at": "2026-11-17T05:16:01.894Z",
+    "pass": false,
+    "score": 0,
+    "resolved_count": 0
+  },
+  {
+    "log": "logs/bench-split2.log",
+    "started_at": "2026-11-17T05:16:24.762Z",
+    "ended_at": "2026-11-17T05:17:31.882Z",
+    "pass": true,
+    "score": 237789,
+    "resolved_count": 85754
+  },
+  {
+    "log": "logs/bench-index1.log",
+    "started_at": "2026-11-17T05:18:01.997Z",
+    "ended_at": "2026-11-17T05:18:04.045Z",
+    "pass": false,
+    "score": 0,
+    "resolved_count": 0
+  },
+  {
+    "log": "logs/bench-index2.log",
+    "started_at": "2026-11-17T05:18:21.596Z",
+    "ended_at": "2026-11-17T05:19:29.473Z",
+    "pass": true,
+    "score": 250283,
+    "resolved_count": 134180
+  },
+  {
+    "log": "logs/bench-batch1.log",
+    "started_at": "2026-11-17T05:20:12.615Z",
+    "ended_at": "2026-11-17T05:21:19.401Z",
+    "pass": true,
+    "score": 262893,
+    "resolved_count": 129804
+  },
+  {
+    "log": "logs/bench-finalcandidate1.log",
+    "started_at": "2026-11-17T05:22:44.029Z",
+    "ended_at": "2026-11-17T05:23:50.892Z",
+    "pass": true,
+    "score": 262523,
+    "resolved_count": 130273
+  },
+  {
+    "log": "logs/bench-reboot1.log",
+    "started_at": "2026-11-17T05:26:55.432Z",
+    "ended_at": "2026-11-17T05:28:02.101Z",
+    "pass": true,
+    "score": 270758,
+    "resolved_count": 130000
+  }
+]
