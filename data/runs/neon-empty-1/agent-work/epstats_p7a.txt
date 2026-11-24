@@ -1,0 +1,5 @@
+ICON_304=289343 ICON_200=312 DNS_HIT=1711 DNS_NX=130355 BCRYPT_LOCAL=8025 BCRYPT_OFFLOAD=0 RSA_LOCAL=28913 RSA_OFFLOAD=0
+ENDPOINT                                                COUNT   TOTAL_MS   AVG_MS     PIPE      SUB
+
+=== TIMELINE (sec: reqs reg lc tips) ===
+T+01s: reqs=    1 reg=   2 lc=   2 tips=     9

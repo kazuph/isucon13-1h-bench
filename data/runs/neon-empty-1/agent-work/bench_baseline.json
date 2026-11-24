@@ -1,0 +1,1 @@
+{"run_id":"neon-empty-1","started_at":"2026-11-21T13:46:49.184Z","ended_at":"2026-11-21T13:48:06.917Z","elapsed_s":110,"host_loadavg":"4.76 3.63 3.36","final":false,"exit_code":0,"pass":true,"score":8861,"messages":["名前解決成功数 11497","売上: 8861"],"language":"golang","resolved_count":11497}

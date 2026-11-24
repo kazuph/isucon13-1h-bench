@@ -1,0 +1,752 @@
+Nov 20 13:40:26 isu13-s2 kernel: Booting Linux on physical CPU 0x0000000000 [0x610f0000]
+Nov 20 13:40:26 isu13-s2 kernel: Linux version 6.18.56 (@f06c1e042bae) (gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #1 SMP Fri Oct 16 18:41:09 UTC 2026
+Nov 20 13:40:26 isu13-s2 kernel: KASLR enabled
+Nov 20 13:40:26 isu13-s2 kernel: efi: UEFI not found.
+Nov 20 13:40:26 isu13-s2 kernel: OF: reserved mem: Reserved memory: No reserved-memory node in the DT
+Nov 20 13:40:26 isu13-s2 kernel: NUMA: Faking a node at [mem 0x0000000070000000-0x0000000177ffffff]
+Nov 20 13:40:26 isu13-s2 kernel: NODE_DATA(0) allocated [mem 0x1777bf340-0x1777c1cbf]
+Nov 20 13:40:26 isu13-s2 kernel: Zone ranges:
+Nov 20 13:40:26 isu13-s2 kernel:   DMA      [mem 0x0000000070000000-0x00000000ffffffff]
+Nov 20 13:40:26 isu13-s2 kernel:   Normal   [mem 0x0000000100000000-0x0000000177ffffff]
+Nov 20 13:40:26 isu13-s2 kernel:   Device   empty
+Nov 20 13:40:26 isu13-s2 kernel: Movable zone start for each node
+Nov 20 13:40:26 isu13-s2 kernel: Early memory node ranges
+Nov 20 13:40:26 isu13-s2 kernel:   node   0: [mem 0x0000000070000000-0x0000000177ffffff]
+Nov 20 13:40:26 isu13-s2 kernel: Initmem setup node 0 [mem 0x0000000070000000-0x0000000177ffffff]
+Nov 20 13:40:26 isu13-s2 kernel: psci: probing for conduit method from DT.
+Nov 20 13:40:26 isu13-s2 kernel: psci: PSCIv1.1 detected in firmware.
+Nov 20 13:40:26 isu13-s2 kernel: psci: Using standard PSCI v0.2 function IDs
+Nov 20 13:40:26 isu13-s2 kernel: psci: Trusted OS migration not required
+Nov 20 13:40:26 isu13-s2 kernel: psci: SMC Calling Convention v1.1
+Nov 20 13:40:26 isu13-s2 kernel: percpu: Embedded 29 pages/cpu s86168 r0 d32616 u118784
+Nov 20 13:40:26 isu13-s2 kernel: pcpu-alloc: s86168 r0 d32616 u118784 alloc=29*4096
+Nov 20 13:40:26 isu13-s2 kernel: pcpu-alloc: [0] 0 [0] 1 [0] 2 
+Nov 20 13:40:26 isu13-s2 kernel: Detected PIPT I-cache on CPU0
+Nov 20 13:40:26 isu13-s2 kernel: CPU features: detected: GICv3 CPU interface
+Nov 20 13:40:26 isu13-s2 kernel: CPU features: detected: Spectre-v4
+Nov 20 13:40:26 isu13-s2 kernel: CPU features: detected: Spectre-BHB
+Nov 20 13:40:26 isu13-s2 kernel: CPU features: kernel page table isolation disabled by kernel configuration
+Nov 20 13:40:26 isu13-s2 kernel: alternatives: applying boot alternatives
+Nov 20 13:40:26 isu13-s2 kernel: Kernel command line: console=hvc0 tsc=reliable panic=0 oops=panic lsm=lockdown,capability,landlock,yama,apparmor init=/sbin/vminitd ro rootfstype=ext4 root=/dev/vda
+Nov 20 13:40:26 isu13-s2 kernel: Unknown kernel command line parameters "tsc=reliable", will be passed to user space.
+Nov 20 13:40:26 isu13-s2 kernel: printk: log buffer data + meta data: 131072 + 458752 = 589824 bytes
+Nov 20 13:40:26 isu13-s2 kernel: Dentry cache hash table entries: 1048576 (order: 11, 8388608 bytes, linear)
+Nov 20 13:40:26 isu13-s2 kernel: Inode-cache hash table entries: 524288 (order: 10, 4194304 bytes, linear)
+Nov 20 13:40:26 isu13-s2 kernel: software IO TLB: area num 4.
+Nov 20 13:40:26 isu13-s2 kernel: software IO TLB: mapped [mem 0x00000000fbfff000-0x00000000fffff000] (64MB)
+Nov 20 13:40:26 isu13-s2 kernel: Fallback order for Node 0: 0 
+Nov 20 13:40:26 isu13-s2 kernel: Built 1 zonelists, mobility grouping on.  Total pages: 1081344
+Nov 20 13:40:26 isu13-s2 kernel: Policy zone: Normal
+Nov 20 13:40:26 isu13-s2 kernel: mem auto-init: stack:off, heap alloc:off, heap free:off
+Nov 20 13:40:26 isu13-s2 kernel: SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=3, Nodes=1
+Nov 20 13:40:26 isu13-s2 kernel: ftrace: allocating 45619 entries in 180 pages
+Nov 20 13:40:26 isu13-s2 kernel: ftrace: allocated 180 pages with 4 groups
+Nov 20 13:40:26 isu13-s2 kernel: rcu: Hierarchical RCU implementation.
+Nov 20 13:40:26 isu13-s2 kernel: rcu:         RCU restricting CPUs from NR_CPUS=255 to nr_cpu_ids=3.
+Nov 20 13:40:26 isu13-s2 kernel:         Rude variant of Tasks RCU enabled.
+Nov 20 13:40:26 isu13-s2 kernel:         Tracing variant of Tasks RCU enabled.
+Nov 20 13:40:26 isu13-s2 kernel: rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+Nov 20 13:40:26 isu13-s2 kernel: rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=3
+Nov 20 13:40:26 isu13-s2 kernel: RCU Tasks Rude: Setting shift to 2 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=3.
+Nov 20 13:40:26 isu13-s2 kernel: RCU Tasks Trace: Setting shift to 2 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=3.
+Nov 20 13:40:26 isu13-s2 kernel: NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+Nov 20 13:40:26 isu13-s2 kernel: GICv3: 988 SPIs implemented
+Nov 20 13:40:26 isu13-s2 kernel: GICv3: 0 Extended SPIs implemented
+Nov 20 13:40:26 isu13-s2 kernel: Root IRQ handler: gic_handle_irq
+Nov 20 13:40:26 isu13-s2 kernel: GICv3: GICv3 features: 16 PPIs, RSS
+Nov 20 13:40:26 isu13-s2 kernel: GICv3: GICD_CTLR.DS=1, SCR_EL3.FIQ=0
+Nov 20 13:40:26 isu13-s2 kernel: GICv3: CPU0: found redistributor 0 region 0:0x0000000010010000
+Nov 20 13:40:26 isu13-s2 kernel: rcu: srcu_init: Setting srcu_struct sizes based on contention.
+Nov 20 13:40:26 isu13-s2 kernel: clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+Nov 20 13:40:26 isu13-s2 kernel: arch_timer: cp15 timer running at 24.00MHz (virt).
+Nov 20 13:40:26 isu13-s2 kernel: clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x588fe9dc0, max_idle_ns: 440795202592 ns
+Nov 20 13:40:26 isu13-s2 kernel: sched_clock: 56 bits at 24MHz, resolution 41ns, wraps every 4398046511097ns
+Nov 20 13:40:26 isu13-s2 kernel: Console: colour dummy device 80x25
+Nov 20 13:40:26 isu13-s2 kernel: Calibrating delay loop (skipped), value calculated using timer frequency.. 48.00 BogoMIPS (lpj=96000)
+Nov 20 13:40:26 isu13-s2 kernel: pid_max: default: 32768 minimum: 301
+Nov 20 13:40:26 isu13-s2 kernel: LSM: initializing lsm=capability,landlock
+Nov 20 13:40:26 isu13-s2 kernel: landlock: Up and running.
+Nov 20 13:40:26 isu13-s2 kernel: Mount-cache hash table entries: 16384 (order: 5, 131072 bytes, linear)
+Nov 20 13:40:26 isu13-s2 kernel: Mountpoint-cache hash table entries: 16384 (order: 5, 131072 bytes, linear)
+Nov 20 13:40:26 isu13-s2 kernel: rcu: Hierarchical SRCU implementation.
+Nov 20 13:40:26 isu13-s2 kernel: rcu:         Max phase no-delay instances is 1000.
+Nov 20 13:40:26 isu13-s2 kernel: Timer migration: 1 hierarchy levels; 8 children per group; 1 crossnode level
+Nov 20 13:40:26 isu13-s2 kernel: EFI services will not be available.
+Nov 20 13:40:26 isu13-s2 kernel: smp: Bringing up secondary CPUs ...
+Nov 20 13:40:26 isu13-s2 kernel: Detected PIPT I-cache on CPU1
+Nov 20 13:40:26 isu13-s2 kernel: GICv3: CPU1: found redistributor 1 region 0:0x0000000010030000
+Nov 20 13:40:26 isu13-s2 kernel: CPU1: Booted secondary processor 0x0000000001 [0x610f0000]
+Nov 20 13:40:26 isu13-s2 kernel: Detected PIPT I-cache on CPU2
+Nov 20 13:40:26 isu13-s2 kernel: GICv3: CPU2: found redistributor 2 region 0:0x0000000010050000
+Nov 20 13:40:26 isu13-s2 kernel: CPU2: Booted secondary processor 0x0000000002 [0x610f0000]
+Nov 20 13:40:26 isu13-s2 kernel: smp: Brought up 1 node, 3 CPUs
+Nov 20 13:40:26 isu13-s2 kernel: SMP: Total of 3 processors activated.
+Nov 20 13:40:26 isu13-s2 kernel: CPU: All CPU(s) started at EL1
+Nov 20 13:40:26 isu13-s2 kernel: CPU features: detected: ARMv8.4 Translation Table Level
+Nov 20 13:40:26 isu13-s2 kernel: CPU features: detected: Data cache clean to the PoU not required for I/D coherence
+Nov 20 13:40:26 isu13-s2 kernel: CPU features: detected: Common not Private translations
+Nov 20 13:40:26 isu13-s2 kernel: CPU features: detected: CRC32 instructions
+Nov 20 13:40:26 isu13-s2 kernel: CPU features: detected: Data cache clean to Point of Deep Persistence
+Nov 20 13:40:26 isu13-s2 kernel: CPU features: detected: Data cache clean to Point of Persistence
+Nov 20 13:40:26 isu13-s2 kernel: CPU features: detected: Data independent timing control (DIT)
+Nov 20 13:40:26 isu13-s2 kernel: CPU features: detected: RCpc load-acquire (LDAPR)
+Nov 20 13:40:26 isu13-s2 kernel: CPU features: detected: Privileged Access Never
+Nov 20 13:40:26 isu13-s2 kernel: CPU features: detected: RAS Extension Support
+Nov 20 13:40:26 isu13-s2 kernel: CPU features: detected: Speculation barrier (SB)
+Nov 20 13:40:26 isu13-s2 kernel: CPU features: detected: TLB range maintenance instructions
+Nov 20 13:40:26 isu13-s2 kernel: alternatives: applying system-wide alternatives
+Nov 20 13:40:26 isu13-s2 kernel: Memory: 4134532K/4325376K available (13888K kernel code, 2072K rwdata, 8768K rodata, 4992K init, 599K bss, 185592K reserved, 0K cma-reserved)
+Nov 20 13:40:26 isu13-s2 kernel: devtmpfs: initialized
+Nov 20 13:40:26 isu13-s2 kernel: posixtimers hash table entries: 2048 (order: 3, 32768 bytes, linear)
+Nov 20 13:40:26 isu13-s2 kernel: futex hash table entries: 1024 (65536 bytes on 1 NUMA nodes, total 64 KiB, linear).
+Nov 20 13:40:26 isu13-s2 kernel: 25136 pages in range for non-PLT usage
+Nov 20 13:40:26 isu13-s2 kernel: 516656 pages in range for PLT usage
+Nov 20 13:40:26 isu13-s2 kernel: NET: Registered PF_NETLINK/PF_ROUTE protocol family
+Nov 20 13:40:26 isu13-s2 kernel: DMA: preallocated 512 KiB GFP_KERNEL pool for atomic allocations
+Nov 20 13:40:26 isu13-s2 kernel: DMA: preallocated 512 KiB GFP_KERNEL|GFP_DMA pool for atomic allocations
+Nov 20 13:40:26 isu13-s2 kernel: audit: initializing netlink subsys (disabled)
+Nov 20 13:40:26 isu13-s2 kernel: thermal_sys: Registered thermal governor 'step_wise'
+Nov 20 13:40:26 isu13-s2 kernel: cpuidle: using governor menu
+Nov 20 13:40:26 isu13-s2 kernel: audit: type=2000 audit(0.004:1): state=initialized audit_enabled=0 res=1
+Nov 20 13:40:26 isu13-s2 kernel: hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.
+Nov 20 13:40:26 isu13-s2 kernel: ASID allocator initialised with 256 entries
+Nov 20 13:40:26 isu13-s2 kernel: Serial: AMBA PL011 UART driver
+Nov 20 13:40:26 isu13-s2 kernel: HugeTLB: registered 1.00 GiB page size, pre-allocated 0 pages
+Nov 20 13:40:26 isu13-s2 kernel: HugeTLB: 0 KiB vmemmap can be freed for a 1.00 GiB page
+Nov 20 13:40:26 isu13-s2 kernel: HugeTLB: registered 32.0 MiB page size, pre-allocated 0 pages
+Nov 20 13:40:26 isu13-s2 kernel: HugeTLB: 0 KiB vmemmap can be freed for a 32.0 MiB page
+Nov 20 13:40:26 isu13-s2 kernel: HugeTLB: registered 2.00 MiB page size, pre-allocated 0 pages
+Nov 20 13:40:26 isu13-s2 kernel: HugeTLB: 0 KiB vmemmap can be freed for a 2.00 MiB page
+Nov 20 13:40:26 isu13-s2 kernel: HugeTLB: registered 64.0 KiB page size, pre-allocated 0 pages
+Nov 20 13:40:26 isu13-s2 kernel: HugeTLB: 0 KiB vmemmap can be freed for a 64.0 KiB page
+Nov 20 13:40:26 isu13-s2 kernel: ACPI: Interpreter disabled.
+Nov 20 13:40:26 isu13-s2 kernel: iommu: Default domain type: Translated
+Nov 20 13:40:26 isu13-s2 kernel: iommu: DMA domain TLB invalidation policy: strict mode
+Nov 20 13:40:26 isu13-s2 kernel: SCSI subsystem initialized
+Nov 20 13:40:26 isu13-s2 kernel: pps_core: LinuxPPS API ver. 1 registered
+Nov 20 13:40:26 isu13-s2 kernel: pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+Nov 20 13:40:26 isu13-s2 kernel: PTP clock support registered
+Nov 20 13:40:26 isu13-s2 kernel: clocksource: Switched to clocksource arch_sys_counter
+Nov 20 13:40:26 isu13-s2 kernel: pnp: PnP ACPI: disabled
+Nov 20 13:40:26 isu13-s2 kernel: NET: Registered PF_INET protocol family
+Nov 20 13:40:26 isu13-s2 kernel: IP idents hash table entries: 131072 (order: 8, 1048576 bytes, linear)
+Nov 20 13:40:26 isu13-s2 kernel: tcp_listen_portaddr_hash hash table entries: 4096 (order: 4, 65536 bytes, linear)
+Nov 20 13:40:26 isu13-s2 kernel: Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+Nov 20 13:40:26 isu13-s2 kernel: TCP established hash table entries: 65536 (order: 7, 524288 bytes, linear)
+Nov 20 13:40:26 isu13-s2 kernel: TCP bind hash table entries: 65536 (order: 9, 2097152 bytes, linear)
+Nov 20 13:40:26 isu13-s2 kernel: TCP: Hash tables configured (established 65536 bind 65536)
+Nov 20 13:40:26 isu13-s2 kernel: UDP hash table entries: 4096 (order: 6, 262144 bytes, linear)
+Nov 20 13:40:26 isu13-s2 kernel: UDP-Lite hash table entries: 4096 (order: 6, 262144 bytes, linear)
+Nov 20 13:40:26 isu13-s2 kernel: NET: Registered PF_UNIX/PF_LOCAL protocol family
+Nov 20 13:40:26 isu13-s2 kernel: PCI: CLS 0 bytes, default 64
+Nov 20 13:40:26 isu13-s2 kernel: workingset: timestamp_bits=42 max_order=20 bucket_order=0
+Nov 20 13:40:26 isu13-s2 kernel: Key type cifs.spnego registered
+Nov 20 13:40:26 isu13-s2 kernel: Key type cifs.idmap registered
+Nov 20 13:40:26 isu13-s2 kernel: fuse: init (API version 7.45)
+Nov 20 13:40:26 isu13-s2 kernel: SGI XFS with security attributes, no debug enabled
+Nov 20 13:40:26 isu13-s2 kernel: 9p: Installing v9fs 9p2000 file system support
+Nov 20 13:40:26 isu13-s2 kernel: NET: Registered PF_ALG protocol family
+Nov 20 13:40:26 isu13-s2 kernel: Block layer SCSI generic (bsg) driver version 0.4 loaded (major 248)
+Nov 20 13:40:26 isu13-s2 kernel: pci-host-generic 40000000.pci: host bridge /pci ranges:
+Nov 20 13:40:26 isu13-s2 kernel: pci-host-generic 40000000.pci:       IO 0x006fff0000..0x006fffffff -> 0x0000000000
+Nov 20 13:40:26 isu13-s2 kernel: pci-host-generic 40000000.pci:      MEM 0x0050000000..0x006ffdffff -> 0x0050000000
+Nov 20 13:40:26 isu13-s2 kernel: pci-host-generic 40000000.pci:      MEM 0x0180000000..0x057fffffff -> 0x0180000000
+Nov 20 13:40:26 isu13-s2 kernel: pci-host-generic 40000000.pci: Memory resource size exceeds max for 32 bits
+Nov 20 13:40:26 isu13-s2 kernel: pci-host-generic 40000000.pci: ECAM at [mem 0x40000000-0x4fffffff] for [bus 00-ff]
+Nov 20 13:40:26 isu13-s2 kernel: pci-host-generic 40000000.pci: PCI host bridge to bus 0000:00
+Nov 20 13:40:26 isu13-s2 kernel: pci_bus 0000:00: root bus resource [bus 00-ff]
+Nov 20 13:40:26 isu13-s2 kernel: pci_bus 0000:00: root bus resource [io  0x0000-0xffff]
+Nov 20 13:40:26 isu13-s2 kernel: pci_bus 0000:00: root bus resource [mem 0x50000000-0x6ffdffff]
+Nov 20 13:40:26 isu13-s2 kernel: pci_bus 0000:00: root bus resource [mem 0x180000000-0x57fffffff]
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:00.0: [106b:1a05] type 00 class 0x060000 conventional PCI endpoint
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:01.0: [1af4:1041] type 00 class 0x020000 conventional PCI endpoint
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:01.0: BAR 0 [mem 0x00000000-0x0000ffff 64bit]
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:01.0: BAR 2 [mem 0x00000000-0x0000003f]
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:05.0: [1af4:1043] type 00 class 0x078000 conventional PCI endpoint
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:05.0: BAR 0 [mem 0x00000000-0x0000ffff 64bit]
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:05.0: BAR 2 [mem 0x00000000-0x0000007f]
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:06.0: [1af4:1042] type 00 class 0x018000 conventional PCI endpoint
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:06.0: BAR 0 [mem 0x00000000-0x0000ffff 64bit]
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:06.0: BAR 2 [mem 0x00000000-0x0000003f]
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:07.0: [1af4:1042] type 00 class 0x018000 conventional PCI endpoint
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:07.0: BAR 0 [mem 0x00000000-0x0000ffff 64bit]
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:07.0: BAR 2 [mem 0x00000000-0x0000003f]
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:08.0: [1af4:105a] type 00 class 0x018000 conventional PCI endpoint
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:08.0: BAR 0 [mem 0x00000000-0x0000ffff 64bit]
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:08.0: BAR 2 [mem 0x00000000-0x0000003f]
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:09.0: [1af4:1053] type 00 class 0x078000 conventional PCI endpoint
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:09.0: BAR 0 [mem 0x00000000-0x0000ffff 64bit]
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:09.0: BAR 2 [mem 0x00000000-0x0000007f]
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:0a.0: [1af4:1044] type 00 class 0x100000 conventional PCI endpoint
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:0a.0: BAR 0 [mem 0x00000000-0x00007fff 64bit]
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:0a.0: BAR 2 [mem 0x00000000-0x0000003f]
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:01.0: BAR 0 [mem 0x180000000-0x18000ffff 64bit]: assigned
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:05.0: BAR 0 [mem 0x180010000-0x18001ffff 64bit]: assigned
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:06.0: BAR 0 [mem 0x180020000-0x18002ffff 64bit]: assigned
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:07.0: BAR 0 [mem 0x180030000-0x18003ffff 64bit]: assigned
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:08.0: BAR 0 [mem 0x180040000-0x18004ffff 64bit]: assigned
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:09.0: BAR 0 [mem 0x180050000-0x18005ffff 64bit]: assigned
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:0a.0: BAR 0 [mem 0x180060000-0x180067fff 64bit]: assigned
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:05.0: BAR 2 [mem 0x50000000-0x5000007f]: assigned
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:09.0: BAR 2 [mem 0x50000080-0x500000ff]: assigned
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:01.0: BAR 2 [mem 0x50000100-0x5000013f]: assigned
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:06.0: BAR 2 [mem 0x50000140-0x5000017f]: assigned
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:07.0: BAR 2 [mem 0x50000180-0x500001bf]: assigned
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:08.0: BAR 2 [mem 0x500001c0-0x500001ff]: assigned
+Nov 20 13:40:26 isu13-s2 kernel: pci 0000:00:0a.0: BAR 2 [mem 0x50000200-0x5000023f]: assigned
+Nov 20 13:40:26 isu13-s2 kernel: pci_bus 0000:00: resource 4 [io  0x0000-0xffff]
+Nov 20 13:40:26 isu13-s2 kernel: pci_bus 0000:00: resource 5 [mem 0x50000000-0x6ffdffff]
+Nov 20 13:40:26 isu13-s2 kernel: pci_bus 0000:00: resource 6 [mem 0x180000000-0x57fffffff]
+Nov 20 13:40:26 isu13-s2 kernel: virtio-pci 0000:00:01.0: enabling device (0000 -> 0002)
+Nov 20 13:40:26 isu13-s2 kernel: virtio-pci 0000:00:05.0: enabling device (0000 -> 0002)
+Nov 20 13:40:26 isu13-s2 kernel: virtio-pci 0000:00:06.0: enabling device (0000 -> 0002)
+Nov 20 13:40:26 isu13-s2 kernel: virtio-pci 0000:00:07.0: enabling device (0000 -> 0002)
+Nov 20 13:40:26 isu13-s2 kernel: virtio-pci 0000:00:08.0: enabling device (0000 -> 0002)
+Nov 20 13:40:26 isu13-s2 kernel: virtiofs virtio4: discovered new tag: virtiofs
+Nov 20 13:40:26 isu13-s2 kernel: virtiofs virtio4: virtio_fs_setup_dax: No cache capability
+Nov 20 13:40:26 isu13-s2 kernel: virtio-pci 0000:00:09.0: enabling device (0000 -> 0002)
+Nov 20 13:40:26 isu13-s2 kernel: virtio-pci 0000:00:0a.0: enabling device (0000 -> 0002)
+Nov 20 13:40:26 isu13-s2 kernel: Serial: 8250/16550 driver, 4 ports, IRQ sharing disabled
+Nov 20 13:40:26 isu13-s2 kernel: printk: legacy console [hvc0] enabled
+Nov 20 13:40:26 isu13-s2 kernel: random: crng init done
+Nov 20 13:40:26 isu13-s2 kernel: brd: module loaded
+Nov 20 13:40:26 isu13-s2 kernel: loop: module loaded
+Nov 20 13:40:26 isu13-s2 kernel: virtio_blk virtio2: 1/0/0 default/read/poll queues
+Nov 20 13:40:26 isu13-s2 kernel: virtio_blk virtio2: [vda] 1064960 512-byte logical blocks (545 MB/520 MiB)
+Nov 20 13:40:26 isu13-s2 kernel: virtio_blk virtio3: 1/0/0 default/read/poll queues
+Nov 20 13:40:26 isu13-s2 kernel: virtio_blk virtio3: [vdb] 1075838976 512-byte logical blocks (551 GB/513 GiB)
+Nov 20 13:40:26 isu13-s2 kernel: tun: Universal TUN/TAP device driver, 1.6
+Nov 20 13:40:26 isu13-s2 kernel: VFIO - User Level meta-driver version: 0.3
+Nov 20 13:40:26 isu13-s2 kernel: rtc-pl031 20050000.pl031: registered as rtc0
+Nov 20 13:40:26 isu13-s2 kernel: rtc-pl031 20050000.pl031: setting system clock to 2026-11-20T13:40:26 UTC (1795182026)
+Nov 20 13:40:26 isu13-s2 kernel: xt_time: kernel timezone is -0000
+Nov 20 13:40:26 isu13-s2 kernel: IPVS: Registered protocols (TCP, UDP, SCTP, AH, ESP)
+Nov 20 13:40:26 isu13-s2 kernel: IPVS: Connection hash table configured (size=4096, memory=32Kbytes)
+Nov 20 13:40:26 isu13-s2 kernel: IPVS: ipvs loaded.
+Nov 20 13:40:26 isu13-s2 kernel: IPVS: [rr] scheduler registered.
+Nov 20 13:40:26 isu13-s2 kernel: IPVS: [wrr] scheduler registered.
+Nov 20 13:40:26 isu13-s2 kernel: IPVS: [lc] scheduler registered.
+Nov 20 13:40:26 isu13-s2 kernel: IPVS: [wlc] scheduler registered.
+Nov 20 13:40:26 isu13-s2 kernel: IPVS: [fo] scheduler registered.
+Nov 20 13:40:26 isu13-s2 kernel: IPVS: [ovf] scheduler registered.
+Nov 20 13:40:26 isu13-s2 kernel: IPVS: [lblc] scheduler registered.
+Nov 20 13:40:26 isu13-s2 kernel: IPVS: [lblcr] scheduler registered.
+Nov 20 13:40:26 isu13-s2 kernel: IPVS: [dh] scheduler registered.
+Nov 20 13:40:26 isu13-s2 kernel: IPVS: [sh] scheduler registered.
+Nov 20 13:40:26 isu13-s2 kernel: IPVS: [sed] scheduler registered.
+Nov 20 13:40:26 isu13-s2 kernel: IPVS: [nq] scheduler registered.
+Nov 20 13:40:26 isu13-s2 kernel: IPVS: [sip] pe registered.
+Nov 20 13:40:26 isu13-s2 kernel: Initializing XFRM netlink socket
+Nov 20 13:40:26 isu13-s2 kernel: NET: Registered PF_INET6 protocol family
+Nov 20 13:40:26 isu13-s2 kernel: Segment Routing with IPv6
+Nov 20 13:40:26 isu13-s2 kernel: In-situ OAM (IOAM) with IPv6
+Nov 20 13:40:26 isu13-s2 kernel: NET: Registered PF_PACKET protocol family
+Nov 20 13:40:26 isu13-s2 kernel: Bridge firewalling registered
+Nov 20 13:40:26 isu13-s2 kernel: 9pnet: Installing 9P2000 support
+Nov 20 13:40:26 isu13-s2 kernel: Key type dns_resolver registered
+Nov 20 13:40:26 isu13-s2 kernel: NET: Registered PF_VSOCK protocol family
+Nov 20 13:40:26 isu13-s2 kernel: registered taskstats version 1
+Nov 20 13:40:26 isu13-s2 kernel: Demotion targets for Node 0: null
+Nov 20 13:40:26 isu13-s2 kernel: alg: No test for fips(ansi_cprng) (fips_ansi_cprng)
+Nov 20 13:40:26 isu13-s2 kernel: clk: Disabling unused clocks
+Nov 20 13:40:26 isu13-s2 kernel: check access for rdinit=/init failed: -2, ignoring
+Nov 20 13:40:26 isu13-s2 kernel: EXT4-fs (vda): mounted filesystem b1fc9fdd-c6e5-4f45-b2be-a6cb41cae9fb ro with ordered data mode. Quota mode: disabled.
+Nov 20 13:40:26 isu13-s2 kernel: VFS: Mounted root (ext4 filesystem) readonly on device 254:0.
+Nov 20 13:40:26 isu13-s2 kernel: devtmpfs: mounted
+Nov 20 13:40:26 isu13-s2 kernel: Freeing unused kernel memory: 4992K
+Nov 20 13:40:26 isu13-s2 kernel: Run /sbin/vminitd as init process
+Nov 20 13:40:26 isu13-s2 kernel:   with arguments:
+Nov 20 13:40:26 isu13-s2 kernel:     /sbin/vminitd
+Nov 20 13:40:26 isu13-s2 kernel:   with environment:
+Nov 20 13:40:26 isu13-s2 kernel:     HOME=/
+Nov 20 13:40:26 isu13-s2 kernel:     TERM=linux
+Nov 20 13:40:26 isu13-s2 kernel:     tsc=reliable
+Nov 20 13:40:26 isu13-s2 kernel: EXT4-fs (vdb): mounted filesystem 1d2d0725-847d-41ca-9fe7-3942165b5362 r/w with ordered data mode. Quota mode: disabled.
+Nov 20 13:40:26 isu13-s2 systemd-journald[18]: Journal started
+Nov 20 13:40:26 isu13-s2 systemd-journald[18]: Runtime Journal (/run/log/journal/aea7018a26224fc48ddfd608e16c7478) is 8.0M, max 80.9M, 72.9M free.
+Nov 20 13:40:26 isu13-s2 systemd[19]: modprobe@configfs.service: Executable /sbin/modprobe missing, skipping: No such file or directory
+Nov 20 13:40:26 isu13-s2 systemd[20]: modprobe@drm.service: Executable /sbin/modprobe missing, skipping: No such file or directory
+Nov 20 13:40:26 isu13-s2 systemd[21]: modprobe@efi_pstore.service: Executable /sbin/modprobe missing, skipping: No such file or directory
+Nov 20 13:40:26 isu13-s2 systemd[22]: modprobe@fuse.service: Executable /sbin/modprobe missing, skipping: No such file or directory
+Nov 20 13:40:26 isu13-s2 systemd[1]: Starting Flush Journal to Persistent Storage...
+Nov 20 13:40:26 isu13-s2 systemd[1]: Finished Create System Users.
+Nov 20 13:40:26 isu13-s2 systemd-journald[18]: Time spent on flushing to /var/log/journal/aea7018a26224fc48ddfd608e16c7478 is 2.050ms for 272 entries.
+Nov 20 13:40:26 isu13-s2 systemd-journald[18]: System Journal (/var/log/journal/aea7018a26224fc48ddfd608e16c7478) is 24.0M, max 4.0G, 3.9G free.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Starting Create Static Device Nodes in /dev...
+Nov 20 13:40:26 isu13-s2 systemd[1]: Finished Create Static Device Nodes in /dev.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Reached target Preparation for Local File Systems.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Reached target Local File Systems.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Condition check resulted in Set Up Additional Binary Formats being skipped.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Condition check resulted in Store a System Token in an EFI Variable being skipped.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Condition check resulted in Commit a transient machine-id on disk being skipped.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Finished Flush Journal to Persistent Storage.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Starting Create Volatile Files and Directories...
+Nov 20 13:40:26 isu13-s2 systemd[1]: Finished Create Volatile Files and Directories.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Starting Record System Boot/Shutdown in UTMP...
+Nov 20 13:40:26 isu13-s2 systemd[1]: Finished Record System Boot/Shutdown in UTMP.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Reached target System Initialization.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Started Daily apt download activities.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Started Daily apt upgrade and clean activities.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Started Daily dpkg database backup timer.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Started Periodic ext4 Online Metadata Check for All Filesystems.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Condition check resulted in Discard unused blocks once a week being skipped.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Started Message of the Day.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Started Daily Cleanup of Temporary Directories.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Reached target Basic System.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Reached target Timer Units.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Listening on D-Bus System Message Bus Socket.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Started D-Bus System Message Bus.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Starting Remove Stale Online ext4 Metadata Check Snapshots...
+Nov 20 13:40:26 isu13-s2 systemd[1]: Condition check resulted in getty on tty2-tty6 if dbus and logind are not available being skipped.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Starting set ISUCON13_POWERDNS_SUBDOMAIN_ADDRESS to this VM's IP (replaces the AWS-only globalip role)...
+Nov 20 13:40:26 isu13-s2 systemd[1]: Starting A high performance web server and a reverse proxy server...
+Nov 20 13:40:26 isu13-s2 systemd[1]: Starting OpenBSD Secure Shell server...
+Nov 20 13:40:26 isu13-s2 systemd[1]: Starting User Login Management...
+Nov 20 13:40:26 isu13-s2 systemd[1]: Starting Permit User Sessions...
+Nov 20 13:40:26 isu13-s2 systemd[1]: Finished Permit User Sessions.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Started Console Getty.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Started Getty on tty1.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Reached target Login Prompts.
+Nov 20 13:40:26 isu13-s2 systemd[1]: e2scrub_reap.service: Deactivated successfully.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Finished Remove Stale Online ext4 Metadata Check Snapshots.
+Nov 20 13:40:26 isu13-s2 sshd[51]: Server listening on 0.0.0.0 port 22.
+Nov 20 13:40:26 isu13-s2 sshd[51]: Server listening on :: port 22.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Started OpenBSD Secure Shell server.
+Nov 20 13:40:26 isu13-s2 systemd-logind[37]: New seat seat0.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Started User Login Management.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Finished set ISUCON13_POWERDNS_SUBDOMAIN_ADDRESS to this VM's IP (replaces the AWS-only globalip role).
+Nov 20 13:40:26 isu13-s2 systemd[1]: Started ISUPipe Go worker.
+Nov 20 13:40:26 isu13-s2 systemd[1]: Starting MySQL Community Server...
+Nov 20 13:40:26 isu13-s2 systemd[1]: Started A high performance web server and a reverse proxy server.
+Nov 20 13:40:27 isu13-s2 systemd[1]: Started MySQL Community Server.
+Nov 20 13:40:27 isu13-s2 systemd[1]: Starting PowerDNS Authoritative Server...
+Nov 20 13:40:27 isu13-s2 pdns_server[121]: Loading '/usr/lib/aarch64-linux-gnu/pdns/libgmysqlbackend.so'
+Nov 20 13:40:27 isu13-s2 pdns_server[121]: [gmysqlbackend] This is the gmysql backend version 4.9.18 (Oct  7 2026 06:11:41) reporting
+Nov 20 13:40:27 isu13-s2 pdns_server[121]: This is a standalone pdns
+Nov 20 13:40:27 isu13-s2 pdns_server[121]: Listening on controlsocket in '/run/pdns/pdns.controlsocket'
+Nov 20 13:40:27 isu13-s2 pdns_server[121]: UDP server bound to 0.0.0.0:53
+Nov 20 13:40:27 isu13-s2 pdns_server[121]: UDP server bound to [::]:53
+Nov 20 13:40:27 isu13-s2 pdns_server[121]: TCP server bound to 0.0.0.0:53
+Nov 20 13:40:27 isu13-s2 pdns_server[121]: TCP server bound to [::]:53
+Nov 20 13:40:27 isu13-s2 pdns_server[121]: PowerDNS Authoritative Server 4.9.18 (C) PowerDNS.COM BV
+Nov 20 13:40:27 isu13-s2 pdns_server[121]: Using 64-bits mode. Built using gcc 11.4.0 on Oct  7 2026 06:11:41 by root@localhost.
+Nov 20 13:40:27 isu13-s2 pdns_server[121]: PowerDNS comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it according to the terms of the GPL version 2.
+Nov 20 13:40:27 isu13-s2 pdns_server[121]: Packet cache disabled, logging queries without HIT/MISS
+Nov 20 13:40:27 isu13-s2 pdns_server[121]: [webserver] Listening for HTTP requests on 127.0.0.1:8081
+Nov 20 13:40:27 isu13-s2 pdns_server[121]: gmysql Connection successful. Connected to database 'isudns' on '127.0.0.1'.
+Nov 20 13:40:27 isu13-s2 pdns_server[121]: Creating backend connection for TCP
+Nov 20 13:40:27 isu13-s2 pdns_server[121]: gmysql Connection successful. Connected to database 'isudns' on '127.0.0.1'.
+Nov 20 13:40:27 isu13-s2 pdns_server[121]: About to create 3 backend threads for UDP
+Nov 20 13:40:27 isu13-s2 pdns_server[121]: gmysql Connection successful. Connected to database 'isudns' on '127.0.0.1'.
+Nov 20 13:40:27 isu13-s2 pdns_server[132]: ++ dirname /opt/init_zone_once.sh
+Nov 20 13:40:27 isu13-s2 pdns_server[131]: + cd /opt
+Nov 20 13:40:27 isu13-s2 pdns_server[131]: + test -f /home/isucon/env.sh
+Nov 20 13:40:27 isu13-s2 pdns_server[131]: + source /home/isucon/env.sh
+Nov 20 13:40:27 isu13-s2 pdns_server[131]: ++ ISUCON13_MYSQL_DIALCONFIG_NET=tcp
+Nov 20 13:40:27 isu13-s2 pdns_server[131]: ++ ISUCON13_MYSQL_DIALCONFIG_ADDRESS=127.0.0.1
+Nov 20 13:40:27 isu13-s2 pdns_server[131]: ++ ISUCON13_MYSQL_DIALCONFIG_PORT=3306
+Nov 20 13:40:27 isu13-s2 pdns_server[131]: ++ ISUCON13_MYSQL_DIALCONFIG_USER=isucon
+Nov 20 13:40:27 isu13-s2 pdns_server[131]: ++ ISUCON13_MYSQL_DIALCONFIG_DATABASE=isupipe
+Nov 20 13:40:27 isu13-s2 pdns_server[131]: ++ ISUCON13_MYSQL_DIALCONFIG_PARSETIME=true
+Nov 20 13:40:27 isu13-s2 pdns_server[131]: ++ ISUCON13_POWERDNS_SUBDOMAIN_ADDRESS=10.99.0.11
+Nov 20 13:40:27 isu13-s2 pdns_server[131]: ++ ISUCON13_POWERDNS_DISABLED=false
+Nov 20 13:40:27 isu13-s2 pdns_server[131]: + ISUCON_SUBDOMAIN_ADDRESS=10.99.0.11
+Nov 20 13:40:27 isu13-s2 pdns_server[134]: + pdnsutil list-all-zones
+Nov 20 13:40:27 isu13-s2 pdns_server[135]: + grep u.isucon.dev
+Nov 20 13:40:27 isu13-s2 pdns_server[134]: Nov 20 13:40:27 gmysql Connection successful. Connected to database 'isudns' on '127.0.0.1'.
+Nov 20 13:40:27 isu13-s2 pdns_server[134]: Nov 20 13:40:27 gmysql Connection successful. Connected to database 'isudns' on '127.0.0.1'.
+Nov 20 13:40:27 isu13-s2 pdns_server[121]: gmysql Connection successful. Connected to database 'isudns' on '127.0.0.1'.
+Nov 20 13:40:27 isu13-s2 pdns_server[135]: u.isucon.dev
+Nov 20 13:40:27 isu13-s2 pdns_server[131]: + exit
+Nov 20 13:40:27 isu13-s2 systemd[1]: Started PowerDNS Authoritative Server.
+Nov 20 13:40:27 isu13-s2 systemd[1]: Reached target Multi-User System.
+Nov 20 13:40:27 isu13-s2 systemd[1]: Reached target Graphical Interface.
+Nov 20 13:40:27 isu13-s2 systemd[1]: Starting Record Runlevel Change in UTMP...
+Nov 20 13:40:27 isu13-s2 systemd[1]: systemd-update-utmp-runlevel.service: Deactivated successfully.
+Nov 20 13:40:27 isu13-s2 systemd[1]: Finished Record Runlevel Change in UTMP.
+Nov 20 13:40:27 isu13-s2 systemd[1]: Startup finished in 639ms.
+Nov 20 13:40:27 isu13-s2 pdns_server[121]: gmysql Connection successful. Connected to database 'isudns' on '127.0.0.1'.
+Nov 20 13:40:27 isu13-s2 pdns_server[121]: Done launching threads, ready to distribute questions
+Nov 20 13:40:27 isu13-s2 isupipe[57]: {"time":"2026-11-20T13:40:27.910478667Z","level":"ERROR","prefix":"echo","file":"main.go","line":"195","message":"failed to connect db: dial tcp 10.99.0.13:3306: connect: connection refused"}
+Nov 20 13:40:27 isu13-s2 systemd[1]: isupipe-go.service: Main process exited, code=exited, status=1/FAILURE
+Nov 20 13:40:27 isu13-s2 systemd[1]: isupipe-go.service: Failed with result 'exit-code'.
+Nov 20 13:40:30 isu13-s2 systemd[1]: isupipe-go.service: Scheduled restart job, restart counter is at 1.
+Nov 20 13:40:30 isu13-s2 systemd[1]: Stopped ISUPipe Go worker.
+Nov 20 13:40:30 isu13-s2 systemd[1]: Started ISUPipe Go worker.
+Nov 20 13:40:30 isu13-s2 isupipe[143]:    ____    __
+Nov 20 13:40:30 isu13-s2 isupipe[143]:   / __/___/ /  ___
+Nov 20 13:40:30 isu13-s2 isupipe[143]:  / _// __/ _ \/ _ \
+Nov 20 13:40:30 isu13-s2 isupipe[143]: /___/\__/_//_/\___/ v4.11.1
+Nov 20 13:40:30 isu13-s2 isupipe[143]: High performance, minimalist Go web framework
+Nov 20 13:40:30 isu13-s2 isupipe[143]: https://echo.labstack.com
+Nov 20 13:40:30 isu13-s2 isupipe[143]: ____________________________________O/_______
+Nov 20 13:40:30 isu13-s2 isupipe[143]:                                     O\
+Nov 20 13:40:30 isu13-s2 isupipe[143]: ⇨ http server started on [::]:8080
+Nov 20 13:40:31 isu13-s2 kernel: TCP: eth0: Driver has suspect GRO implementation, TCP performance may be compromised.
+Nov 20 13:40:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:40:43.459097216Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/:livestream_id/livecomment: code=400, message=このコメントがスパム判定されました"}
+Nov 20 13:40:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:40:43.469437299Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/login: code=401, message=invalid username or password"}
+Nov 20 13:40:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:40:43.481926049Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/login: code=401, message=invalid username or password"}
+Nov 20 13:40:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:40:43.491489008Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/register: code=400, message=the username 'pipe' is reserved"}
+Nov 20 13:40:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:40:43.585489674Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/register: code=500, message=failed to insert user: Error 1062 (23000): Duplicate entry 'aaa' for key 'users.uniq_user_name'"}
+Nov 20 13:40:44 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:40:44.074671341Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711929600 ~ 1711933200が予約できません"}
+Nov 20 13:40:44 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:40:44.10729305Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=bad reservation time range"}
+Nov 20 13:40:44 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:40:44.111397508Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=bad reservation time range"}
+Nov 20 13:40:51 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:40:51.292367386Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/:livestream_id/livecomment/:livecomment_id/report: code=404, message=livecomment not found"}
+Nov 20 13:41:08 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:08.003252754Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/:livestream_id/livecomment/:livecomment_id/report: code=404, message=livecomment not found"}
+Nov 20 13:41:29 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:29.82230939Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:29 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:29.928330056Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:29 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:29.95401964Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:30 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:30.012369598Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:30 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:30.056450223Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:30 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:30.081951181Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:30 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:30.110194098Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:30 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:30.324058666Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:30 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:30.391010541Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:30 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:30.416592041Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:30 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:30.443828041Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:30 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:30.466964125Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:30 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:30.762473875Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:30 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:30.809698375Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:31 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:31.01899325Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:31 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:31.045739625Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:31 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:31.103188333Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:31 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:31.1571315Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:31 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:31.17755975Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:31 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:31.2017405Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:31 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:31.2193195Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:31 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:31.253653292Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:31 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:31.316890667Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:31 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:31.371436542Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:31 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:31.409550708Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:31 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:31.435279875Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:31 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:31.452535792Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:31 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:31.477479125Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:31 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:31.504984333Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:31 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:31.524357208Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:31 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:31.608242Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:31 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:31.633314084Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:32 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:31.999574834Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:32 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:32.023510209Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:32 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:32.068599125Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:32 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:32.084524042Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:32 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:32.132136875Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:32 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:32.19369475Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:32 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:32.250146834Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:32 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:32.344287959Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/:livestream_id/livecomment/:livecomment_id/report: code=404, message=livecomment not found"}
+Nov 20 13:41:32 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:32.372255626Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:32 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:32.489992251Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:32 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:32.610782334Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:32 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:32.678662751Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:32 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:32.706362959Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:32 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:32.806542667Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:32 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:32.994968084Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:33 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:33.138934376Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:33 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:33.171566751Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:33 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:33.189470293Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:33 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:33.226100209Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:33 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:33.242297834Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:33 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:33.338838459Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:33 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:33.452078709Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:33 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:33.485625251Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:33 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:33.592000084Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:33 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:33.628197418Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:33 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:33.77060296Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:33 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:33.807220251Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:33 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:33.87568721Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:33 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:33.90278346Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:34 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:34.041836168Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:34 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:34.108620001Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:34 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:34.12457046Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:34 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:34.148927293Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:34 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:34.293669251Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:34 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:34.340603793Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:34 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:34.398362127Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:34 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:34.48392446Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:34 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:34.535256293Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:34 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:34.583307502Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:34 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:34.629579752Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:34 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:34.653746543Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:34 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:34.73473721Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:34 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:34.773179752Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:34 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:34.829101043Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:35 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:35.009608502Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:35 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:35.078389585Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:35 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:35.122928877Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:35 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:35.17001446Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:35 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:35.292610835Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:35 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:35.42501871Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:35 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:35.450311794Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:35 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:35.496339585Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:35 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:35.51637821Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:35 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:35.564354794Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:35 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:35.642134585Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:35 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:35.680550085Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:35 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:35.800063836Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:35 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:35.848725377Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:36 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:36.002153211Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:36 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:36.058838711Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:36 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:36.163184294Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:36 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:36.359329669Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:36 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:36.510524169Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:36 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:36.600211753Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:36 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:36.632444878Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:36 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:36.800694878Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:36 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:36.846355628Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:36 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:36.929876086Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:36 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:36.998762044Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:37 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:37.057739086Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:37 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:37.119771878Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:37 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:37.138538919Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:37 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:37.156389003Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:37 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:37.198276795Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:37 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:37.417202628Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:37 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:37.464581086Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:37 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:37.48473992Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:37 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:37.502372836Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:37 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:37.515709003Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:37 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:37.531218003Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:37 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:37.669447753Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:37 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:37.694347628Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:37 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:37.711186253Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:37 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:37.792489878Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:37 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:37.83614042Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:37 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:37.882715462Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:37 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:37.941917212Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.079736378Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.095104712Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.13521792Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.154016128Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.178111087Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.202356003Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.22544542Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.249727087Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.26556192Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.282623753Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.295280753Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.315969712Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.333060628Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.347951378Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.363789587Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.385398253Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.422444878Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.443586795Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.474169253Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.497126628Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.516240337Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.531785837Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.559536962Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.591585004Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.62016692Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.647538337Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.670392587Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.716887462Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.735371379Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.752486879Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.76854392Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.787472129Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.809782629Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.82801967Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.843125087Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.865272004Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.885336254Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.906672212Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.923953295Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.93896267Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.956110337Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:38 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:38.97821867Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.000999504Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.01540917Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.035868212Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.055919045Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.076452254Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.09757592Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.118579254Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.141219129Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.162133837Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.200242879Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.22336267Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.248218879Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.275260421Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.294159587Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.314964504Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.336002337Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.366135212Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.385270962Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.406517337Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.425108171Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.447073837Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.462786337Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.486752837Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.519045754Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.535187296Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.557102462Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.576338921Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.593964796Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.631471379Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.652398129Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.689899712Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.702812462Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.714271337Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.723554421Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.735468712Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.755529254Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.776549712Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.796889504Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.819738254Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.848468921Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.867308837Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.886488921Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.902742671Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.938565504Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.961434213Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:39 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:39.984382171Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.005587171Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.050287629Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.073106963Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.094308963Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.120045379Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.151882379Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.174016463Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.194821546Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.227683671Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.251526629Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.301009213Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.340969838Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.411008713Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.484097379Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.519937046Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.553386754Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.575553004Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.598271338Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.627222754Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.651139546Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.674704255Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.708881838Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.739514296Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.768035838Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.79431463Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.824168838Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.845923713Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.867024921Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.89756913Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.927031046Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:40 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:40.979417671Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.033257671Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.057592588Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.083954296Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.116501213Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.148382171Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.22867063Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.259759671Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.291283213Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.317012296Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.370166463Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.422768505Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.460189422Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.49016888Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.515484713Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.536594588Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.56514413Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.623487963Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.645386338Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.666986547Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.68384113Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.707882005Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.76382038Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.800332588Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.825382588Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.841814505Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.903814672Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.943525838Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:41 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:41.988057422Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.015289672Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.035865088Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.064315255Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.100441047Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.126941422Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.148780589Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.180823172Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.207015547Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.231702422Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.254203464Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.284689714Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.317520839Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.34498963Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.370664589Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.388893422Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.41017288Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.443618922Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.462782505Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.490425589Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.508202547Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.53103088Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.546208047Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.563781547Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.586065422Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.612163964Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.633565922Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.667806089Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.691754589Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.725414547Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.753695756Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.768651006Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.782162881Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.803115672Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.822060506Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.850843047Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.886800006Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.916416339Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.932511047Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.952029797Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:42 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:42.973281339Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.019260339Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.059187422Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.102732714Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.125066714Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.148227672Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.165604506Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.183313464Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.203424297Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.234831256Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.256433339Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.284488922Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.307640839Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.323421256Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.340828547Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.368910756Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.394395756Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.418439172Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.446472673Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.471738589Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.508086298Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.550233714Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.569346464Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.593161839Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.611638089Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.634142548Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.658927381Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.714449839Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.741161423Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.766472464Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.793379214Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.840196839Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.881072881Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.927255298Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.951545381Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:43 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:43.982123173Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:44 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:44.016639506Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:44 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:44.041815506Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:44 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:44.070006714Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:44 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:44.100766048Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:44 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:44.124368506Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711922400 ~ 1711954800が予約できません"}
+Nov 20 13:41:44 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:44.154858506Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:44 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:44.183841215Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:44 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:44.201641631Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/reservation: code=400, message=予約期間 1700874000 ~ 1732496400に対して、予約区間 1711872000 ~ 1711940400が予約できません"}
+Nov 20 13:41:44 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:44.214637923Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/:livestream_id/reaction: code=500, message=failed to load livestream: context canceled"}
+Nov 20 13:41:44 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:44.215819881Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/:livestream_id/reaction: code=500, message=failed to commit: sql: transaction has already been committed or rolled back"}
+Nov 20 13:41:44 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:44.215997298Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/user/:username/icon: code=500, message=failed to get user icon: context canceled"}
+Nov 20 13:41:44 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:44.216151965Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/search: code=500, message=failed to get livestreams: context canceled"}
+Nov 20 13:41:44 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:44.216222631Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/:livestream_id/livecomment: code=500, message=failed to get livestream: context canceled"}
+Nov 20 13:41:44 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:44.216283381Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/livestream/:livestream_id/reaction: code=500, message=failed to load livestream: context canceled"}
+Nov 20 13:41:44 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:44.218465881Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/register: code=500, message=failed to fill user: context canceled"}
+Nov 20 13:41:44 isu13-s2 isupipe[143]: {"time":"2026-11-20T13:41:44.218612215Z","level":"ERROR","prefix":"echo","file":"main.go","line":"224","message":"error at /api/register: code=500, message=failed to refresh DNS: Post \"http://10.99.0.11:8082/refresh\": context canceled"}

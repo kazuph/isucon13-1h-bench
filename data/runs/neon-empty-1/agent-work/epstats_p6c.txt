@@ -1,0 +1,35 @@
+ICON_304=286722 ICON_200=321 DNS_HIT=1744 DNS_NX=134210 BCRYPT_LOCAL=8025 BCRYPT_OFFLOAD=0 RSA_LOCAL=29093 RSA_OFFLOAD=0
+ENDPOINT                                                COUNT   TOTAL_MS   AVG_MS     PIPE      SUB
+POST /api/icon                                           4635     6497.2    1.402     4635        0
+POST /api/register                                       4011     5247.5    1.308     4011        0
+POST /api/login                                          4017     5203.2    1.295     4017        0
+GET /api/livestream/:livestream_id/livecomment          26055     1203.2    0.046        0    26055
+GET /api/livestream/:livestream_id/reaction             26084      977.4    0.037        0    26084
+POST /api/initialize                                        1      854.7  854.733        1        0
+GET /api/livestream/search                              14044      748.2    0.053    14044        0
+POST /api/livestream/:livestream_id/livecomment         31190      676.4    0.022        0    31190
+POST /api/livestream/:livestream_id/reaction            23820      381.3    0.016        0    23820
+POST /api/livestream/:livestream_id/moderate             8970      191.2    0.021        0     8970
+GET /api/livestream/:livestream_id/ngwords              13589      148.7    0.011        0    13589
+POST /api/livestream/reservation                         5962      148.2    0.025        0     5962
+GET /api/livestream/:livestream_id/statistics             245      117.2    0.478        0      245
+GET /api/livestream                                     11264      107.5    0.010    11264        0
+GET /api/livestream/:livestream_id/report               18238       99.9    0.005        0    18238
+GET /api/user/:username/statistics                        224       71.9    0.321      224        0
+GET /api/tag                                             6159       31.3    0.005     6159        0
+DELETE /api/livestream/:livestream_id/exit               2238       15.0    0.007        0     2238
+POST /api/livestream/:livestream_id/enter                2249       13.9    0.006        0     2249
+GET /api/user/:username/livestream                        222        6.5    0.029      222        0
+GET /api/user/:username/theme                             223        1.7    0.008      223        0
+POST /api/livestream/:livestream_id/livecomment/:livecomment_id/report       62        1.4    0.022        0       62
+GET /api/payment                                            1        0.4    0.434        1        0
+GET /api/user/me                                            3        0.1    0.036        3        0
+GET /api/user/:username                                     1        0.0    0.008        1        0
+GET /api/livestream/:livestream_id                          1        0.0    0.006        0        1
+
+=== TIMELINE (sec: reqs reg lc tips) ===
+T+01s: reqs=   67 reg=   2 lc=   2 tips=     5
+T+03s: reqs=   45 reg=   0 lc=   0 tips=     0
+T+04s: reqs=   30 reg=   0 lc=   1 tips=     0
+T+06s: reqs= 6493 reg=  89 lc= 413 tips=  6910
+T+07s: reqs= 9841 reg= 111 lc= 615 tips=  9510

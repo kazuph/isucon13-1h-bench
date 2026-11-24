@@ -1,0 +1,11 @@
+{"at":"2026-11-20T13:42:00Z","event":"start","detail":"model=gpt-6.2-astra prompt=seme minutes=60"}
+{"at":"2026-11-20T14:01:13Z","event":"server_down","detail":"isu13-s1 state=stopped"}
+{"at":"2026-11-20T14:01:14Z","event":"server_restarted","detail":"isu13-s1"}
+{"at":"2026-11-20T14:01:14Z","event":"server_down","detail":"isu13-s2 state=stopped"}
+{"at":"2026-11-20T14:01:15Z","event":"server_restarted","detail":"isu13-s2"}
+{"at":"2026-11-20T14:01:15Z","event":"server_down","detail":"isu13-s3 state=stopped"}
+{"at":"2026-11-20T14:01:15Z","event":"server_restarted","detail":"isu13-s3"}
+{"at":"2026-11-20T14:03:25Z","event":"agent_exited","detail":"exit=0"}
+{"at":"2026-11-20T14:03:25Z","event":"codex_auth_saved","detail":"ok"}
+{"at":"2026-11-20T14:03:55Z","event":"s1_entry_ready","detail":"yes after 5s"}
+{"at":"2026-11-20T14:05:03Z","event":"final_bench","detail":"{\"run_id\":\"astra62-seme-1\",\"started_at\":\"2026-11-20T14:03:55.211Z\",\"ended_at\":\"2026-11-20T14:05:03.098Z\",\"elapsed_s\":1384,\"host_loadavg\":\"6.96 6.77 10.10\",\"final\":true,\"exit_code\":0,\"pass\":true,\"score\":304873,\"messages\":[\"[一般エラー] POST /api/livestream/7860/livecomment へのリクエストに対して、期待されたHTTPステータスコードが確認"}

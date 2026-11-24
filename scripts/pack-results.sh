@@ -40,7 +40,7 @@ for d in $R; do
     (cd "$src" && find home/isucon/webapp etc/nginx etc/mysql etc/powerdns etc/systemd/system \
         \( -path home/isucon/webapp/img -o -path home/isucon/webapp/node -o -path home/isucon/webapp/perl -o -path home/isucon/webapp/php \
            -o -path home/isucon/webapp/public -o -path home/isucon/webapp/python -o -path home/isucon/webapp/ruby -o -path home/isucon/webapp/rust \
-           -o -path home/isucon/webapp/sql -o -path home/isucon/webapp/state -o -path home/isucon/webapp/data \) -prune \
+           -o -path home/isucon/webapp/sql -o -path home/isucon/webapp/state -o -path home/isucon/webapp/data -o -path home/isucon/webapp/icons \) -prune \
         -o -type f ! -name '*.key' ! -name debian.cnf ! -name 'state.gob' ! -name 'state.wal' ! -name '*.jsonl' -size -1M -print 2>/dev/null \
       | while read -r f; do file -b "$src/$f" | grep -q ELF && continue; mkdir -p "$dst/$(dirname "$f")"; cp "$src/$f" "$dst/$f"; done)
   done
@@ -48,7 +48,7 @@ for d in $R; do
   # toolchain は AI が作業フォルダに入れた Go の本体一式（2026-11-18 の astra-empty-goaltime1 で 214MB）。AI が書いたものではないので入れない
   if [ -d runs/$d/agent-work ]; then
     mkdir -p "$o/agent-work"
-    (cd runs/$d/agent-work && find . \( -path ./manual -o -path ./logs -o -path ./.git -o -path ./orig -o -name state -o -name data -o -name node_modules -o -path ./toolchain \) -prune \
+    (cd runs/$d/agent-work && find . \( -path ./manual -o -path ./logs -o -path ./.git -o -path ./orig -o -name state -o -name data -o -name node_modules -o -path ./toolchain -o -path ./.gocache -o -path ./.gopath -o -path ./golang \) -prune \
         -o -type f -size -1M ! -name '*.gob' ! -name '*.key' ! -name 'auth.json' ! -name '*.jsonl' -print \
       | while read -r f; do file -b "$f" | grep -q ELF && continue; mkdir -p "$OLDPWD/$o/agent-work/$(dirname "$f")"; cp "$f" "$OLDPWD/$o/agent-work/$f"; done)
     [ -d runs/$d/agent-work/.git ] && (cd runs/$d/agent-work && git -c safe.directory='*' bundle create "$OLDPWD/$o/agent-work.history.bundle" --all >/dev/null 2>&1 || true)

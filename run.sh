@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # AI を無人で走らせて記録を取る(Mac mini 上で実行する)。
 #   ./run.sh <run-id> <model> <prompt>
-#     model : opus (Claude Code, claude-opus-5-5) | astra (Codex, gpt-6-astra) | sol (Codex, gpt-6.1-sol)
+#     model : opus (Claude Code, claude-opus-5-5) | astra (Codex, gpt-6-astra) | sol (Codex, gpt-6.1-sol) | astra62 (Codex, gpt-6.2-astra) | sol62 (Codex, gpt-6.2-sol) | neon (Antigravity CLI, gemini-4-neon-high)
 #     prompt: empty | kawasaki | seme  (prompts/<prompt>.md)
 #   環境変数 RUN_MINUTES (既定 60): AI を動かす時間(分)
 #   環境変数 KEEP=1: 終了後も VM を消さない(調査用)
@@ -32,7 +32,7 @@ BENCH_VM=isu13-bench
 log() { printf '[%s] %s\n' "$(date +%H:%M:%S)" "$*" >&2; }
 die() { log "ERROR: $*"; exit 1; }
 
-[ -n "$RUN_ID" ] && [ -n "$MODEL" ] && [ -n "$PROMPT" ] || die "usage: ./run.sh <run-id> <opus|astra|sol> <empty|kawasaki|seme>"
+[ -n "$RUN_ID" ] && [ -n "$MODEL" ] && [ -n "$PROMPT" ] || die "usage: ./run.sh <run-id> <opus|astra|sol|astra62|sol62|neon> <empty|kawasaki|seme>"
 [[ "$RUN_ID" =~ ^[A-Za-z0-9._-]+$ ]] || die "run-id は英数字と . _ - だけ"
 [[ "$RUN_MINUTES" =~ ^[0-9]+$ ]] || die "RUN_MINUTES は整数"
 GOAL=${GOAL:-0}
@@ -41,6 +41,10 @@ GOAL=${GOAL:-0}
 GOAL_TEXT=${GOAL_TEXT:-}
 [ -z "$GOAL_TEXT" ] || [ "$GOAL" = 1 ] || die "GOAL_TEXT は GOAL=1 のときだけ"
 [[ "$GOAL" =~ ^[01]$ ]] || die "GOAL は 0 か 1"
+# 環境変数 NUDGE=1: GOAL=1 のとき、途中で Goal achieved / 待機状態になっても止めず、events.jsonl に記録した上で尻叩きを送って60分完走させる。
+NUDGE=${NUDGE:-0}
+[[ "$NUDGE" =~ ^[01]$ ]] || die "NUDGE は 0 か 1"
+[ "$NUDGE" = 0 ] || [ "$GOAL" = 1 ] || die "NUDGE=1 は GOAL=1 のときだけ"
 PROMPT_FILE="prompts/$PROMPT.md"
 [ -f "$PROMPT_FILE" ] || die "$PROMPT_FILE が無い(指示ファイルは親が用意する)"
 
@@ -49,15 +53,20 @@ case "$MODEL" in
     KIND=claude; MODEL_ID=claude-opus-5-5; INSTR_NAME=CLAUDE.md
     [ -s secrets/claude_oauth_token ] || die "secrets/claude_oauth_token が無い(Claude のログイン用トークンが必要。~/isucon13-1h-bench/secrets/claude_oauth_token に置く)"
     ;;
-  astra) KIND=codex; MODEL_ID=gpt-6-astra; INSTR_NAME=AGENTS.md ;;
-  sol)   KIND=codex; MODEL_ID=gpt-6.1-sol; INSTR_NAME=AGENTS.md ;;
-  *) die "model は opus | astra | sol" ;;
+  astra)   KIND=codex; MODEL_ID=gpt-6-astra;        INSTR_NAME=AGENTS.md ;;
+  sol)     KIND=codex; MODEL_ID=gpt-6.1-sol;        INSTR_NAME=AGENTS.md ;;
+  astra62) KIND=codex; MODEL_ID=gpt-6.2-astra;      INSTR_NAME=AGENTS.md ;;
+  sol62)   KIND=codex; MODEL_ID=gpt-6.2-sol;        INSTR_NAME=AGENTS.md ;;
+  neon)    KIND=agy;   MODEL_ID=gemini-4-neon-high; INSTR_NAME=AGENTS.md ;;
+  *) die "model は opus | astra | sol | astra62 | sol62 | neon" ;;
 esac
-[ "$GOAL" = 0 ] || [ "$KIND" = codex ] || die "GOAL=1 は Codex(astra・sol)だけ"
+[ "$GOAL" = 0 ] || [ "$KIND" = codex ] || die "GOAL=1 は Codex(astra・sol・astra62・sol62)だけ"
 # Codex のログインは、この実験専用のもの(secrets/codex/auth.json)を使う。Mac mini 本体の ~/.codex は使わない。
 # Codex は使うたびに更新用のトークンを入れ替えるので、VM の中で更新された auth.json を毎回ここへ書き戻す(書き戻さないと次の回でログインが切れる)。
 CODEX_AUTH=secrets/codex/auth.json
 if [ "$KIND" = codex ]; then [ -s "$CODEX_AUTH" ] || die "$CODEX_AUTH が無い(この実験専用の Codex のログインが必要。README の「Codex のログイン」を参照)"; fi
+AGY_AUTH_DIR=secrets/agy
+if [ "$KIND" = agy ]; then [ -d "$AGY_AUTH_DIR" ] || die "$AGY_AUTH_DIR が無い(この実験専用の Antigravity CLI ログインが必要)"; fi
 
 RUN_DIR="runs/$RUN_ID"
 [ ! -e "$RUN_DIR/agent.jsonl" ] || die "$RUN_DIR に前の実行の記録がある。別の run-id を使う"
@@ -116,6 +125,11 @@ container exec "$AGENT" chown -R isucon:isucon /home/isucon/work
 if [ "$KIND" = claude ]; then
   AGENT_CMD=(claude -p "$LAUNCH_LINE" --model "$MODEL_ID" --dangerously-skip-permissions --output-format stream-json --verbose)
   ENV_ARGS=(-e "CLAUDE_CODE_OAUTH_TOKEN=$(tr -d '\n' < secrets/claude_oauth_token)")
+elif [ "$KIND" = agy ]; then
+  tar -cf - -C "$AGY_AUTH_DIR" . | container exec -i "$AGENT" tar -xf - -C /home/isucon
+  container exec "$AGENT" chown -R isucon:isucon /home/isucon/.gemini /home/isucon/.config
+  AGENT_CMD=(agy -p "$LAUNCH_LINE" --model "$MODEL_ID" --dangerously-skip-permissions --output-format stream-json)
+  ENV_ARGS=()
 else
   container exec "$AGENT" install -d -o isucon -g isucon -m 700 /home/isucon/.codex
   container cp "$CODEX_AUTH" "$AGENT:/home/isucon/.codex/auth.json"
@@ -130,9 +144,9 @@ else
   ENV_ARGS=()
 fi
 jq -n --arg run "$RUN_ID" --arg model "$MODEL" --arg model_id "$MODEL_ID" --arg prompt "$PROMPT" --arg kind "$KIND" \
-  --arg cmd "$(printf '%q ' "${AGENT_CMD[@]}")" --argjson minutes "$RUN_MINUTES" --argjson goal "$GOAL" --arg typed "${GOAL_LINE:-}" --arg started "$(date -u -r "$START_EPOCH" +%Y-%m-%dT%H:%M:%SZ)" \
+  --arg cmd "$(printf '%q ' "${AGENT_CMD[@]}")" --argjson minutes "$RUN_MINUTES" --argjson goal "$GOAL" --argjson nudge "$NUDGE" --arg typed "${GOAL_LINE:-}" --arg started "$(date -u -r "$START_EPOCH" +%Y-%m-%dT%H:%M:%SZ)" \
   --arg versions "$(cat "$RUN_DIR/agent-versions.txt" | tr '\n' ';')" \
-  '{run_id:$run, model:$model, model_id:$model_id, cli:$kind, prompt:$prompt, command:$cmd, goal:($goal == 1), typed_in_tui:$typed, run_minutes:$minutes, started_at:$started, versions:$versions}' > "$RUN_DIR/meta.json"
+  '{run_id:$run, model:$model, model_id:$model_id, cli:$kind, prompt:$prompt, command:$cmd, goal:($goal == 1), nudge:($nudge == 1), typed_in_tui:$typed, run_minutes:$minutes, started_at:$started, versions:$versions}' > "$RUN_DIR/meta.json"
 
 # 4. 見張り(5秒おき): Mac mini の負荷平均を書き、止まった競技サーバーを戻す
 echo "$START_EPOCH" > "$RUN_DIR/start_epoch"
@@ -163,11 +177,44 @@ if [ "$GOAL" = 1 ]; then
   sleep 1
   container exec -u isucon "$AGENT" tmux send-keys -t agent Enter
   event goal_typed "$GOAL_LINE"
-  # 画面の一番下の行に「Goal achieved」が出たら終わり(0)。tmux ごと消えたら異常終了(1)。
+  # 画面の一番下の行に「Goal achieved」が出たら終わり(0)。NUDGE=1 のときは記録して尻叩きを送って継続する。tmux ごと消えたら異常終了(1)。
+  NUDGE_LINE='まだ競技時間は残っています。今のボトルネックを計測し直し、さらにスコアを上げる改善を競技の終了時刻まで止めずに続けてください。'
   goal_wait() {
+    local nudge_n=0 idle_ticks=0
     while true; do
       scr=$(container exec -u isucon "$AGENT" tmux capture-pane -p -t agent 2>/dev/null) || exit 1
-      printf '%s\n' "$scr" | grep -v '^[[:space:]]*$' | tail -n 3 | grep -q "Goal achieved" && exit 0
+      tail3=$(printf '%s\n' "$scr" | grep -v '^[[:space:]]*$' | tail -n 3)
+      if printf '%s\n' "$tail3" | grep -q "Goal achieved" && ! printf '%s\n' "$scr" | grep -q "esc to interrupt"; then
+        if [ "$NUDGE" = 1 ]; then
+          nudge_n=$((nudge_n + 1))
+          event goal_achieved_nudged "nudge=#${nudge_n} elapsed=$(( $(date +%s) - START_EPOCH ))s"
+          container exec -u isucon "$AGENT" tmux send-keys -t agent -l "/goal $NUDGE_LINE"
+          sleep 1
+          container exec -u isucon "$AGENT" tmux send-keys -t agent Enter
+          idle_ticks=0
+          sleep 25
+          continue
+        else
+          exit 0
+        fi
+      fi
+      if [ "$NUDGE" = 1 ]; then
+        if printf '%s\n' "$scr" | grep -qE "esc to interrupt|Pursuing goal"; then
+          idle_ticks=0
+        else
+          idle_ticks=$((idle_ticks + 1))
+          if [ "$idle_ticks" -ge 6 ]; then
+            nudge_n=$((nudge_n + 1))
+            event idle_nudged "nudge=#${nudge_n} elapsed=$(( $(date +%s) - START_EPOCH ))s"
+            container exec -u isucon "$AGENT" tmux send-keys -t agent -l "/goal $NUDGE_LINE"
+            sleep 1
+            container exec -u isucon "$AGENT" tmux send-keys -t agent Enter
+            idle_ticks=0
+            sleep 25
+            continue
+          fi
+        fi
+      fi
       sleep 5
     done
   }
@@ -185,6 +232,10 @@ while kill -0 "$AI_PID" 2>/dev/null; do
 done
 # VM を止める前に、VM の中で更新された Codex の auth.json を書き戻す
 save_codex_auth() {
+  if [ "$KIND" = agy ]; then
+    container exec -u isucon "$AGENT" tar -cf - -C /home/isucon .gemini/antigravity-cli/antigravity-oauth-token .config/antigravity 2>/dev/null | tar -xf - -C "$AGY_AUTH_DIR" 2>/dev/null && event agy_auth_saved "ok" || true
+    return 0
+  fi
   [ "$KIND" = codex ] || return 0
   if container cp "$AGENT:/home/isucon/.codex/auth.json" "$CODEX_AUTH.new" 2>/dev/null && jq -e .tokens "$CODEX_AUTH.new" >/dev/null 2>&1; then
     chmod 600 "$CODEX_AUTH.new"; mv "$CODEX_AUTH.new" "$CODEX_AUTH"; event codex_auth_saved "ok"
@@ -263,7 +314,7 @@ done
 
 jq --arg ended "$(date -u -r "$AGENT_END_EPOCH" +%Y-%m-%dT%H:%M:%SZ)" --argjson el "$((AGENT_END_EPOCH - START_EPOCH))" '. + {agent_ended_at:$ended, agent_elapsed_s:$el}' "$RUN_DIR/meta.json" > "$RUN_DIR/meta.json.tmp" && mv "$RUN_DIR/meta.json.tmp" "$RUN_DIR/meta.json"
 # ログインが切れていた回は、AI が何もできていないので無効にする(queue.sh は終了コード3で止まる)
-if grep -q "Failed to refresh token\|Not logged in\|Invalid API key\|OAuth token has expired" "$RUN_DIR/agent.stderr" "$RUN_DIR/agent.jsonl" "$RUN_DIR/agent-screen.txt" 2>/dev/null; then
+if grep -q "Failed to refresh token\|Not logged in\|Invalid API key\|OAuth token has expired\|authentication required" "$RUN_DIR/agent.stderr" "$RUN_DIR/agent.jsonl" "$RUN_DIR/agent-screen.txt" 2>/dev/null; then
   event auth_failed "AI のログインが切れていた。この回は無効"; log "AUTH FAILED: $RUN_DIR"; exit 3
 fi
 log "done: $RUN_DIR"

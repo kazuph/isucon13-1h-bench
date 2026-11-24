@@ -1,0 +1,39 @@
+2: eth0: <BROADCAST,UP,LOWER_UP> mtu 1280 qdisc pfifo_fast state UP mode DEFAULT group default qlen 1000
+    link/ether fa:89:83:ce:12:0d brd ff:ff:ff:ff:ff:ff
+    RX:  bytes packets errors dropped  missed   mcast           
+    2791754345 3908331      0       0       0       0 
+    TX:  bytes packets errors dropped carrier collsns           
+    6023669324 3222539      0       0       0       0 
+#kernel
+TcpRetransSegs                  7914               0.0
+TcpExtTW                        24971              0.0
+===EPSTATS===
+TOTAL_REQS=383894 GZIP_ACCEPT_REQS=383894
+ENDPOINT                                                COUNT   TOTAL_MS   AVG_MS     PIPE      SUB
+POST /api/login                                          4017     5403.0    1.345     4017        0
+POST /api/register                                       4011     5397.3    1.346     4011        0
+POST /api/icon                                           4560      960.4    0.211     4560        0
+GET /api/livestream/:livestream_id/livecomment          20706      907.8    0.044        0    20706
+POST /api/initialize                                        1      847.2  847.154        1        0
+GET /api/livestream/search                              11150      764.3    0.069    11150        0
+GET /api/livestream/:livestream_id/reaction             20738      748.8    0.036        0    20738
+POST /api/livestream/:livestream_id/livecomment         24835      675.3    0.027        0    24835
+POST /api/livestream/:livestream_id/moderate             7396      402.1    0.054        0     7396
+POST /api/livestream/:livestream_id/reaction            18932      395.1    0.021        0    18932
+GET /api/user/:username/icon                           218611      260.2    0.001   218611        0
+POST /api/livestream/reservation                         5247      157.7    0.030        0     5247
+GET /api/livestream/:livestream_id/ngwords              10794      135.0    0.013        0    10794
+GET /api/livestream/:livestream_id/report               14231       90.3    0.006        0    14231
+GET /api/livestream                                      8918       88.1    0.010     8918        0
+GET /api/livestream/:livestream_id/statistics             194       87.3    0.450        0      194
+GET /api/user/:username/statistics                        175       49.0    0.280      175        0
+GET /api/tag                                             5394       34.0    0.006     5394        0
+POST /api/livestream/:livestream_id/enter                1789       13.6    0.008        0     1789
+DELETE /api/livestream/:livestream_id/exit               1780        9.8    0.005        0     1780
+GET /api/user/:username/livestream                        173        3.6    0.021      173        0
+GET /api/user/:username/theme                             174        1.2    0.007      174        0
+POST /api/livestream/:livestream_id/livecomment/:livecomment_id/report       62        1.1    0.017        0       62
+GET /api/payment                                            1        0.4    0.404        1        0
+GET /api/user/me                                            3        0.2    0.069        3        0
+GET /api/user/:username                                     1        0.0    0.012        1        0
+GET /api/livestream/:livestream_id                          1        0.0    0.007        0        1

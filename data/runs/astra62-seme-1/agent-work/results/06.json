@@ -1,0 +1,31 @@
+{
+  "run_id": "astra62-seme-1",
+  "started_at": "2026-11-20T13:49:28.042Z",
+  "ended_at": "2026-11-20T13:50:36.396Z",
+  "elapsed_s": 517,
+  "host_loadavg": "8.17 10.98 15.55",
+  "final": false,
+  "exit_code": 0,
+  "pass": true,
+  "score": 243675,
+  "messages": [
+    "[一般エラー] POST /api/livestream/7831/livecomment へのリクエストに対して、期待されたHTTPステータスコードが確認できませんでした (expected:400, actual:201)",
+    "[一般エラー] POST /api/livestream/8121/livecomment へのリクエストに対して、期待されたHTTPステータスコードが確認できませんでした (expected:400, actual:201)",
+    "[一般エラー] POST /api/livestream/7979/livecomment へのリクエストに対して、期待されたHTTPステータスコードが確認できませんでした (expected:400, actual:201)",
+    "[一般エラー] POST /api/livestream/7544/livecomment へのリクエストに対して、期待されたHTTPステータスコードが確認できませんでした (expected:400, actual:201)",
+    "[一般エラー] POST /api/livestream/7868/livecomment へのリクエストに対して、期待されたHTTPステータスコードが確認できませんでした (expected:400, actual:201)",
+    "[一般エラー] POST /api/livestream/8319/livecomment へのリクエストに対して、期待されたHTTPステータスコードが確認できませんでした (expected:400, actual:201)",
+    "[一般エラー] POST /api/livestream/8358/livecomment へのリクエストに対して、期待されたHTTPステータスコードが確認できませんでした (expected:400, actual:201)",
+    "[一般エラー] POST /api/livestream/8185/livecomment へのリクエストに対して、期待されたHTTPステータスコードが確認できませんでした (expected:400, actual:201)",
+    "[一般エラー] POST /api/livestream/reservation へのリクエストに対して、期待されたHTTPステータスコードが確認できませんでした (expected:201, actual:400)",
+    "[一般エラー] POST /api/livestream/8497/livecomment へのリクエストに対して、期待されたHTTPステータスコードが確認できませんでした (expected:400, actual:201)",
+    "[一般エラー] POST /api/livestream/8314/livecomment へのリクエストに対して、期待されたHTTPステータスコードが確認できませんでした (expected:400, actual:201)",
+    "[一般エラー] POST /api/livestream/8414/livecomment へのリクエストに対して、期待されたHTTPステータスコードが確認できませんでした (expected:400, actual:201)",
+    "[一般エラー] POST /api/livestream/8490/livecomment へのリクエストに対して、期待されたHTTPステータスコードが確認できませんでした (expected:400, actual:201)",
+    "[一般エラー] POST /api/livestream/7904/livecomment へのリクエストに対して、期待されたHTTPステータスコードが確認できませんでした (expected:400, actual:201)",
+    "名前解決成功数 145576",
+    "売上: 243675"
+  ],
+  "language": "golang",
+  "resolved_count": 145576
+}

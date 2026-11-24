@@ -1,0 +1,17 @@
+[Unit]
+Description=ISUPipe Go worker
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+WorkingDirectory=/home/isucon/webapp/go
+EnvironmentFile=/home/isucon/env.sh
+EnvironmentFile=/etc/isupipe-worker.env
+User=isucon
+Group=isucon
+ExecStart=/home/isucon/webapp/go/isupipe
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

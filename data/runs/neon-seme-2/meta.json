@@ -1,0 +1,16 @@
+{
+  "run_id": "neon-seme-2",
+  "model": "neon",
+  "model_id": "gemini-4-neon-high",
+  "cli": "agy",
+  "prompt": "seme",
+  "command": "agy -p CONDITIONS.md\\ を読み、今回の条件を確認してから、ISUCON\\ を解いてください。 --model gemini-4-neon-high --dangerously-skip-permissions --output-format stream-json ",
+  "goal": false,
+  "nudge": false,
+  "typed_in_tui": "",
+  "run_minutes": 60,
+  "started_at": "2026-11-22T11:16:45Z",
+  "versions": "node v22.23.5;claude-code 2.1.330 (Claude Code);codex codex-cli 0.171.0;agy 1.5.13;",
+  "agent_ended_at": "2026-11-22T12:16:53Z",
+  "agent_elapsed_s": 3608
+}

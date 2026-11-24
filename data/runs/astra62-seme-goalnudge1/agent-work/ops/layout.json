@@ -1,0 +1,7 @@
+{
+  "application": "s2",
+  "accounts": "s3",
+  "app_procs": 2,
+  "app_gc": 100,
+  "dns_procs": 2
+}
